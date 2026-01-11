@@ -693,51 +693,76 @@ function applyKeySignature(noteName, key) {
  */
 function exportAsPNG() {
     const paperDiv = document.getElementById('paper');
-    const tabDiv = document.getElementById('tablature');
     
-    // Create a canvas to combine both elements
+    // Get the SVG element
     const svg = paperDiv.querySelector('svg');
     if (!svg) {
         alert('Please render some music first!');
         return;
     }
     
-    // Use html2canvas if available, otherwise fallback to SVG export
-    if (typeof html2canvas !== 'undefined') {
-        const container = document.createElement('div');
-        container.style.background = 'white';
-        container.style.padding = '20px';
-        container.appendChild(paperDiv.cloneNode(true));
-        container.appendChild(tabDiv.cloneNode(true));
+    // Scale factor for high-resolution export
+    const scale = 3;
+    
+    // Clone the SVG to avoid modifying the original
+    const svgClone = svg.cloneNode(true);
+    
+    // Get the original dimensions
+    const bbox = svg.getBBox();
+    const svgWidth = svg.width.baseVal.value || bbox.width + bbox.x + 20;
+    const svgHeight = svg.height.baseVal.value || bbox.height + bbox.y + 20;
+    
+    // Set explicit dimensions on the clone
+    svgClone.setAttribute('width', svgWidth);
+    svgClone.setAttribute('height', svgHeight);
+    
+    // Add white background to the SVG
+    const bgRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    bgRect.setAttribute('x', '0');
+    bgRect.setAttribute('y', '0');
+    bgRect.setAttribute('width', '100%');
+    bgRect.setAttribute('height', '100%');
+    bgRect.setAttribute('fill', 'white');
+    svgClone.insertBefore(bgRect, svgClone.firstChild);
+    
+    // Serialize the SVG
+    const svgData = new XMLSerializer().serializeToString(svgClone);
+    
+    // Create canvas with scaled dimensions
+    const canvas = document.createElement('canvas');
+    canvas.width = svgWidth * scale;
+    canvas.height = svgHeight * scale;
+    const ctx = canvas.getContext('2d');
+    
+    // Fill with white background
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    // Scale the context for high-resolution output
+    ctx.scale(scale, scale);
+    
+    // Create an image from the SVG
+    const img = new Image();
+    
+    img.onload = function() {
+        ctx.drawImage(img, 0, 0);
         
-        html2canvas(container).then(canvas => {
-            const link = document.createElement('a');
-            link.download = 'flute-tab.png';
-            link.href = canvas.toDataURL();
-            link.click();
-        });
-    } else {
-        // Fallback: Export just the SVG
-        const svgData = new XMLSerializer().serializeToString(svg);
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        const img = new Image();
-        
-        img.onload = function() {
-            canvas.width = img.width;
-            canvas.height = img.height;
-            ctx.fillStyle = 'white';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(img, 0, 0);
-            
-            const link = document.createElement('a');
-            link.download = 'sheet-music.png';
-            link.href = canvas.toDataURL();
-            link.click();
-        };
-        
-        img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
-    }
+        // Download the canvas as PNG
+        const link = document.createElement('a');
+        link.download = 'flute-tab.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+    };
+    
+    img.onerror = function() {
+        console.error('Error loading SVG image');
+        alert('Error exporting image. Try using a modern browser.');
+    };
+    
+    // Convert SVG to data URL
+    const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(svgBlob);
+    img.src = url;
 }
 
 // Initialize when DOM is ready
