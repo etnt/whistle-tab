@@ -131,7 +131,7 @@ function renderMusic() {
             staffwidth: 800,
             paddingright: 20,
             paddingleft: 20,
-            paddingbottom: 80,
+            paddingbottom: 120, // Extra space at bottom for tablature on last line
             add_classes: true,
             clickListener: null,
             afterParsing: function(tune) {
@@ -710,7 +710,7 @@ function exportAsPNG() {
     // Get the original dimensions
     const bbox = svg.getBBox();
     const svgWidth = svg.width.baseVal.value || bbox.width + bbox.x + 20;
-    const svgHeight = svg.height.baseVal.value || bbox.height + bbox.y + 20;
+    const svgHeight = (svg.height.baseVal.value || bbox.height + bbox.y) + 40; // Extra padding at bottom for + symbols
     
     // Set explicit dimensions on the clone
     svgClone.setAttribute('width', svgWidth);
