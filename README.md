@@ -14,10 +14,20 @@ sheet music with an additional tin whistle (Irish flute) tablature display.
 
 ## Quick Start
 
-1. Open `index.html` in a web browser
-2. Enter ABC notation in the text area
-3. Select your whistle key
-4. The sheet music and tablature will render automatically
+### Option 1: Use Online (Easiest)
+
+Visit the live version at: **https://etnt.github.io/whistle-tab/**
+
+No download or installation required!
+
+### Option 2: Download and Run Locally
+
+1. Download the latest release zip from the [Releases page](../../releases)
+2. Extract the zip file to a folder
+3. Open `index.html` in a web browser
+4. Enter ABC notation in the text area
+5. Select your whistle key
+6. The sheet music and tablature will render automatically
 
 ## Examples
 
