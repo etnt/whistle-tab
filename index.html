@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABC to Sheet Music with Flute Tab</title>
+    <script src="https://cdn.jsdelivr.net/npm/abcjs@6.2.2/dist/abcjs-basic-min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 ABC to Sheet Music with Flute Tab</h1>
+        
+        <div class="input-section">
+            <h2>Enter ABC Notation</h2>
+            <textarea id="abc-input" placeholder="Enter your ABC notation here...">X: 1
+T: The Humours Of Glynn
+R: jig
+M: 6/8
+L: 1/8
+K: Dmaj
+|:A|def A2A|DFA AFA|def A2A|DFA B2A|
+def A2A|DFA AFA|GBG FAF|EFA B2:|
+|:A|dfd fdB|cec ecA|dfd fdB|AFA B2A|
+[1 dfd fdB|cec ecA|dcB cAF|EFA B2:|
+[2 dfd cec|BdB AGF|GBG FAF|EFA B2||</textarea>
+            <div class="controls">
+                <label>
+                    Key of Whistle:
+                    <select id="whistle-key">
+                        <option value="D">D</option>
+                        <option value="C">C</option>
+                        <option value="G">G</option>
+                        <option value="Bb">Bb</option>
+                        <option value="F">F</option>
+                        <option value="Eb">Eb</option>
+                        <option value="A">A</option>
+                    </select>
+                </label>
+                <button id="render-btn">Render Music</button>
+                <button id="export-btn">Export as PNG</button>
+            </div>
+        </div>
+
+        <div class="output-section">
+            <h2>Sheet Music with Flute Tablature</h2>
+            <div id="paper"></div>
+            <div id="tablature" style="display:none;"></div>
+        </div>
+
+        <div class="examples-section">
+            <h2>Example Tunes</h2>
+            <div class="example-buttons">
+                <button class="example-btn" data-example="scale">D Major Scale</button>
+                <button class="example-btn" data-example="jig">Irish Jig</button>
+                <button class="example-btn" data-example="reel">Simple Reel</button>
+                <button class="example-btn" data-example="air">Slow Air</button>
+            </div>
+        </div>
+
+        <div class="help-section">
+            <h2>Tablature Legend</h2>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="hole filled"></div>
+                    <span>● = Covered hole</span>
+                </div>
+                <div class="legend-item">
+                    <div class="hole open"></div>
+                    <span>○ = Open hole</span>
+                </div>
+                <div class="legend-item">
+                    <div class="hole half"></div>
+                    <span>◐ = Half-covered hole</span>
+                </div>
+                <div class="legend-item">
+                    <span>+ = Octave up (blow harder)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="flute-tab.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
