@@ -133,7 +133,7 @@ In `flute-tab.js`, add a new entry to `fingeringCharts`:
 
 ## License
 
-MIT License - Feel free to use and modify!
+MPL-2.0 (Mozilla Public License 2.0) - See LICENSE file for details.
 
 ## Credits
 
