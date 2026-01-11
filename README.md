@@ -1,6 +1,7 @@
 # ABC to Sheet Music with Flute/Tin Whistle Tablature
 
-A web-based application that converts ABC musical notation into standard sheet music with an additional tin whistle (Irish flute) tablature display.
+A web-based application that converts ABC musical notation into standard
+sheet music with an additional tin whistle (Irish flute) tablature display.
 
 ## Features
 
@@ -17,6 +18,12 @@ A web-based application that converts ABC musical notation into standard sheet m
 2. Enter ABC notation in the text area
 3. Select your whistle key
 4. The sheet music and tablature will render automatically
+
+## Examples
+
+This is how the [index.html](D-maj-scale.png) page looks like.
+
+It is possible to export the result to a PNG file, like [this](humorous-of-glynn.png).
 
 ## ABC Notation Basics
 

@@ -31,8 +31,8 @@ const FluteTab = {
             'C#5': { holes: ['O', 'X', 'X', 'O', 'O', 'O'], octave: 1 },
             'C5':  { holes: ['O', 'X', 'X', 'X', 'O', 'O'], octave: 1 }, // Natural C
             
-            // Second octave (high) - same fingerings, more breath pressure
-            'D5':  { holes: ['X', 'X', 'X', 'X', 'X', 'X'], octave: 2 },
+            // Second octave (high) - overblow with slightly different fingerings
+            'D5':  { holes: ['O', 'X', 'X', 'X', 'X', 'X'], octave: 2 },
             'E5':  { holes: ['X', 'X', 'X', 'X', 'X', 'O'], octave: 2 },
             'F#5': { holes: ['X', 'X', 'X', 'X', 'O', 'O'], octave: 2 },
             'G5':  { holes: ['X', 'X', 'X', 'O', 'O', 'O'], octave: 2 },
