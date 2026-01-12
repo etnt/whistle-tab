@@ -70,6 +70,21 @@ h2 {
     color: #555;
 }
 
+.speed-control {
+    min-width: 160px;
+}
+
+.speed-control input[type="range"] {
+    width: 80px;
+    cursor: pointer;
+}
+
+#speed-value {
+    min-width: 40px;
+    text-align: right;
+    font-size: 12px;
+}
+
 .controls select {
     padding: 8px 12px;
     border: 2px solid #ddd;

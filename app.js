@@ -63,6 +63,11 @@ function init() {
     document.getElementById('abc-input').addEventListener('input', debounce(renderMusic, 500));
     document.getElementById('whistle-key').addEventListener('change', renderMusic);
     
+    // Speed slider update
+    document.getElementById('speed-slider').addEventListener('input', (e) => {
+        document.getElementById('speed-value').textContent = e.target.value + '%';
+    });
+    
     // Set up example buttons
     document.querySelectorAll('.example-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -160,15 +165,26 @@ async function initAudio() {
             return false;
         }
         
+        // Get speed from slider (100 = normal speed)
+        const speedPercent = parseInt(document.getElementById('speed-slider').value) || 100;
+        
         // Create a new synth
         const synth = new ABCJS.synth.CreateSynth();
         
-        // Initialize with the visual object (visualObj is already the first element)
+        // Get the base tempo from the tune, default to 120 qpm
+        const baseTempo = visualObj.metaText && visualObj.metaText.tempo ? 
+            visualObj.metaText.tempo.bpm : 120;
+        
+        // Calculate adjusted tempo based on speed percentage
+        const adjustedTempo = Math.round(baseTempo * (speedPercent / 100));
+        
+        // Initialize with the visual object
         await synth.init({
             visualObj: visualObj,
             options: {
                 soundFontUrl: 'https://paulrosen.github.io/midi-js-soundfonts/FluidR3_GM/',
-                program: 73  // Flute sound
+                program: 73,  // Flute sound
+                qpm: adjustedTempo
             }
         });
         

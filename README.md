@@ -10,6 +10,8 @@ sheet music with an additional tin whistle (Irish flute) tablature display.
 
 - **ABC Notation Parser**: Enter ABC notation and see it rendered as standard sheet music
 - **Tin Whistle Tablature**: Automatically generates fingering diagrams below the staff
+- **Audio Playback**: Play your tunes with a flute sound
+- **Adjustable Speed**: Control playback tempo from 50% to 150%
 - **Multiple Whistle Keys**: Support for D, C, G, Bb, F, Eb, and A whistles
 - **Example Tunes**: Built-in examples including scales, jigs, reels, and airs
 - **Live Preview**: Music updates as you type
