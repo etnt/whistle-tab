@@ -49,6 +49,7 @@ D2|"G"G4 A2B2|"C"c4 B2A2|"G"G4 E2D2|"D7"D6 D2|
 // App state
 let currentTune = null;
 let visualObj = null;
+let synthControl = null;
 
 /**
  * Initialize the application
@@ -56,6 +57,8 @@ let visualObj = null;
 function init() {
     // Set up event listeners
     document.getElementById('render-btn').addEventListener('click', renderMusic);
+    document.getElementById('play-btn').addEventListener('click', startPlayback);
+    document.getElementById('stop-btn').addEventListener('click', stopPlayback);
     document.getElementById('export-btn').addEventListener('click', exportAsPNG);
     document.getElementById('abc-input').addEventListener('input', debounce(renderMusic, 500));
     document.getElementById('whistle-key').addEventListener('change', renderMusic);
@@ -138,6 +141,97 @@ function debounce(func, wait) {
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
     };
+}
+
+/**
+ * Initialize audio synthesis for playback
+ */
+async function initAudio() {
+    if (!visualObj) {
+        console.error('No visual object to play');
+        return false;
+    }
+    
+    try {
+        // Check if audio context is supported
+        if (!ABCJS.synth.supportsAudio()) {
+            console.error('Audio not supported in this browser');
+            alert('Audio is not supported in this browser.');
+            return false;
+        }
+        
+        // Create a new synth
+        const synth = new ABCJS.synth.CreateSynth();
+        
+        // Initialize with the visual object (visualObj is already the first element)
+        await synth.init({
+            visualObj: visualObj,
+            options: {
+                soundFontUrl: 'https://paulrosen.github.io/midi-js-soundfonts/FluidR3_GM/',
+                program: 73  // Flute sound
+            }
+        });
+        
+        // Prime the audio (required for some browsers)
+        await synth.prime();
+        
+        // Store for later use
+        window.currentSynth = synth;
+        
+        return true;
+    } catch (error) {
+        console.error('Audio init error:', error);
+        return false;
+    }
+}
+
+/**
+ * Start audio playback
+ */
+async function startPlayback() {
+    const playBtn = document.getElementById('play-btn');
+    const stopBtn = document.getElementById('stop-btn');
+    
+    playBtn.disabled = true;
+    playBtn.textContent = '⏳ Loading...';
+    
+    try {
+        const success = await initAudio();
+        
+        if (success && window.currentSynth) {
+            window.currentSynth.start();
+            stopBtn.disabled = false;
+            playBtn.textContent = '▶️ Playing...';
+            
+            // Re-enable play button when done (estimate based on duration)
+            const duration = window.currentSynth.synthControl ? 
+                window.currentSynth.synthControl.getDuration() * 1000 : 30000;
+            setTimeout(() => {
+                playBtn.textContent = '▶️ Play';
+                playBtn.disabled = false;
+                stopBtn.disabled = true;
+            }, duration);
+        } else {
+            throw new Error('Init failed');
+        }
+    } catch (error) {
+        console.error('Playback error:', error);
+        playBtn.textContent = '▶️ Play';
+        playBtn.disabled = false;
+        alert('Could not initialize audio. Check console for details.');
+    }
+}
+
+/**
+ * Stop audio playback
+ */
+function stopPlayback() {
+    if (window.currentSynth) {
+        window.currentSynth.stop();
+    }
+    document.getElementById('stop-btn').disabled = true;
+    document.getElementById('play-btn').textContent = '▶️ Play';
+    document.getElementById('play-btn').disabled = false;
 }
 
 /**

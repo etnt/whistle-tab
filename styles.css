@@ -108,6 +108,47 @@ h2 {
     transform: translateY(-2px);
 }
 
+#play-btn {
+    background: #17a2b8;
+    color: white;
+}
+
+#play-btn:hover:not(:disabled) {
+    background: #138496;
+    transform: translateY(-2px);
+}
+
+#play-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+#stop-btn {
+    background: #dc3545;
+    color: white;
+}
+
+#stop-btn:hover:not(:disabled) {
+    background: #c82333;
+    transform: translateY(-2px);
+}
+
+#stop-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.audio-controls {
+    margin: 15px 0;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.audio-controls:empty {
+    display: none;
+}
+
 .output-section {
     background: #fafafa;
     border-radius: 12px;
