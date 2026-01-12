@@ -65,7 +65,15 @@ function init() {
         btn.addEventListener('click', () => {
             const example = btn.dataset.example;
             if (exampleTunes[example]) {
-                document.getElementById('abc-input').value = exampleTunes[example];
+                const abcText = exampleTunes[example];
+                document.getElementById('abc-input').value = abcText;
+                
+                // Auto-detect and set the appropriate whistle key
+                const detectedKey = detectBestWhistleKey(abcText);
+                if (detectedKey) {
+                    document.getElementById('whistle-key').value = detectedKey;
+                }
+                
                 renderMusic();
             }
         });
@@ -73,6 +81,48 @@ function init() {
     
     // Initial render
     renderMusic();
+}
+
+/**
+ * Detect the best whistle key based on the tune's key signature
+ * @param {string} abcText - The ABC notation text
+ * @returns {string|null} - The recommended whistle key (D, C, G, etc.) or null
+ */
+function detectBestWhistleKey(abcText) {
+    // Extract the key from ABC notation
+    const keyMatch = abcText.match(/^K:\s*([A-Ga-g][#b]?)\s*(m|min|maj|mix|dor)?/m);
+    if (!keyMatch) return null;
+    
+    const tuneKey = keyMatch[1].toUpperCase();
+    
+    // Available whistle keys in the dropdown
+    const availableWhistles = ['D', 'C', 'G', 'Bb', 'F', 'Eb', 'A'];
+    
+    // Direct mapping: if we have a whistle in that key, use it
+    // Handle flat notation (lowercase 'b' in ABC becomes 'b' in key)
+    let normalizedKey = tuneKey.replace('#', '');
+    if (tuneKey.endsWith('B') && tuneKey.length === 2) {
+        // Convert e.g., "BB" or "Bb" to "Bb"
+        normalizedKey = tuneKey.charAt(0) + 'b';
+    }
+    
+    // Check if we have a whistle matching this key
+    if (availableWhistles.includes(normalizedKey)) {
+        return normalizedKey;
+    }
+    
+    // Fallback mappings for keys where we don't have a matching whistle
+    const fallbackMap = {
+        'E': 'D',   // E major -> D whistle
+        'B': 'A',   // B major -> A whistle
+        'F#': 'D',  // F# major -> D whistle
+        'C#': 'D',  // C# major -> D whistle
+        'Ab': 'Eb', // Ab major -> Eb whistle
+        'Db': 'C',  // Db major -> C whistle
+        'Gb': 'F',  // Gb major -> F whistle
+    };
+    
+    return fallbackMap[normalizedKey] || 'D'; // Default to D whistle
 }
 
 /**
