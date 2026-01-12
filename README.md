@@ -1,5 +1,8 @@
 # ABC to Sheet Music with Flute/Tin Whistle Tablature
 
+[![GitHub Release](https://img.shields.io/github/v/release/etnt/whistle-tab?style=flat-square)](https://github.com/etnt/whistle-tab/releases/latest)
+[![License: MPL 2.0](https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)
+
 A web-based application that converts ABC musical notation into standard
 sheet music with an additional tin whistle (Irish flute) tablature display.
 
@@ -22,7 +25,7 @@ No download or installation required!
 
 ### Option 2: Download and Run Locally
 
-1. Download the latest release zip from the [Releases page](../../releases)
+1. **[⬇️ Download Latest Release](https://github.com/etnt/whistle-tab/releases/latest/download/whistle-tab.zip)**
 2. Extract the zip file to a folder
 3. Open `index.html` in a web browser
 4. Enter ABC notation in the text area
