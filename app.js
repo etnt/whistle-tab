@@ -5,47 +5,6 @@
  * then generates corresponding tin whistle/flute tablature below.
  */
 
-// Example ABC tunes
-const exampleTunes = {
-    scale: `X:1
-T:D Major Scale
-M:4/4
-L:1/4
-K:D
-D E F G | A B c d |
-d c B A | G F E D |]`,
-
-    jig: `X:1
-T:The Irish Washerwoman
-M:6/8
-L:1/8
-R:jig
-K:G
-|:D|"G"G2G GAB|"C"c2c cBA|"G"B2B Bcd|"D"e2d dBA|
-"G"G2G GAB|"C"c2c cBA|"G"B2A "D"AGF|"G"G3 G2:|
-|:d|"G"g2g gfe|"C"e2e edc|"G"d2d def|"D"g2f fed|
-"G"g2g gfe|"C"e2e edc|"G"d2e "D"dcB|"G"c3 c2:|`,
-
-    reel: `X:1
-T:The Banshee
-M:4/4
-L:1/8
-R:reel
-K:G
-|:GA|"G"B2AB GEDE|"G"GABd g2fg|"Em"edBd edBd|"D"egdB A2GA|
-"G"B2AB GEDE|"G"GABd g2fg|"Em"edBd "D"egfa|"G"g2G2 G2:|`,
-
-    air: `X:1
-T:Danny Boy
-M:4/4
-L:1/8
-K:G
-D2|"G"G4 A2B2|"C"c4 B2A2|"G"G4 E2D2|"D7"D6 D2|
-"G"G4 A2B2|"C"c4 d2e2|"G"d6 B2|"D7"A6 D2|
-"G"G4 A2B2|"C"c4 B2A2|"G"G4 E2D2|"D7"D6 D2|
-"G"G4 A2B2|"C"c4 d2e2|"G"d4 B2G2|"G"G6|]`
-};
-
 // App state
 let currentTune = null;
 let visualObj = null;
@@ -68,24 +27,8 @@ function init() {
         document.getElementById('speed-value').textContent = e.target.value + '%';
     });
     
-    // Set up example buttons
-    document.querySelectorAll('.example-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const example = btn.dataset.example;
-            if (exampleTunes[example]) {
-                const abcText = exampleTunes[example];
-                document.getElementById('abc-input').value = abcText;
-                
-                // Auto-detect and set the appropriate whistle key
-                const detectedKey = detectBestWhistleKey(abcText);
-                if (detectedKey) {
-                    document.getElementById('whistle-key').value = detectedKey;
-                }
-                
-                renderMusic();
-            }
-        });
-    });
+    // Initialize tune library
+    initTuneLibrary();
     
     // Initial render
     renderMusic();
@@ -923,6 +866,81 @@ function exportAsPNG() {
     const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
     const url = URL.createObjectURL(svgBlob);
     img.src = url;
+}
+
+/**
+ * Initialize the tune library - populate the dropdown from tuneLibrary object
+ */
+function initTuneLibrary() {
+    const tuneSelect = document.getElementById('tune-select');
+    const loadTuneBtn = document.getElementById('load-tune-btn');
+    
+    // Check if tuneLibrary is defined (from tunes-index.js)
+    if (typeof tuneLibrary === 'undefined' || Object.keys(tuneLibrary).length === 0) {
+        console.warn('Tune library not available');
+        const tuneLibrarySection = document.querySelector('.tune-library-section');
+        if (tuneLibrarySection) {
+            tuneLibrarySection.style.display = 'none';
+        }
+        return;
+    }
+    
+    // Populate the dropdown with tune names
+    Object.keys(tuneLibrary).forEach(tuneName => {
+        const option = document.createElement('option');
+        option.value = tuneName;
+        option.textContent = tuneName;
+        tuneSelect.appendChild(option);
+    });
+    
+    // Enable/disable load button based on selection
+    tuneSelect.addEventListener('change', () => {
+        loadTuneBtn.disabled = !tuneSelect.value;
+    });
+    
+    // Load tune when button is clicked
+    loadTuneBtn.addEventListener('click', () => loadTune(tuneSelect.value));
+    
+    // Also load on double-click of dropdown selection
+    tuneSelect.addEventListener('dblclick', () => {
+        if (tuneSelect.value) {
+            loadTune(tuneSelect.value);
+        }
+    });
+    
+    // Load the first tune by default
+    const firstTune = Object.keys(tuneLibrary)[0];
+    if (firstTune) {
+        tuneSelect.value = firstTune;
+        loadTuneBtn.disabled = false;
+        loadTune(firstTune);
+    }
+}
+
+/**
+ * Load a tune from the tuneLibrary and display it
+ * @param {string} tuneName - The name of the tune to load
+ */
+function loadTune(tuneName) {
+    const abcText = tuneLibrary[tuneName];
+    
+    if (!abcText) {
+        console.error('Tune not found:', tuneName);
+        alert(`Tune not found: ${tuneName}`);
+        return;
+    }
+    
+    // Set the ABC text in the input area
+    document.getElementById('abc-input').value = abcText;
+    
+    // Auto-detect and set the appropriate whistle key
+    const detectedKey = detectBestWhistleKey(abcText);
+    if (detectedKey) {
+        document.getElementById('whistle-key').value = detectedKey;
+    }
+    
+    // Render the music
+    renderMusic();
 }
 
 // Initialize when DOM is ready
