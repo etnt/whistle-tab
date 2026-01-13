@@ -34,12 +34,6 @@ No download or installation required!
 5. Select your whistle key
 6. The sheet music and tablature will render automatically
 
-## Examples
-
-This is how the [index.html](D-maj-scale.png) page looks like.
-
-It is possible to export the result to a PNG file, like [this](humorous-of-glynn.png).
-
 ## ABC Notation Basics
 
 ABC notation is a text-based music notation system. Here's a quick reference:
