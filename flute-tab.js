@@ -28,8 +28,8 @@ const FluteTab = {
             'G4':  { holes: ['X', 'X', 'X', 'O', 'O', 'O'], octave: 1 },
             'A4':  { holes: ['X', 'X', 'O', 'O', 'O', 'O'], octave: 1 },
             'B4':  { holes: ['X', 'O', 'O', 'O', 'O', 'O'], octave: 1 },
-            'C#5': { holes: ['O', 'X', 'X', 'O', 'O', 'O'], octave: 1 },
-            'C5':  { holes: ['O', 'X', 'X', 'X', 'O', 'O'], octave: 1 }, // Natural C
+            'C#5': { holes: ['O', 'O', 'O', 'O', 'O', 'O'], octave: 1 },
+            'C5':  { holes: ['O', 'X', 'X', 'O', 'O', 'O'], octave: 1 }, // Natural C (cross-fingering)
             
             // Second octave (high) - overblow with slightly different fingerings
             'D5':  { holes: ['O', 'X', 'X', 'X', 'X', 'X'], octave: 2 },
@@ -38,8 +38,8 @@ const FluteTab = {
             'G5':  { holes: ['X', 'X', 'X', 'O', 'O', 'O'], octave: 2 },
             'A5':  { holes: ['X', 'X', 'O', 'O', 'O', 'O'], octave: 2 },
             'B5':  { holes: ['X', 'O', 'O', 'O', 'O', 'O'], octave: 2 },
-            'C#6': { holes: ['O', 'X', 'X', 'O', 'O', 'O'], octave: 2 },
-            'C6':  { holes: ['O', 'X', 'X', 'X', 'O', 'O'], octave: 2 },
+            'C#6': { holes: ['O', 'O', 'O', 'O', 'O', 'O'], octave: 2 },
+            'C6':  { holes: ['O', 'X', 'X', 'O', 'O', 'O'], octave: 2 }, // Natural C (cross-fingering)
             'D6':  { holes: ['O', 'X', 'X', 'X', 'X', 'X'], octave: 2 },
             
             // Accidentals (common cross-fingerings)
