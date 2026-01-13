@@ -68,6 +68,15 @@ K:D          - Key signature
 - `|]` = final bar line
 - `|:` and `:|` = repeat signs
 
+### Broken Rhythm
+If you place a `>` between two notes, it automatically dots the first one and halves the second one:
+
+```abc
+A>B CD
+```
+- `A>B`: The A becomes a dotted 8th, and the B becomes a 16th (half 8th)
+- `CD`: These remain ordinary 8th notes
+
 ### Example
 ```abc
 X:1
