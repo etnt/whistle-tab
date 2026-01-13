@@ -393,6 +393,25 @@ h2 {
     }
 }
 
+/* Footer */
+.site-footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.site-footer a {
+    color: #888;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.3s;
+}
+
+.site-footer a:hover {
+    color: #667eea;
+}
+
 /* Print styles */
 @media print {
     body {
@@ -407,7 +426,8 @@ h2 {
     .input-section,
     .examples-section,
     .help-section,
-    .controls {
+    .controls,
+    .site-footer {
         display: none;
     }
     
