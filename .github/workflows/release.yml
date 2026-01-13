@@ -38,6 +38,7 @@ jobs:
             index.html \
             app.js \
             flute-tab.js \
+            tunes-index.js \
             styles.css \
             README.md \
             LICENSE \
