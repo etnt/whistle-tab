@@ -82,5 +82,20 @@ K: Dmaj
 "D"D2E2| "D"F4 F4 "Bm"F4 E2F2| "D"A4 A4 "G"B4 A2F2| "D"D4 "A"E4 "D"D4 D4| "D"D12 "A"A4|
 "G"B6 A2 "G"B4 d4| "D"F6 E2 "Bm"D4 "D"F4| "D"A4 F4 "Bm"d4 "D"F4| "A"E12 A4|
 "G"B6 A2 "G"B4 d4| "D"F6 E2 "Bm"D4 "D"F4| "D"A4 F4 "Bm"d4 "D"F4| "A"E12 "D"D2E2|
-"D"F4 F4 "Bm"F4 E2F2| "D"A4 A4 "G"B4 A2F2| "D"D4 "Bm"F4 "A"E4 "D"D4 D4| "D"D12 z4||`
+"D"F4 F4 "Bm"F4 E2F2| "D"A4 A4 "G"B4 A2F2| "D"D4 "Bm"F4 "A"E4 "D"D4 D4| "D"D12 z4||`,
+
+    "The Kitchen Girl": `X: 1
+T: The Kitchen Girl
+N:The Kitchen Girl" is a classic old-time fiddle tune. It is unique because
+N:it is "modal"—the first part (the A-part) is in A Dorian (which feels like
+N:A minor but with a sharp F), and the second part (the B-part) traditionally
+N:shifts to A Mixolydian (which feels like A Major but with a flat G).
+R: reel
+M: 4/4
+L: 1/8
+K: Ador
+|: "Am"a4 "G"g4 | "Am"efed c2 cd | "Am"e2 f2 "G"gaba | "Em"g2 e2 e4 |
+"Am"e2 a2 "G"g2 ag | "Am"efed "C"cdef | "G"g2 d2 "Em"efed | "Am"c2A2 A4 :|
+|: "A"ABcA "G"BA G2 | "A"ABAG "E"E2 EG | "A"ABcd e>=f e2 |
+"A"ABcA "G"BA G2 | "A"ABAG "E"E2 AB | "A"cBAc "G"BA G2 | "A"A4 A4 :|`
 };
