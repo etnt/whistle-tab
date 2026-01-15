@@ -42,6 +42,8 @@ ABC notation is a text-based music notation system. Here's a quick reference:
 ```
 X:1          - Tune number
 T:Tune Name  - Title
+C:Composer.  - The Composer
+R:Rythm      - The Rythm
 M:4/4        - Time signature
 L:1/8        - Default note length
 K:D          - Key signature
@@ -70,6 +72,69 @@ A>B CD
 ```
 - `A>B`: The A becomes a dotted 8th, and the B becomes a 16th (half 8th)
 - `CD`: These remain ordinary 8th notes
+
+### How to use a Tie in ABC
+To connect an 8th note from the end of one measure to a note in the next,
+place the hyphen immediately after the first note: `A-A`
+
+### Expressing Rests
+
+1. Basic Rests (z)
+
+The lowercase z represents a standard visible rest. Its duration is determined exactly like a note:
+
+- z: One rest of the default length (e.g., an 8th rest if L:1/8).
+- z2: A rest twice the default length (e.g., a quarter rest if L:1/8).
+- z/2 or z/: A rest half the default length (e.g., a 16th rest if L:1/8).
+
+2. Multi-measure Rests (Z)
+
+If you need to indicate that a player should be silent for several entire
+measures, use an uppercase Z followed by the number of bars.
+
+- Z4: Four full measures of rest.
+- Z: One full measure of rest (equivalent to Z1).
+
+3. Invisible Rests (x and X)
+
+Sometimes you want a "pause" in the music's timing without showing a rest
+symbol on the printed staff (often used for alignment in multi-voice music).
+
+- x: An invisible rest (same duration rules as z).
+- X: An invisible multi-measure rest.
+
+### Common Standard Rhythms
+
+Some frequent values you will see in traditional music collections:
+
+| Rhythm (R:) | Common Meter (M:) | Description |
+|-------------|-------------------|-------------|
+| Reel | 4/4 or 2/2 | Fast, even notes (mostly 8th notes). |
+| Jig | 6/8 | Bouncy, triple-feel rhythm (DUM-da-da DUM-da-da). |
+| Hornpipe | 4/4 | Played with a "swing" or dotted feel (long-short). |
+| Polka | 2/4 | Fast, sharp, and driving. |
+| Waltz | 3/4 | Smooth, triple-time dance rhythm. |
+| Slip Jig | 9/8 | A "hopping" jig with three beats per measure. |
+| Strathspey | 4/4 | Features the "Scottish Snap" (short-long rhythms). |
+| Slide | 12/8 | Very fast Irish dance rhythm, similar to a jig but felt in four. |
+| March | 2/4 or 4/4 | Strong, steady beat for walking/marching. |
+
+### Adding text
+Intersperse each line with: `w: the text comes here`
+
+### Adding comments
+
+1. Hidden Comments (The % symbol)
+
+Anything following a percent sign (%) is ignored by the computer.
+This is perfect for personal reminders, version history, or explaining a
+tricky bit of fingering.
+
+2. Printed Header Notes (N:)
+
+If you want to include historical information, performance instructions,
+or general notes that should appear when the tune is cataloged or printed,
+use the N: field in the header.
 
 ### Example
 ```abc
