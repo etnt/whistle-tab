@@ -217,6 +217,17 @@ h2 {
     overflow: visible;
 }
 
+/* Style for N: notes text at bottom of music */
+#paper svg .abcjs-meta-bottom {
+    font-size: 13px !important;
+    font-style: italic;
+    fill: #555;
+}
+
+#paper svg .abcjs-meta-bottom text {
+    font-size: 13px !important;
+}
+
 .tab-container {
     display: flex;
     flex-wrap: wrap;

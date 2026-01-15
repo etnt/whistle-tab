@@ -455,6 +455,54 @@ function addTablatureToNotes(abcInput, whistleKey) {
         
         svg.appendChild(tabGroup);
     });
+    
+    // Reposition the N: notes text (abcjs-meta-bottom) below the tablature
+    repositionMetaBottom(svg, staffLineYs);
+}
+
+/**
+ * Reposition the N: notes text (abcjs-meta-bottom) below the last tablature line
+ * @param {SVGElement} svg - The SVG element containing the music
+ * @param {Array} staffLineYs - Array of staff line info with tabY positions
+ */
+function repositionMetaBottom(svg, staffLineYs) {
+    const metaBottom = svg.querySelector('.abcjs-meta-bottom');
+    if (!metaBottom) return;
+    
+    // Find the lowest tabY position (last tablature line)
+    let maxTabY = 0;
+    staffLineYs.forEach(line => {
+        // Add space for the 6 holes plus some padding
+        const tabBottomY = line.tabY + 6 * 7 + 20; // 6 holes * 7px spacing + padding
+        if (tabBottomY > maxTabY) {
+            maxTabY = tabBottomY;
+        }
+    });
+    
+    if (maxTabY === 0) return;
+    
+    // Get the current position of meta-bottom
+    const metaBottomBBox = metaBottom.getBBox();
+    
+    // Calculate how much we need to move it down
+    const currentY = metaBottomBBox.y;
+    const newY = maxTabY + 15; // Add some padding below tablature
+    
+    if (newY > currentY) {
+        // Move the meta-bottom group down
+        const deltaY = newY - currentY;
+        const currentTransform = metaBottom.getAttribute('transform') || '';
+        
+        // Check if there's already a translate
+        const translateMatch = currentTransform.match(/translate\(([^,]+),\s*([^)]+)\)/);
+        if (translateMatch) {
+            const currentX = parseFloat(translateMatch[1]);
+            const currentYTransform = parseFloat(translateMatch[2]);
+            metaBottom.setAttribute('transform', `translate(${currentX}, ${currentYTransform + deltaY})`);
+        } else {
+            metaBottom.setAttribute('transform', `translate(0, ${deltaY})`);
+        }
+    }
 }
 
 /**
