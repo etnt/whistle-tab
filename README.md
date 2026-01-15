@@ -119,6 +119,18 @@ Some frequent values you will see in traditional music collections:
 | Slide | 12/8 | Very fast Irish dance rhythm, similar to a jig but felt in four. |
 | March | 2/4 or 4/4 | Strong, steady beat for walking/marching. |
 
+### Misc. notation
+
+The Tilde (~): In ~B3A and ~d3B, the tilde represents a Roll (an Irish ornament).
+If you are playing this on tin whistle, this is where you would do a flick of the
+fingers to add that "crackle" to the note.
+
+The Curly Braces ({E}D): This is a Grace Note. It should be played very quickly
+just before the main D note.
+
+The Triplet ((3AGF): This indicates that the three notes A, G, and F should be
+squeezed into the time of two 8th notes.
+
 ### Adding text
 Intersperse each line with: `w: the text comes here`
 
