@@ -18,7 +18,7 @@ function init() {
     document.getElementById('render-btn').addEventListener('click', renderMusic);
     document.getElementById('play-btn').addEventListener('click', startPlayback);
     document.getElementById('stop-btn').addEventListener('click', stopPlayback);
-    document.getElementById('export-btn').addEventListener('click', exportAsPNG);
+    document.getElementById('export-btn').addEventListener('click', exportAsMIDI);
     document.getElementById('abc-input').addEventListener('input', debounce(renderMusic, 500));
     document.getElementById('whistle-key').addEventListener('change', renderMusic);
     
@@ -792,80 +792,64 @@ function applyKeySignature(noteName, key) {
 }
 
 /**
- * Export the rendered music and tablature as PNG
+ * Export the rendered music as MIDI file
  */
-function exportAsPNG() {
-    const paperDiv = document.getElementById('paper');
-    
-    // Get the SVG element
-    const svg = paperDiv.querySelector('svg');
-    if (!svg) {
+async function exportAsMIDI() {
+    if (!visualObj) {
         alert('Please render some music first!');
         return;
     }
     
-    // Scale factor for high-resolution export
-    const scale = 3;
-    
-    // Clone the SVG to avoid modifying the original
-    const svgClone = svg.cloneNode(true);
-    
-    // Get the original dimensions
-    const bbox = svg.getBBox();
-    const svgWidth = svg.width.baseVal.value || bbox.width + bbox.x + 20;
-    const svgHeight = (svg.height.baseVal.value || bbox.height + bbox.y) + 40; // Extra padding at bottom for + symbols
-    
-    // Set explicit dimensions on the clone
-    svgClone.setAttribute('width', svgWidth);
-    svgClone.setAttribute('height', svgHeight);
-    
-    // Add white background to the SVG
-    const bgRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-    bgRect.setAttribute('x', '0');
-    bgRect.setAttribute('y', '0');
-    bgRect.setAttribute('width', '100%');
-    bgRect.setAttribute('height', '100%');
-    bgRect.setAttribute('fill', 'white');
-    svgClone.insertBefore(bgRect, svgClone.firstChild);
-    
-    // Serialize the SVG
-    const svgData = new XMLSerializer().serializeToString(svgClone);
-    
-    // Create canvas with scaled dimensions
-    const canvas = document.createElement('canvas');
-    canvas.width = svgWidth * scale;
-    canvas.height = svgHeight * scale;
-    const ctx = canvas.getContext('2d');
-    
-    // Fill with white background
-    ctx.fillStyle = 'white';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    // Scale the context for high-resolution output
-    ctx.scale(scale, scale);
-    
-    // Create an image from the SVG
-    const img = new Image();
-    
-    img.onload = function() {
-        ctx.drawImage(img, 0, 0);
+    try {
+        // Get speed from slider (100 = normal speed)
+        const speedPercent = parseInt(document.getElementById('speed-slider').value) || 100;
         
-        // Download the canvas as PNG
+        // Get the base tempo from the tune, default to 120 qpm
+        const baseTempo = visualObj.metaText && visualObj.metaText.tempo ? 
+            visualObj.metaText.tempo.bpm : 120;
+        
+        // Calculate adjusted tempo based on speed percentage
+        const adjustedTempo = Math.round(baseTempo * (speedPercent / 100));
+        
+        // Generate MIDI file using abcjs
+        const midiBuffer = ABCJS.synth.getMidiFile(visualObj, {
+            midiOutputType: 'binary',
+            program: 73,  // Flute sound for melody
+            qpm: adjustedTempo,
+            chordsOff: false,  // Include chord accompaniment
+            chordProgram: 24,  // Acoustic Guitar (nylon) for chords
+            bassProgram: 32    // Acoustic Bass for bass notes
+        });
+        
+        if (!midiBuffer) {
+            alert('Could not generate MIDI. Please try again.');
+            return;
+        }
+        
+        // Convert the MIDI data to a Blob and download
+        const midiBlob = new Blob([midiBuffer], { type: 'audio/midi' });
+        const url = URL.createObjectURL(midiBlob);
+        
+        // Create filename from tune title or default
+        let filename = 'tune.mid';
+        if (visualObj.metaText && visualObj.metaText.title) {
+            // Sanitize the title for use as filename
+            filename = visualObj.metaText.title.replace(/[^a-z0-9]/gi, '-').toLowerCase() + '.mid';
+        }
+        
+        // Trigger download
         const link = document.createElement('a');
-        link.download = 'flute-tab.png';
-        link.href = canvas.toDataURL('image/png');
+        link.download = filename;
+        link.href = url;
         link.click();
-    };
-    
-    img.onerror = function() {
-        console.error('Error loading SVG image');
-        alert('Error exporting image. Try using a modern browser.');
-    };
-    
-    // Convert SVG to data URL
-    const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
-    const url = URL.createObjectURL(svgBlob);
-    img.src = url;
+        
+        // Clean up
+        URL.revokeObjectURL(url);
+        
+    } catch (error) {
+        console.error('MIDI export error:', error);
+        alert('Error exporting MIDI: ' + error.message);
+    }
 }
 
 /**
