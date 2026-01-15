@@ -71,5 +71,16 @@ K: Dmaj
 |:"D"FAAB AFED|FAAF A2de|"Bm"fBBA B2de|f2af efdB|
 "D"A3B AFED|FAAF A2de|"Bm"fBBA B2dB|"A"AFEF "D"D4:|
 |:"D"a3g fdde|fdd2 efga|"Em"efga beef|gebe geg2|
-"D"faaf def/2e/2d|defd "A"e2de|"Bm"fBBA B2dB|"A"AFEF "D"D4:|`
+"D"faaf def/2e/2d|defd "A"e2de|"Bm"fBBA B2dB|"A"AFEF "D"D4:|`,
+
+    "Fáinne Geal An Lae": `X: 1
+T: Fáinne Geal An Lae
+R: march
+M: 4/4
+L: 1/8
+K: Dmaj
+"D"D2E2| "D"F4 F4 "Bm"F4 E2F2| "D"A4 A4 "G"B4 A2F2| "D"D4 "A"E4 "D"D4 D4| "D"D12 "A"A4|
+"G"B6 A2 "G"B4 d4| "D"F6 E2 "Bm"D4 "D"F4| "D"A4 F4 "Bm"d4 "D"F4| "A"E12 A4|
+"G"B6 A2 "G"B4 d4| "D"F6 E2 "Bm"D4 "D"F4| "D"A4 F4 "Bm"d4 "D"F4| "A"E12 "D"D2E2|
+"D"F4 F4 "Bm"F4 E2F2| "D"A4 A4 "G"B4 A2F2| "D"D4 "Bm"F4 "A"E4 "D"D4 D4| "D"D12 z4||`
 };
