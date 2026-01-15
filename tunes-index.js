@@ -113,5 +113,23 @@ K: Gmaj
 |: "G"B2c d2d | "G"def gdc | "G"B2c d2d | "D"ABA "F"=fcA |
 "G"B2c d2d | "G"def gdB | "C"cac "G"BgB | "D"A2=f "F"fcA :|
 |: "G"G2g gdB | "G"gdB gdB | "G"G2g gdB | "F"=fgf fcA |
-"G"G2g gdB | "G"gdB gdB | "C"cac "G"BgB | "D"A2=f "F"fcA :|`
+"G"G2g gdB | "G"gdB gdB | "C"cac "G"BgB | "D"A2=f "F"fcA :|`,
+
+    "Miss Monaghan": `X: 1
+T: Miss Monaghan
+N: The Tilde (~): In ~B3A and ~d3B, the tilde represents a Roll (an Irish ornament).
+N: If you are playing this on tin whistle, this is where you would do a flick of the
+N: fingers to add that "crackle" to the note.
+N: The Curly Braces ({E}): This is a Grace Note. It should be played very quickly
+N: just before the main D note.
+N: The Triplet ((3AGF): This indicates that the three notes A, G, and F should be
+N: squeezed into the time of two 8th notes.
+R: reel
+M: 4/4
+L: 1/8
+K: Dmaj
+|: "D"D2ED FAAd | "G"B2BA "D"FABc | "D"d2dB ABde | "D"fede "A"fee2 |
+"D"{E}D2ED FAAd | "G"~B3A "D"FABc | "G"d2dB "D"ABdB | "A"(3AGF EG "D"FDD2 :|
+|: "D"faab afdf | "G"gefd "A"edBc | "D"~d3B ABde | "D"fede "A"fee2 |
+"D"faab afdf | "G"g2fd "A"edBc | "G"d2dB "D"ABdB | "A"(3AFE (3GFE "D"FDD2 :|`
 };
