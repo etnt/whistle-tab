@@ -97,5 +97,21 @@ K: Ador
 |: "Am"a4 "G"g4 | "Am"efed c2 cd | "Am"e2 f2 "G"gaba | "Em"g2 e2 e4 |
 "Am"e2 a2 "G"g2 ag | "Am"efed "C"cdef | "G"g2 d2 "Em"efed | "Am"c2A2 A4 :|
 |: "A"ABcA "G"BA G2 | "A"ABAG "E"E2 EG | "A"ABcd e>=f e2 |
-"A"ABcA "G"BA G2 | "A"ABAG "E"E2 AB | "A"cBAc "G"BA G2 | "A"A4 A4 :|`
+"A"ABcA "G"BA G2 | "A"ABAG "E"E2 AB | "A"cBAc "G"BA G2 | "A"A4 A4 :|`,
+
+    "Elsie Marley": `X: 1
+T: Elsie Marley
+N: "Elsie Marley" is a classic Northumbrian/Border jig. It has a bit of a "modal" feel,
+N: swinging between G Major and F Major (specifically G Mixolydian), which gives it that
+N: distinctive folk drive.
+R: jig
+M: 6/8
+L: 1/8
+K: Gmaj
+|: "G"BAB G2G | "G"G2g gdc | "G"BAB G2G | "F"=F2=f fcA |
+"G"BAB G2G | "G"g>ag gdB | "C"cac "G"BgB | "D"A2=f "F"fcA :|
+|: "G"B2c d2d | "G"def gdc | "G"B2c d2d | "D"ABA "F"=fcA |
+"G"B2c d2d | "G"def gdB | "C"cac "G"BgB | "D"A2=f "F"fcA :|
+|: "G"G2g gdB | "G"gdB gdB | "G"G2g gdB | "F"=fgf fcA |
+"G"G2g gdB | "G"gdB gdB | "C"cac "G"BgB | "D"A2=f "F"fcA :|`
 };
