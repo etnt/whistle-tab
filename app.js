@@ -198,7 +198,7 @@ function stopPlayback() {
  */
 function renderMusic() {
     const abcInput = document.getElementById('abc-input').value;
-    const whistleKey = document.getElementById('whistle-key').value;
+    const whistleKeySelect = document.getElementById('whistle-key');
     const paperDiv = document.getElementById('paper');
     const tabDiv = document.getElementById('tablature');
     
@@ -209,6 +209,13 @@ function renderMusic() {
         paperDiv.innerHTML = '<p style="color: #999; text-align: center;">Enter ABC notation above to see the music</p>';
         return;
     }
+    
+    // Auto-detect the best whistle key based on the tune's key signature
+    const detectedKey = detectBestWhistleKey(abcInput);
+    if (detectedKey && whistleKeySelect.value !== detectedKey) {
+        whistleKeySelect.value = detectedKey;
+    }
+    const whistleKey = whistleKeySelect.value;
     
     try {
         // Track note elements for tablature positioning
@@ -590,10 +597,19 @@ function extractNotesFromABC(abc) {
         
         if (!inBody) continue;
         
+        // Skip comment lines (start with %)
+        if (trimmed.startsWith('%')) {
+            continue;
+        }
+        
+        // Remove inline comments (anything after %)
+        const commentIndex = trimmed.indexOf('%');
+        const lineContent = commentIndex >= 0 ? trimmed.substring(0, commentIndex) : trimmed;
+        
         // Parse the music line
         let i = 0;
-        while (i < trimmed.length) {
-            const char = trimmed[i];
+        while (i < lineContent.length) {
+            const char = lineContent[i];
             
             // Skip whitespace
             if (char === ' ' || char === '\t') {
@@ -605,9 +621,9 @@ function extractNotesFromABC(abc) {
             if (char === '|' || char === ':') {
                 // Check for different barline types
                 let barline = char;
-                while (i + 1 < trimmed.length && (trimmed[i + 1] === '|' || trimmed[i + 1] === ':' || trimmed[i + 1] === ']' || trimmed[i + 1] === '[')) {
+                while (i + 1 < lineContent.length && (lineContent[i + 1] === '|' || lineContent[i + 1] === ':' || lineContent[i + 1] === ']' || lineContent[i + 1] === '[')) {
                     i++;
-                    barline += trimmed[i];
+                    barline += lineContent[i];
                 }
                 notes.push({ isBarline: true, type: barline });
                 barAccidentals = {}; // Reset accidentals at bar line
@@ -618,7 +634,7 @@ function extractNotesFromABC(abc) {
             // Skip chords in quotes
             if (char === '"') {
                 i++;
-                while (i < trimmed.length && trimmed[i] !== '"') i++;
+                while (i < lineContent.length && lineContent[i] !== '"') i++;
                 i++;
                 continue;
             }
@@ -626,14 +642,14 @@ function extractNotesFromABC(abc) {
             // Skip annotations in other brackets
             if (char === '!' || char === '+') {
                 i++;
-                while (i < trimmed.length && trimmed[i] !== char) i++;
+                while (i < lineContent.length && lineContent[i] !== char) i++;
                 i++;
                 continue;
             }
             
             // Handle grace notes
             if (char === '{') {
-                while (i < trimmed.length && trimmed[i] !== '}') i++;
+                while (i < lineContent.length && lineContent[i] !== '}') i++;
                 i++;
                 continue;
             }
@@ -641,14 +657,14 @@ function extractNotesFromABC(abc) {
             // Handle volta brackets [1 and [2 - skip them (they're not chords)
             if (char === '[') {
                 // Check if this is a volta bracket [1, [2, etc.
-                if (i + 1 < trimmed.length && /[0-9]/.test(trimmed[i + 1])) {
+                if (i + 1 < lineContent.length && /[0-9]/.test(lineContent[i + 1])) {
                     // Skip the volta marker [1 or [2 etc.
                     i++;
-                    while (i < trimmed.length && /[0-9,\-]/.test(trimmed[i])) {
+                    while (i < lineContent.length && /[0-9,\-]/.test(lineContent[i])) {
                         i++;
                     }
                     // Skip any trailing space
-                    while (i < trimmed.length && trimmed[i] === ' ') {
+                    while (i < lineContent.length && lineContent[i] === ' ') {
                         i++;
                     }
                     continue;
@@ -658,8 +674,8 @@ function extractNotesFromABC(abc) {
                 i++;
                 // Just take the first note of the chord
                 const chordStart = i;
-                while (i < trimmed.length && trimmed[i] !== ']') i++;
-                const chordContent = trimmed.substring(chordStart, i);
+                while (i < lineContent.length && lineContent[i] !== ']') i++;
+                const chordContent = lineContent.substring(chordStart, i);
                 const chordNote = parseNoteToken(chordContent, keyAccidentals, barAccidentals);
                 if (chordNote) {
                     notes.push(chordNote);
@@ -684,34 +700,34 @@ function extractNotesFromABC(abc) {
                 let explicitAccidental = '';
                 
                 // Collect accidentals
-                while (i < trimmed.length && (trimmed[i] === '^' || trimmed[i] === '_' || trimmed[i] === '=')) {
-                    noteToken += trimmed[i];
+                while (i < lineContent.length && (lineContent[i] === '^' || lineContent[i] === '_' || lineContent[i] === '=')) {
+                    noteToken += lineContent[i];
                     hasExplicitAccidental = true;
-                    if (trimmed[i] === '^') explicitAccidental = '#';
-                    else if (trimmed[i] === '_') explicitAccidental = 'b';
-                    else if (trimmed[i] === '=') explicitAccidental = 'natural';
+                    if (lineContent[i] === '^') explicitAccidental = '#';
+                    else if (lineContent[i] === '_') explicitAccidental = 'b';
+                    else if (lineContent[i] === '=') explicitAccidental = 'natural';
                     i++;
                 }
                 
                 // Collect note letter
                 let noteLetter = '';
-                if (i < trimmed.length && 
-                    ((trimmed[i] >= 'A' && trimmed[i] <= 'G') || 
-                     (trimmed[i] >= 'a' && trimmed[i] <= 'g') ||
-                     trimmed[i] === 'z' || trimmed[i] === 'Z' || trimmed[i] === 'x')) {
-                    noteLetter = trimmed[i].toUpperCase();
-                    noteToken += trimmed[i];
+                if (i < lineContent.length && 
+                    ((lineContent[i] >= 'A' && lineContent[i] <= 'G') || 
+                     (lineContent[i] >= 'a' && lineContent[i] <= 'g') ||
+                     lineContent[i] === 'z' || lineContent[i] === 'Z' || lineContent[i] === 'x')) {
+                    noteLetter = lineContent[i].toUpperCase();
+                    noteToken += lineContent[i];
                     i++;
                 }
                 
                 // Collect octave modifiers
-                while (i < trimmed.length && (trimmed[i] === "'" || trimmed[i] === ',')) {
-                    noteToken += trimmed[i];
+                while (i < lineContent.length && (lineContent[i] === "'" || lineContent[i] === ',')) {
+                    noteToken += lineContent[i];
                     i++;
                 }
                 
                 // Skip duration numbers and broken rhythm markers
-                while (i < trimmed.length && (/\d/.test(trimmed[i]) || trimmed[i] === '/' || trimmed[i] === '>' || trimmed[i] === '<')) {
+                while (i < lineContent.length && (/\d/.test(lineContent[i]) || lineContent[i] === '/' || lineContent[i] === '>' || lineContent[i] === '<')) {
                     i++;
                 }
                 
