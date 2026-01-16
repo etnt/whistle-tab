@@ -131,5 +131,23 @@ K: Dmaj
 |: "D"D2ED FAAd | "G"B2BA "D"FABc | "D"d2dB ABde | "D"fede "A"fee2 |
 "D"{E}D2ED FAAd | "G"~B3A "D"FABc | "G"d2dB "D"ABdB | "A"(3AGF EG "D"FDD2 :|
 |: "D"faab afdf | "G"gefd "A"edBc | "D"~d3B ABde | "D"fede "A"fee2 |
-"D"faab afdf | "G"g2fd "A"edBc | "G"d2dB "D"ABdB | "A"(3AFE (3GFE "D"FDD2 :|`
+"D"faab afdf | "G"g2fd "A"edBc | "G"d2dB "D"ABdB | "A"(3AFE (3GFE "D"FDD2 :|`,
+
+    "The Duke of Fife's Welcome to Deeside": `X: 1
+T: The Duke of Fife's Welcome to Deeside
+C: J. Scott Skinner
+N: This is a fantastic Scottish bagpipe-style march!
+N: It was written by the legendary fiddler J. Scott Skinner.
+N: Because it is a "March," the rhythm is very crisp, and it often uses
+N: those "snappy" dotted notes (often called the Scottish Snap).
+R: March
+M: 4/4
+L: 1/8
+K: G
+% --- A-PART ---
+|: "G"D2 | "G"G2 G2 G2 AB | "D"A/B/A/G/ "G"G2 G2 AB | "C"c2 de "G"dB Gg | "G"dB GB "D"A2 D2 |
+"G"G2 G2 G2 AB | "D"A/B/A/G/ "G"G2 G2 AB | "C"c/B/c/d/ "D"ef "G"gd "D"BA | "G"G4 G2 :|
+% --- B-PART ---
+|: "G"Bc | "G"d2 d2 d2 ef | "G"gf ed "C"c2 Bc | "G"d2 de "Em"dB Gg | "G"dB GB "D"A2 Bc |
+"G"d2 d2 d2 ef | "G"gf ed "C"c2 Bc | "G"dB "C"ec "D"dB "D"cA | "G"G4 G2 :|`
 };
