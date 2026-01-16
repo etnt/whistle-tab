@@ -149,5 +149,32 @@ K: G
 "G"G2 G2 G2 AB | "D"A/B/A/G/ "G"G2 G2 AB | "C"c/B/c/d/ "D"ef "G"gd "D"BA | "G"G4 G2 :|
 % --- B-PART ---
 |: "G"Bc | "G"d2 d2 d2 ef | "G"gf ed "C"c2 Bc | "G"d2 de "Em"dB Gg | "G"dB GB "D"A2 Bc |
-"G"d2 d2 d2 ef | "G"gf ed "C"c2 Bc | "G"dB "C"ec "D"dB "D"cA | "G"G4 G2 :|`
+"G"d2 d2 d2 ef | "G"gf ed "C"c2 Bc | "G"dB "C"ec "D"dB "D"cA | "G"G4 G2 :|`,
+
+    "Temperance Reel": `X: 1
+T: The Temperance Reel
+T: The Teetotaller
+N: Play it with a Speed of 120 percent!
+R: reel
+M: 4/4
+L: 1/8
+K: Dmaj
+% --- PART A ---
+P: A
+|: "D" d2 AF DFAF | "G" G2 BG dGBG | "D" d2 AF DFAF | "A" GFEG "D" FDDA |
+"D" d2 AF DFAF | "G" G2 BG dGBG | "D" F2 AF "G" G2 BG | "A" AFGE "D" FD D2 :|
+% --- PART B1 (Standard) ---
+P: B1
+|: "D" f2 df afdf | "A" e2 ce gece | "D" f2 df afdf | "A" edce "D" d2 de |
+"D" f2 df afdf | "A" e2 ce gece | "D" d2 dB "G" AF G2 | "A" AFGE "D" FD D2 :|
+% --- PART Br (The Bridge) ---
+P: Br
+"^Bridge"
+| "Bm" B2 Bc d2 de | "F#m" f2 fe d2 c2 | "G" B2 Bc d2 dB | "A" AFGE "D" F D3 |
+| "Bm" B2 Bc d2 de | "F#m" f2 fg a2 f2 | "G" g2 ge "A" a2 af | "A7" gfed "D" cABc |
+% --- PART B2 (Variation) ---
+P: B2
+"^Variation"
+|: "D" fedf afdf | "A" edce gfed | "D" fedf afdf | "A" edce "D" d2 (3efg |
+"D" afdf "G" gfeg | "A" fedf "Em" edBc | "G" d2 dB "D" AFGB | "A" AFGE "D" FD D2 :|`
 };
