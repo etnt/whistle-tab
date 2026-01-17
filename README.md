@@ -119,6 +119,24 @@ Some frequent values you will see in traditional music collections:
 | Slide | 12/8 | Very fast Irish dance rhythm, similar to a jig but felt in four. |
 | March | 2/4 or 4/4 | Strong, steady beat for walking/marching. |
 
+### Tempo notation
+
+The ABC Q: (tempo) field has several formats:
+
+Basic formats:
+
+    Q:1/4=60 — 60 quarter notes per minute (60 BPM)
+    Q:1/8=120 — 120 eighth notes per minute
+    Q:60 — shorthand for 60 default beats per minute
+
+Examples for different feels:
+
+    Q:1/4=60    % Slow ballad/air (60 BPM)
+    Q:1/4=90    % Moderate waltz
+    Q:1/4=120   % Standard reel tempo
+    Q:1/8=200   % Fast reel (100 BPM in quarter notes)
+    Q:3/8=80    % Jig tempo (80 dotted quarters per minute)
+
 ### Misc. notation
 
 The Tilde (~): In ~B3A and ~d3B, the tilde represents a Roll (an Irish ornament).

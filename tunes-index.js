@@ -234,5 +234,28 @@ K: Gmaj
 F GA|"G"B3A "G7"Be dB|"C"AGE2zG"Cm" Bc|"Bm"d3e "Em" dB GB|"A7"A4z "D7"F GA|
 "G"B3A "G7"Be dB|"C"AGE2zF "Cm"GA|"Bm"B3"Em"c "A7"BA "D7"GA|"G"G4z d "D7"ef|
 "G"g3f "C"fe de|"Bm"dB"Em"G2z"Am"d "B7"ef|"Em"g3f "C"fe "Bm"dB|"A7"A4z "D7"d dd|
-"G7"b3a "C"ag eg|"Bm"dB"Em"G2z"Cm"F GA|"Bm"Be "Em"dB "A7"AG "D7"EF|"G Cm G"G4z||`
+"G7"b3a "C"ag eg|"Bm"dB"Em"G2z"Cm"F GA|"Bm"Be "Em"dB "A7"AG "D7"EF|"G Cm G"G4z||`,
+
+    "The Fairy Lament": `X: 1
+T: Port Na bPúcai
+T: The Fairy Lament
+N: Port Na bPúcai (The Song of the Fairies or Spirit of the Ghosts)
+N: is a haunting slow air from the Blasket Islands off the coast of Kerry.
+N: Legend says it was heard by a fisherman drifting at sea—either the wind
+N: whistling through the hull of his boat or the singing of the fairies themselves.
+R: Air
+Q: 60
+M: 3/4
+L: 1/8
+K: D
+% --- SECTION A ---
+|: "D"D3 E F2 | "G"G2 F2 E2 | "D"D4 F2 | "A"A6 |
+|  "G"B3 c d2 | "D"A2 F2 D2 | "Em"E2 G2 F2 | "A"E6 |
+|  "D"D3 E F2 | "G"G2 F2 E2 | "D"D4 F2 | "A"A4 Bc |
+|  "G"d2 A2 F2 | "Em"G2 F2 E2 | "D"D6- | D6 :|
+% --- SECTION B ---
+|: "D"A3 B d2 | "G"B2 A2 F2 | "D"A4 B2 | "D"A6 |
+|  "G"B3 c d2 | "D"A2 F2 D2 | "Em"E2 G2 F2 | "A"E6 |
+|  "D"D3 E F2 | "G"G2 F2 E2 | "D"D4 F2 | "A"A4 Bc |
+|  "G"d2 A2 F2 | "Em"G2 F2 E2 | "D"D6- | D6 :|`
 };
