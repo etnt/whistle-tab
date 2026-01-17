@@ -1,0 +1,14 @@
+X: 1
+T: Angeline the Baker
+R: Reel
+M: 4/4
+L: 1/8
+K: D
+% --- PART A (Verse) ---
+P: A
+|: "D"f2 fg f2 e2 | d2 dB A2 d2 | f2 fg f2 e2 | "G"d4 "D"A4 |
+|  "D"f2 fg f2 e2 | d2 dB A2 d2 | "G"B2 d2 "A"BAFE | "D"D4 D4 :|
+% --- PART B (Chorus) ---
+P: B
+|: "D"A2 AB d2 d2 | "G"B2 d2 "D"A4 | "D"A2 AB d2 d2 | "G"B4 "D"A4 |
+|  "D"A2 AB d2 d2 | "G"B2 d2 "D"A2 d2 | "G"B2 d2 "A"BAFE | "D"D4 D4 :|

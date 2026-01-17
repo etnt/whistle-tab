@@ -1,0 +1,14 @@
+X: 1
+T: Boatman Dance
+R: Reel
+M: 4/4
+L: 1/8
+K: D
+% --- PART A ---
+P: A
+|: "D"F2 A2 A2 f2 | "A"e d3 B2 A2 | "D"F2 A2 A2 f2 | "A"e4 "D"d4 |
+|  "D"F2 A2 A2 f2 | "A"e d3 B2 A2 | "D"F2 A2 "A"B2 d2 | "A"e4 "D"d4 :|
+% --- PART B ---
+P: B
+|: "D"d2 f2 f4 | "G"g2 b2 b4 | "D"a2 f2 f2 d2 | "A"e d3 B2 A2 |
+|  "D"d2 f2 f4 | "G"g2 b2 b4 | "D"a2 f2 "A"e2 d2 | "A"e4 "D"d4 :|
