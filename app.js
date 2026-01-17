@@ -198,7 +198,7 @@ function stopPlayback() {
  */
 function renderMusic() {
     const abcInput = document.getElementById('abc-input').value;
-    const whistleKeySelect = document.getElementById('whistle-key');
+    const whistleKey = document.getElementById('whistle-key').value;
     const paperDiv = document.getElementById('paper');
     const tabDiv = document.getElementById('tablature');
     
@@ -209,13 +209,6 @@ function renderMusic() {
         paperDiv.innerHTML = '<p style="color: #999; text-align: center;">Enter ABC notation above to see the music</p>';
         return;
     }
-    
-    // Auto-detect the best whistle key based on the tune's key signature
-    const detectedKey = detectBestWhistleKey(abcInput);
-    if (detectedKey && whistleKeySelect.value !== detectedKey) {
-        whistleKeySelect.value = detectedKey;
-    }
-    const whistleKey = whistleKeySelect.value;
     
     try {
         // Track note elements for tablature positioning
@@ -275,7 +268,9 @@ function addTablatureToNotes(abcInput, whistleKey) {
     
     // Extract notes from ABC to get fingerings
     const notes = extractNotesFromABC(abcInput);
-    const playableNotes = notes.filter(n => !n.isBarline);
+    // Filter out barlines and rests - rests don't have corresponding SVG note elements
+    const playableNotes = notes.filter(n => !n.isBarline && 
+        n.note !== 'z' && n.note !== 'Z' && n.note !== 'x');
     
     // Get the SVG namespace
     const svgNS = 'http://www.w3.org/2000/svg';
@@ -362,8 +357,6 @@ function addTablatureToNotes(abcInput, whistleKey) {
         });
     });
     
-    // Track previous fingering per staff line to skip repeats
-    const prevFingeringByLine = new Map();
     let noteIndex = 0;
     
     noteGroups.forEach((noteGroup, i) => {
@@ -379,29 +372,17 @@ function addTablatureToNotes(abcInput, whistleKey) {
         const noteData = playableNotes[noteIndex];
         noteIndex++;
         
-        if (!noteData || noteData.note === 'z' || noteData.note === 'Z' || noteData.note === 'x') {
-            prevFingeringByLine.set(staffLine, null);
+        if (!noteData) {
             return;
         }
         
         // Get fingering for this note
         const noteInfo = FluteTab.parseAbcNote(noteData.note);
         if (noteInfo.rest) {
-            prevFingeringByLine.set(staffLine, null);
             return;
         }
         
         const fingering = FluteTab.getFingering(noteInfo, whistleKey);
-        
-        // Create a key to identify this fingering
-        const fingeringKey = fingering.holes ? fingering.holes.join('') + fingering.octave : null;
-        
-        // Skip if same as previous fingering on this staff line
-        const prevFingering = prevFingeringByLine.get(staffLine);
-        if (fingeringKey && fingeringKey === prevFingering) {
-            return;
-        }
-        prevFingeringByLine.set(staffLine, fingeringKey);
         
         // Create tablature group
         const tabGroup = document.createElementNS(svgNS, 'g');

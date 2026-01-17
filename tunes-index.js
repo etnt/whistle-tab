@@ -222,5 +222,17 @@ P: A
 % --- PART B ---
 P: B
 |: "G"g2 gg gfed | "A"efge "D"a2 f2 | "A"efge "D"afge | "G"dBGB "D"d2 cd |
-|  "A"e2 AA ABAG | "G"EDEF G2 FG | "A"ABcd efge | "G"afge "A"A4 :|`
+|  "A"e2 AA ABAG | "G"EDEF G2 FG | "A"ABcd efge | "G"afge "A"A4 :|`,
+
+    "The Derry Air": `X: 1
+T: The Derry Air
+N: Play it slow by decreasing the speed to about 70 percent.
+R: air
+M: 4/4
+L: 1/8
+K: Gmaj
+F GA|"G"B3A "G7"Be dB|"C"AGE2zG"Cm" Bc|"Bm"d3e "Em" dB GB|"A7"A4z "D7"F GA|
+"G"B3A "G7"Be dB|"C"AGE2zF "Cm"GA|"Bm"B3"Em"c "A7"BA "D7"GA|"G"G4z d "D7"ef|
+"G"g3f "C"fe de|"Bm"dB"Em"G2z"Am"d "B7"ef|"Em"g3f "C"fe "Bm"dB|"A7"A4z "D7"d dd|
+"G7"b3a "C"ag eg|"Bm"dB"Em"G2z"Cm"F GA|"Bm"Be "Em"dB "A7"AG "D7"EF|"G Cm G"G4z||`
 };
