@@ -176,5 +176,51 @@ P: Br
 P: B2
 "^Variation"
 |: "D" fedf afdf | "A" edce gfed | "D" fedf afdf | "A" edce "D" d2 (3efg |
-"D" afdf "G" gfeg | "A" fedf "Em" edBc | "G" d2 dB "D" AFGB | "A" AFGE "D" FD D2 :|`
+"D" afdf "G" gfeg | "A" fedf "Em" edBc | "G" d2 dB "D" AFGB | "A" AFGE "D" FD D2 :|`,
+
+    "The Green Fields of America": `X: 1
+T: The Green Fields of America
+R: reel
+M: 4/4
+L: 1/8
+K: G
+% --- PART A ---
+P: A
+|: "G"c2 AB cBAG | "D"AGAB "G"G2 AB | "C"c2 AB cBAG | "D"EAAG "Am"A2 AB |
+|  "C"c2 AB cBAG | "D"AGAB "G"G2 AB | "C"cE E2 "G"GEDE | "D"G2 GA "G"G4 :|
+% --- PART B ---
+P: B
+|: "G"G2 GA Bdeg | "C"abag "G"e2 d2 | "G"g2 ga "Em"gedB | "D"dega "G"ba a2 |
+|  "G"bage "D"d2 ef | "G"gage "Em"dBGB | "C"cE E2 "G"GEDE | "D"G2 GA "G"G4 :|`,
+
+    "Old Mother Flanagan": `X: 1
+T: Old Mother Flanagan
+R: reel
+M: 4/4
+L: 1/8
+K: D
+% --- PART A ---
+P: A
+|: "D"defg a2 a2 | "G"bagf "A"e2 A2 | "D"defg a2 a2 | "G"ba"A"bc' "D"d'2 d'2 |
+|  "D"defg a2 a2 | "G"bagf "A"e2 A2 | "D"d2 dB "G"AF G2 | "A"AFGE "D"FD D2 :|
+% --- PART B ---
+P: B
+|: "D"A2 AB A2 FG | "A"AF E2 "D"D4 | "D"A2 AB A2 FA | "G"B2 d2 "A"e4 |
+|  "D"A2 AB A2 FG | "A"AF E2 "D"D4 | "D"d2 dB "G"AF G2 | "A"AFGE "D"FD D2 :|`,
+
+    "Red Haired Boy": `X: 1
+T: Red Haired Boy
+T: The Little Beggarman
+R: reel
+M: 4/4
+L: 1/8
+K: D
+% --- PART A ---
+P: A
+|: "A"E2 AA ABAG | "G"EDEF G2 FG | "A"ABcd efge | "G"afge "D"d2 cd |
+|  "A"e2 AA ABAG | "G"EDEF G2 FG | "A"ABcd efge | "G"afge "A"A4 :|
+% --- PART B ---
+P: B
+|: "G"g2 gg gfed | "A"efge "D"a2 f2 | "A"efge "D"afge | "G"dBGB "D"d2 cd |
+|  "A"e2 AA ABAG | "G"EDEF G2 FG | "A"ABcd efge | "G"afge "A"A4 :|`
 };
