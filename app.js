@@ -597,6 +597,12 @@ function extractNotesFromABC(abc) {
         
         if (!inBody) continue;
         
+        // Skip inline field lines (P:, N:, W:, etc.) that appear in the tune body
+        // These are ABC information fields, not music
+        if (/^[A-Za-z]:/.test(trimmed)) {
+            continue;
+        }
+        
         // Skip comment lines (start with %)
         if (trimmed.startsWith('%')) {
             continue;
