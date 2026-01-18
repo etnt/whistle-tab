@@ -137,6 +137,20 @@ Examples for different feels:
     Q:1/8=200   % Fast reel (100 BPM in quarter notes)
     Q:3/8=80    % Jig tempo (80 dotted quarters per minute)
 
+### Slur notation
+
+In ABC notation, the parentheses surrounding a sequence of notes—like:
+`(f>age)` , indicate a Slur.
+
+**What is a Slur?**
+
+A slur tells the musician to play those notes in one continuous, smooth breath
+or movement without re-articulating each one. For a Tin Whistle, that means:
+
+Do not "tongue" the notes inside the parentheses. Only the first note (f) is
+articulated with the tongue; the following notes (a, g, and e) are played by 
+simply moving your fingers while maintaining a steady stream of air.
+
 ### Misc. notation
 
 The Tilde (~): In ~B3A and ~d3B, the tilde represents a Roll (an Irish ornament).
