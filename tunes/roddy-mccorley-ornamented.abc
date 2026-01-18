@@ -1,0 +1,17 @@
+X: 1
+T: Roddy McCorley (Ornamented)
+R: march
+M: 4/4
+L: 1/8
+K: Gmaj
+% --- SECTION A (Using The Rising Step & Tapered Resolution) ---
+P: A
+(G A) | "G" B2 (A B) "D" D2 D2 | "G" B3 A G2 D2 | "C" E2 G2 "G" G3 A | G6 (B c) |
+% --- SECTION B (Using The High Fanfare & Circular Turn) ---
+P: B
+"G" d2 d2 d2 (B d) | "C" e2 e2 "G" d2 (B A) | "G" G2 E2 "C" c2 B2 | "D" {c}A6 (B c) |
+% Here we plug in "The Circular Turn" fragment:
+"G" d2 d2 d2 (B d) | "C" e2 e2 "G" d2 (B A) | "G" (B c B A) G2 E2 | "D" {c}A6 (G A) |
+% --- SECTION A (Final Resolution) ---
+P: A
+"G" B2 A B "D" D2 D2 | "G" B3 A G2 D2 | "C" E2 G2 "G" G3 A | "G" G4 ~G4 |]

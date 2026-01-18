@@ -1,0 +1,20 @@
+X: 1
+T: May It Be - Ornamentation Exercise
+C: Enya (Arr. CutiePie)
+R: Air
+M: 4/4
+L: 1/8
+Q: "Slow and Ethereal"
+K: Dmaj
+% --- EXERCISE 1: The Verse Slide ---
+P: 1. Verse Slide (Low D to F#)
+% Slide from D into F#, then add vibrato
+{C}D2 {F}F#6 ~F#2 | {E}F#2 {G}A6 ~A2 |
+% --- EXERCISE 2: The Bridge Lift ---
+P: 2. Bridge Lift (A to High d)
+% A clean lift from A to High d with high-register vibrato
+{G}A2 {c}B2 {e}d4 | ~d4 ~d4 |
+% --- EXERCISE 3: The Chorus Peak ---
+P: 3. Chorus Peak (High e to d)
+% Practicing the percussive 'cut' in the high octave
+{f}e2 {e}d2 {e}c#2 {c}B2 | ~A8 |]

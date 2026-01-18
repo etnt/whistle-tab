@@ -1,0 +1,20 @@
+X: 1
+T: Motif Cheatsheet
+M: 4/4
+L: 1/8
+K: Gmaj
+% --- Target Note: Low D , The Resolution ---
+P: A
+A F# E {F#}E D4 z4
+% ---  Target Note: Low G , The Circular Turn ---
+P: B
+(B c B A) G2 z4
+% ---  Target Note: Low A , The Step-Up ---
+P: C
+D E {G}F# G A z4
+% --- Target Note: High D , The Springboard ---
+P: D
+{G}A2 {e}d4 z4
+% --- Target Note: High e , The Peak Cut ---
+P: E
+{f}e d {e}c# z4

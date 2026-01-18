@@ -1,0 +1,23 @@
+X: 1
+T: Fáinne Geal An Lae
+T: The Dawning of the Day
+R: Air / March
+M: 4/4
+L: 1/8
+K: Dmaj
+% --- SECTION A ---
+% Using: The Rising Step & The Tapered Resolution
+P: A
+{C}D2 E2 | "D" {G}F4 {G}F4 | "G" {G}F4 ("D" E2 F2) | "A" {B}A4 {B}A4 | "G" {c}B4 ("D" A2 F2) |
+"D" D4 "A" {F}E4 | "D" D4 D4 | "D" ~D8 | "A" {G}A4Bc |
+% --- SECTION B ---
+% Using: The Springboard, Peak Cut, & Circular Turn
+P: B
+"G" {c}B6 A2 | "G" (B c B A) "Bm" {e}d4 | "D" {G}F6 E2 | "G" {F}D4 "D" {G}F4 |
+"D" {B}A4 "Bm" F4 | "G" {e}d4 "D" {G}F4 | "A" ~E8 | "A" {G}A4 Bc |
+% --- REPEAT B ---
+"G" {c}B6 A2 | "G" (B c B A) "Bm" {e}d4 | "D" {G}F6 E2 | "G" {F}D4 "D" {G}F4 |
+"D" {B}A4 "Bm" F4 | "G" {e}d4 "D" {G}F4 | "A" ~E8 | "D" {C}D2 E2 |
+% --- SECTION A (Finale) ---
+"D" {G}F4 {G}F4 | "G" {G}F4 ("D" E2 F2) | "D" {B}A4 {B}A4 | "G" {c}B4 ("D" A2 F2) |
+"D" D4 {G}F4 | "A" {F}E4 "D" D4 | "D" ~D12 |]
