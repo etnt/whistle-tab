@@ -1,0 +1,15 @@
+X: 1
+T: The Keel Row (Barndance)
+C: Arr. Brian Hughes
+R: Barndance
+M: 2/4
+L: 1/8
+K: D
+% --- PART A ---
+P: A
+|: "D" dc B2 | "G" GB c2 | "D" dc B2 | "A" GB A2 |
+|  "D" dc B2 | "G" GB c2 | "D" dc "G" BG | "A" AF "D" D2 :|
+% --- PART B ---
+P: B
+|: "G" Bd g2 | "C" dg e2 | "D" dc B2 | dG BA | GE FG |
+|  DG E2 | DcB | GA FG :|

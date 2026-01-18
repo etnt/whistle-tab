@@ -1,0 +1,33 @@
+X: 1
+T: May It Be
+C: Enya (Arr. CutiePie, for A Whistle)
+R: Air
+M: 4/4
+L: 1/8
+Q: "Slow and Ethereal"
+K: Amaj
+% --- VERSE ---
+P: Verse
+"A" E F G# F | "A" G# B c2 | "E" c B G# E | "A" E F F2 |
+"A" E F G# F | "A" G# B c2 | "E" c e B G# | "A" E F F2 |
+% --- BRIDGE ---
+P: Bridge
+"F#m" G# B c2 | "D" B c e B | "E" B c B G# | "A" F G# G#2 |
+% --- CHORUS ---
+P: Chorus
+"A" B c e B | "D" e f e d# | "E" d# e B B | "D" c B G# A | "A" B B2 z |
+"A" B c e B | "D" e f e d# | "E" d# e B c | "D" B G# A B | "A" B2 z2 |
+% --- OUTRO ---
+P: Outro
+"E" d# e B c | "D" B G# A B | "A" B4 |] Ethereal"
+K: Dmaj
+% --- VERSE ---
+"D" D E F# E | "D" F# A B2 | "A" B A F# D | "D" D E E2 |
+"D" D E F# E | "D" F# A B2 | "A" B d A F# | "D" D E E2 |
+% --- BRIDGE ---
+"Bm" F# A B2 | "G" A B d A | "A" A B A F# | "D" E F# F#2 |
+% --- CHORUS ---
+"D" A B d A | "G" d e d c# | "A" c# d A A | "G" B A F# G | "D" A A2 z |
+"D" A B d A | "G" d e d c# | "A" c# d A B | "G" A F# G A | "D" A2 z2 |
+% --- OUTRO ---
+"A" c# d A B | "G" A F# G A | "D" A4 |]
