@@ -269,5 +269,18 @@ K: Dmaj
 "D"D2E2 | "D"F4 F4 "G"F4 "D"E2F2 | "D"A4 A4 "G"B4 "D"A2F2 | "D"D4 "A"E4 "D"D4 D4 | "D"D12 "A"A4 |
 "G"B6 A2 "G"B4 "Bm"d4 | "D"F6 E2 "G"D4 "D"F4 | "D"A4 "Bm"F4 "G"d4 "D"F4 | "A"E12 "A"A4 |
 "G"B6 A2 "G"B4 "Bm"d4 | "D"F6 E2 "G"D4 "D"F4 | "D"A4 "Bm"F4 "G"d4 "D"F4 | "A"E12 "D"D2E2 |
-"D"F4 F4 "G"F4 "D"E2F2 | "D"A4 A4 "G"B4 "D"A2F2 | "D"D4 "D"F4 "A"E4 "D"D4 | "D"D12 z4 |]`
+"D"F4 F4 "G"F4 "D"E2F2 | "D"A4 A4 "G"B4 "D"A2F2 | "D"D4 "D"F4 "A"E4 "D"D4 | "D"D12 z4 |]`,
+
+
+    "The Wearing Of The Green": `X: 1
+T: The Wearing Of The Green
+R: march
+M: 4/4
+L: 1/8
+K: Dmaj
+DE| "D"FFFE "D"FAAF | "A"FEEF E3 A | "G"BGdc "D"BAFD | "A"EDDE "D"D2 DE |
+"D"FFFE "D"FAAF | "A"FEEF E3 A | "G"BGdc "D"BAFD | "A"EDDE "D"D2 dc ||
+"D"BAAF "D"AFDE | "D"FFFE F2 dc | "D"BAAF "D"AFDE | "A"FEEF E2 DE |
+"D"FFFE "D"FAAF | "A"FEEF E3 A | "G"BGdc "D"BAFD | "A"EDDE "D"D4 ||`
+
 };
