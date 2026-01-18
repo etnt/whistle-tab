@@ -281,6 +281,19 @@ K: Dmaj
 DE| "D"FFFE "D"FAAF | "A"FEEF E3 A | "G"BGdc "D"BAFD | "A"EDDE "D"D2 DE |
 "D"FFFE "D"FAAF | "A"FEEF E3 A | "G"BGdc "D"BAFD | "A"EDDE "D"D2 dc ||
 "D"BAAF "D"AFDE | "D"FFFE F2 dc | "D"BAAF "D"AFDE | "A"FEEF E2 DE |
-"D"FFFE "D"FAAF | "A"FEEF E3 A | "G"BGdc "D"BAFD | "A"EDDE "D"D4 ||`
+"D"FFFE "D"FAAF | "A"FEEF E3 A | "G"BGdc "D"BAFD | "A"EDDE "D"D4 ||`,
+
+    "Sliabh Geal gCua": `X: 1
+T: Sliabh Geal gCua
+T: The Bright Mountains of Cua
+R: hornpipe
+M: 4/4
+L: 1/8
+Q: 80
+K: Dmaj
+f>g | "D"a3 g ("A"f>age) | "D"f3 e ("Bm"dcA>B) | "C"=c2 "G"d4 (fe) | ("D"d>cAF) "G"G2 (FG) |
+"D"(Add>e) f2 (fg) | "D"a3 g ("A"f>age) | "D"f3 e ("Bm"dcA>B) | "C"=c2 "G"d4 (fe) | ("D"d>cAF) "G"G2 (FG) |
+"D"(Add>c) d3 A | "D"(d>ef>g) "D"a a2 a | "D"(a>bag/f/) "D"f a2 f | "G"(f>ge>c) "A"d e2 d |
+"A"(cAA>A) A2 (fg) | "D"a3 g ("A"f>age) | "D"f3 e ("Bm"dcA>B) | "C"=c2 "G"d4 (fe) | ("D"d>cAF) "G"G2 (FG) | "D"(Add>c) d4 ||`
 
 };
