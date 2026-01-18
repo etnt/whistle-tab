@@ -257,5 +257,17 @@ K: D
 |: "D"A3 B d2 | "G"B2 A2 F2 | "D"A4 B2 | "D"A6 |
 |  "G"B3 c d2 | "D"A2 F2 D2 | "Em"E2 G2 F2 | "A"E6 |
 |  "D"D3 E F2 | "G"G2 F2 E2 | "D"D4 F2 | "A"A4 Bc |
-|  "G"d2 A2 F2 | "Em"G2 F2 E2 | "D"D6- | D6 :|`
+|  "G"d2 A2 F2 | "Em"G2 F2 E2 | "D"D6- | D6 :|`,
+
+    "Fáinne Geal An Lae": `X: 1
+T: Fáinne Geal An Lae
+T: The Dawning of the Day
+R: march
+M: 4/4
+L: 1/8
+K: Dmaj
+"D"D2E2 | "D"F4 F4 "G"F4 "D"E2F2 | "D"A4 A4 "G"B4 "D"A2F2 | "D"D4 "A"E4 "D"D4 D4 | "D"D12 "A"A4 |
+"G"B6 A2 "G"B4 "Bm"d4 | "D"F6 E2 "G"D4 "D"F4 | "D"A4 "Bm"F4 "G"d4 "D"F4 | "A"E12 "A"A4 |
+"G"B6 A2 "G"B4 "Bm"d4 | "D"F6 E2 "G"D4 "D"F4 | "D"A4 "Bm"F4 "G"d4 "D"F4 | "A"E12 "D"D2E2 |
+"D"F4 F4 "G"F4 "D"E2F2 | "D"A4 A4 "G"B4 "D"A2F2 | "D"D4 "D"F4 "A"E4 "D"D4 | "D"D12 z4 |]`
 };
