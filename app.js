@@ -15,10 +15,10 @@ let synthControl = null;
  */
 function init() {
     // Set up event listeners
-    document.getElementById('render-btn').addEventListener('click', renderMusic);
     document.getElementById('play-btn').addEventListener('click', startPlayback);
     document.getElementById('stop-btn').addEventListener('click', stopPlayback);
     document.getElementById('export-btn').addEventListener('click', exportAsMIDI);
+    document.getElementById('export-pdf-btn').addEventListener('click', exportAsPDF);
     document.getElementById('abc-input').addEventListener('input', debounce(renderMusic, 500));
     document.getElementById('whistle-key').addEventListener('change', renderMusic);
     
@@ -900,6 +900,105 @@ async function exportAsMIDI() {
     } catch (error) {
         console.error('MIDI export error:', error);
         alert('Error exporting MIDI: ' + error.message);
+    }
+}
+
+/**
+ * Export the rendered music with tablature as PDF
+ */
+async function exportAsPDF() {
+    const paper = document.getElementById('paper');
+    
+    if (!paper || !paper.querySelector('svg')) {
+        alert('Please render some music first!');
+        return;
+    }
+    
+    try {
+        // Show loading state
+        const exportBtn = document.getElementById('export-pdf-btn');
+        const originalText = exportBtn.textContent;
+        exportBtn.textContent = 'Generating PDF...';
+        exportBtn.disabled = true;
+        
+        // Create filename from tune title or default
+        let filename = 'tune-tablature.pdf';
+        if (visualObj && visualObj.metaText && visualObj.metaText.title) {
+            filename = visualObj.metaText.title.replace(/[^a-z0-9]/gi, '-').toLowerCase() + '-tablature.pdf';
+        }
+        
+        // Use html2canvas to capture the paper element with tablature
+        const canvas = await html2canvas(paper, {
+            backgroundColor: '#ffffff',
+            scale: 2, // Higher resolution
+            useCORS: true,
+            logging: false
+        });
+        
+        // Get image dimensions
+        const imgWidth = canvas.width;
+        const imgHeight = canvas.height;
+        
+        // Create PDF using jsPDF
+        const { jsPDF } = window.jspdf;
+        
+        // Calculate PDF dimensions (A4 is 210 x 297 mm)
+        // Use landscape if the image is wider than tall
+        const orientation = imgWidth > imgHeight ? 'landscape' : 'portrait';
+        const pdf = new jsPDF({
+            orientation: orientation,
+            unit: 'mm',
+            format: 'a4'
+        });
+        
+        // Get page dimensions
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        
+        // Add margins
+        const margin = 10;
+        const maxWidth = pageWidth - (2 * margin);
+        const maxHeight = pageHeight - (2 * margin);
+        
+        // Calculate scaling to fit on page while maintaining aspect ratio
+        const ratio = Math.min(maxWidth / (imgWidth / 3.78), maxHeight / (imgHeight / 3.78)); // 3.78 px/mm at 96 DPI
+        const scaledWidth = (imgWidth / 3.78) * ratio;
+        const scaledHeight = (imgHeight / 3.78) * ratio;
+        
+        // Center on page
+        const x = (pageWidth - scaledWidth) / 2;
+        const y = margin;
+        
+        // Add title if available
+        if (visualObj && visualObj.metaText && visualObj.metaText.title) {
+            pdf.setFontSize(16);
+            pdf.text(visualObj.metaText.title, pageWidth / 2, margin, { align: 'center' });
+        }
+        
+        // Add the image
+        const imgData = canvas.toDataURL('image/png');
+        pdf.addImage(imgData, 'PNG', x, y + 5, scaledWidth, scaledHeight);
+        
+        // Add footer with whistle key
+        const whistleKey = document.getElementById('whistle-key').value;
+        pdf.setFontSize(10);
+        pdf.text(`Whistle: ${whistleKey}`, margin, pageHeight - margin);
+        
+        // Save the PDF
+        pdf.save(filename);
+        
+        // Restore button state
+        exportBtn.textContent = originalText;
+        exportBtn.disabled = false;
+        
+    } catch (error) {
+        console.error('PDF export error:', error);
+        alert('Error exporting PDF: ' + error.message);
+        
+        // Restore button state on error
+        const exportBtn = document.getElementById('export-pdf-btn');
+        exportBtn.textContent = 'Export as PDF';
+        exportBtn.disabled = false;
     }
 }
 

@@ -21,7 +21,7 @@ sheet music with an additional tin whistle (Irish flute) tablature display.
 
 ### Option 1: Use Online (Easiest)
 
-Visit the live version at: **https://etnt.github.io/whistle-tab/**
+Visit the live version at: **https://whistletab.kruskakli.se/**
 
 No download or installation required!
 

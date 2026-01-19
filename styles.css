@@ -120,16 +120,6 @@ h2 {
     transition: all 0.3s;
 }
 
-#render-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-}
-
-#render-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-}
-
 #export-btn {
     background: #28a745;
     color: white;
@@ -138,6 +128,23 @@ h2 {
 #export-btn:hover {
     background: #218838;
     transform: translateY(-2px);
+}
+
+#export-pdf-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+#export-pdf-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+
+#export-pdf-btn:disabled {
+    background: #999;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
 #play-btn {
