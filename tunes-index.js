@@ -294,6 +294,25 @@ K: Dmaj
 f>g | "D"a3 g ("A"f>age) | "D"f3 e ("Bm"dcA>B) | "C"=c2 "G"d4 (fe) | ("D"d>cAF) "G"G2 (FG) |
 "D"(Add>e) f2 (fg) | "D"a3 g ("A"f>age) | "D"f3 e ("Bm"dcA>B) | "C"=c2 "G"d4 (fe) | ("D"d>cAF) "G"G2 (FG) |
 "D"(Add>c) d3 A | "D"(d>ef>g) "D"a a2 a | "D"(a>bag/f/) "D"f a2 f | "G"(f>ge>c) "A"d e2 d |
-"A"(cAA>A) A2 (fg) | "D"a3 g ("A"f>age) | "D"f3 e ("Bm"dcA>B) | "C"=c2 "G"d4 (fe) | ("D"d>cAF) "G"G2 (FG) | "D"(Add>c) d4 ||`
+"A"(cAA>A) A2 (fg) | "D"a3 g ("A"f>age) | "D"f3 e ("Bm"dcA>B) | "C"=c2 "G"d4 (fe) | ("D"d>cAF) "G"G2 (FG) | "D"(Add>c) d4 ||`,
+
+    "Danny Boy": `X: 1
+T: Danny Boy
+T: The Derry Air
+C: Trad (Arr. CutiePie)
+M: 4/4
+L: 1/8
+Q: "Slow and Soulful"
+K: Gmaj
+% --- SECTION 1 ---
+P: A
+(F G A) | "G" B3 A "G7" B d e d | "C" G3 A "Cm" B d B G | "Bm" A3. G "Em" E G B A | "A7" A4 "D7" z (F G A) |
+"G" B3 A "G7" B d e d | "C" G3 A "Cm" B d B G | "Bm" A3. G "Em" "A7" E F "D7" G A | "G" G4 "D7" z d e f |
+% --- SECTION 2 ---
+P: B
+"G" g3 f "C" e d B d | "Bm" d3. B "Em" G d "Am" e "B7" f | "Em" g3 f "C" e d "Bm" B G | "A7" A4 "D7" z d e f |
+"G7" g3 f "C" e d B d | "Bm" d3. B "Em" G F "Cm" E G | "Bm" B3. A "Em" G E "A7" D B, | "D7" G,4 "G" "Cm" "G" z4 |]
+|: "G" B3 dBd | "C" ege dBG | "G" B3 dBG | "D" ABA AGE |
+| "G" B3 dBd | "C" ege dBd | "G" g2 d edB | "D" BGF "G" G3 :|`
 
 };
