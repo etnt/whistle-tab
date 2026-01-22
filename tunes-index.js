@@ -294,6 +294,37 @@ K: Dmaj
 f>g | "D"a3 g ("A"f>age) | "D"f3 e ("Bm"dcA>B) | "C"=c2 "G"d4 (fe) | ("D"d>cAF) "G"G2 (FG) |
 "D"(Add>e) f2 (fg) | "D"a3 g ("A"f>age) | "D"f3 e ("Bm"dcA>B) | "C"=c2 "G"d4 (fe) | ("D"d>cAF) "G"G2 (FG) |
 "D"(Add>c) d3 A | "D"(d>ef>g) "D"a a2 a | "D"(a>bag/f/) "D"f a2 f | "G"(f>ge>c) "A"d e2 d |
-"A"(cAA>A) A2 (fg) | "D"a3 g ("A"f>age) | "D"f3 e ("Bm"dcA>B) | "C"=c2 "G"d4 (fe) | ("D"d>cAF) "G"G2 (FG) | "D"(Add>c) d4 ||`
+"A"(cAA>A) A2 (fg) | "D"a3 g ("A"f>age) | "D"f3 e ("Bm"dcA>B) | "C"=c2 "G"d4 (fe) | ("D"d>cAF) "G"G2 (FG) | "D"(Add>c) d4 ||`,
+
+    "The Butterfly": `X: 1
+T: The Butterfly
+R: slip jig
+M: 9/8
+L: 1/8
+K: Em
+% --- SECTION A ---
+P: A
+|: "Em" B2E G2E F3 | "Em" B2E G2E "D" FED | "Em" B2E G2E F2A | "G" B2d d2B "D" AFD :|
+% --- SECTION B ---
+P: B
+|: "Em" B2d e2f g3 | "Em" B2d g2e "D" dBA | "Em" B2d e2f g2a | "G" b2a g2e "D" dBA :|
+% --- SECTION C ---
+P: C
+|: "Em" B2B B2A G2A | "Em" B2B BAB "D" dBA | "Em" B2B B2A G2A | "G" B2d g2e "D" dBA :|`,
+
+    "The Cool of the Day": `X: 1
+T: The Cool of the Day
+R: Air
+M: 4/4
+L: 1/8
+K: Dmin
+% --- SECTION A ---
+|: "Dm" D2 f2 "C" e3 d | "Dm" f2 g2 "Am" a4 | "Gm" g2 f2 "C" e2 d2 | "Dm" f2 d2 "Am" A4 |
+| "Dm" D2 f2 "C" e3 d | "Dm" f2 g2 "Am" a4 | "Gm" g2 f2 "Am" e3 d | "Dm" d8 :|
+% --- SECTION B ---
+|: "Dm" a2 d'2 "Am" c'3 a | "Gm" g2 a2 "C" c'4 | "Dm" d'2 c'2 "Am" a2 g2 | "Dm" f2 g2 "Am" a4 |
+| "Dm" a2 d'2 "Am" c'3 a | "Gm" g2 a2 "C" c'4 | "Am" a2 g2 "Gm" f2 e2 | "Dm" d8 :|`
+
+
 
 };
