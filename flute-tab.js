@@ -93,6 +93,88 @@ const FluteTab = {
             'E6':  { holes: ['X', 'O', 'O', 'O', 'O', 'O'], octave: 2 },
             'F#6': { holes: ['O', 'X', 'X', 'O', 'O', 'O'], octave: 2 },
             'G6':  { holes: ['O', 'X', 'X', 'X', 'X', 'X'], octave: 2 },
+        },
+        
+        'A': {
+            // A whistle - lowest note is A
+            'A4':  { holes: ['X', 'X', 'X', 'X', 'X', 'X'], octave: 1 },
+            'B4':  { holes: ['X', 'X', 'X', 'X', 'X', 'O'], octave: 1 },
+            'C#5': { holes: ['X', 'X', 'X', 'X', 'O', 'O'], octave: 1 },
+            'D5':  { holes: ['X', 'X', 'X', 'O', 'O', 'O'], octave: 1 },
+            'E5':  { holes: ['X', 'X', 'O', 'O', 'O', 'O'], octave: 1 },
+            'F#5': { holes: ['X', 'O', 'O', 'O', 'O', 'O'], octave: 1 },
+            'G#5': { holes: ['O', 'O', 'O', 'O', 'O', 'O'], octave: 1 },
+            'G5':  { holes: ['O', 'X', 'X', 'O', 'O', 'O'], octave: 1 }, // Natural G (cross-fingering)
+            'C5':  { holes: ['X', 'X', 'X', 'X', 'H', 'O'], octave: 1 }, // Natural C (cross-fingering)
+            
+            'A5':  { holes: ['O', 'X', 'X', 'X', 'X', 'X'], octave: 2 },
+            'B5':  { holes: ['X', 'X', 'X', 'X', 'X', 'O'], octave: 2 },
+            'C#6': { holes: ['X', 'X', 'X', 'X', 'O', 'O'], octave: 2 },
+            'D6':  { holes: ['X', 'X', 'X', 'O', 'O', 'O'], octave: 2 },
+            'E6':  { holes: ['X', 'X', 'O', 'O', 'O', 'O'], octave: 2 },
+            'F#6': { holes: ['X', 'O', 'O', 'O', 'O', 'O'], octave: 2 },
+            'G#6': { holes: ['O', 'O', 'O', 'O', 'O', 'O'], octave: 2 },
+            'A6':  { holes: ['O', 'X', 'X', 'X', 'X', 'X'], octave: 2 },
+        },
+        
+        'Bb': {
+            // Bb whistle - lowest note is Bb
+            'Bb4': { holes: ['X', 'X', 'X', 'X', 'X', 'X'], octave: 1 },
+            'C5':  { holes: ['X', 'X', 'X', 'X', 'X', 'O'], octave: 1 },
+            'D5':  { holes: ['X', 'X', 'X', 'X', 'O', 'O'], octave: 1 },
+            'Eb5': { holes: ['X', 'X', 'X', 'O', 'O', 'O'], octave: 1 },
+            'F5':  { holes: ['X', 'X', 'O', 'O', 'O', 'O'], octave: 1 },
+            'G5':  { holes: ['X', 'O', 'O', 'O', 'O', 'O'], octave: 1 },
+            'A5':  { holes: ['O', 'O', 'O', 'O', 'O', 'O'], octave: 1 },
+            
+            'Bb5': { holes: ['O', 'X', 'X', 'X', 'X', 'X'], octave: 2 },
+            'C6':  { holes: ['X', 'X', 'X', 'X', 'X', 'O'], octave: 2 },
+            'D6':  { holes: ['X', 'X', 'X', 'X', 'O', 'O'], octave: 2 },
+            'Eb6': { holes: ['X', 'X', 'X', 'O', 'O', 'O'], octave: 2 },
+            'F6':  { holes: ['X', 'X', 'O', 'O', 'O', 'O'], octave: 2 },
+            'G6':  { holes: ['X', 'O', 'O', 'O', 'O', 'O'], octave: 2 },
+            'A6':  { holes: ['O', 'O', 'O', 'O', 'O', 'O'], octave: 2 },
+            'Bb6': { holes: ['O', 'X', 'X', 'X', 'X', 'X'], octave: 2 },
+        },
+        
+        'F': {
+            // F whistle - lowest note is F
+            'F4':  { holes: ['X', 'X', 'X', 'X', 'X', 'X'], octave: 1 },
+            'G4':  { holes: ['X', 'X', 'X', 'X', 'X', 'O'], octave: 1 },
+            'A4':  { holes: ['X', 'X', 'X', 'X', 'O', 'O'], octave: 1 },
+            'Bb4': { holes: ['X', 'X', 'X', 'O', 'O', 'O'], octave: 1 },
+            'C5':  { holes: ['X', 'X', 'O', 'O', 'O', 'O'], octave: 1 },
+            'D5':  { holes: ['X', 'O', 'O', 'O', 'O', 'O'], octave: 1 },
+            'E5':  { holes: ['O', 'O', 'O', 'O', 'O', 'O'], octave: 1 },
+            
+            'F5':  { holes: ['O', 'X', 'X', 'X', 'X', 'X'], octave: 2 },
+            'G5':  { holes: ['X', 'X', 'X', 'X', 'X', 'O'], octave: 2 },
+            'A5':  { holes: ['X', 'X', 'X', 'X', 'O', 'O'], octave: 2 },
+            'Bb5': { holes: ['X', 'X', 'X', 'O', 'O', 'O'], octave: 2 },
+            'C6':  { holes: ['X', 'X', 'O', 'O', 'O', 'O'], octave: 2 },
+            'D6':  { holes: ['X', 'O', 'O', 'O', 'O', 'O'], octave: 2 },
+            'E6':  { holes: ['O', 'O', 'O', 'O', 'O', 'O'], octave: 2 },
+            'F6':  { holes: ['O', 'X', 'X', 'X', 'X', 'X'], octave: 2 },
+        },
+        
+        'Eb': {
+            // Eb whistle - lowest note is Eb
+            'Eb4': { holes: ['X', 'X', 'X', 'X', 'X', 'X'], octave: 1 },
+            'F4':  { holes: ['X', 'X', 'X', 'X', 'X', 'O'], octave: 1 },
+            'G4':  { holes: ['X', 'X', 'X', 'X', 'O', 'O'], octave: 1 },
+            'Ab4': { holes: ['X', 'X', 'X', 'O', 'O', 'O'], octave: 1 },
+            'Bb4': { holes: ['X', 'X', 'O', 'O', 'O', 'O'], octave: 1 },
+            'C5':  { holes: ['X', 'O', 'O', 'O', 'O', 'O'], octave: 1 },
+            'D5':  { holes: ['O', 'O', 'O', 'O', 'O', 'O'], octave: 1 },
+            
+            'Eb5': { holes: ['O', 'X', 'X', 'X', 'X', 'X'], octave: 2 },
+            'F5':  { holes: ['X', 'X', 'X', 'X', 'X', 'O'], octave: 2 },
+            'G5':  { holes: ['X', 'X', 'X', 'X', 'O', 'O'], octave: 2 },
+            'Ab5': { holes: ['X', 'X', 'X', 'O', 'O', 'O'], octave: 2 },
+            'Bb5': { holes: ['X', 'X', 'O', 'O', 'O', 'O'], octave: 2 },
+            'C6':  { holes: ['X', 'O', 'O', 'O', 'O', 'O'], octave: 2 },
+            'D6':  { holes: ['O', 'O', 'O', 'O', 'O', 'O'], octave: 2 },
+            'Eb6': { holes: ['O', 'X', 'X', 'X', 'X', 'X'], octave: 2 },
         }
     },
     

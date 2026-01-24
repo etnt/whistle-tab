@@ -323,8 +323,17 @@ K: Dmin
 | "Dm" D2 f2 "C" e3 d | "Dm" f2 g2 "Am" a4 | "Gm" g2 f2 "Am" e3 d | "Dm" d8 :|
 % --- SECTION B ---
 |: "Dm" a2 d'2 "Am" c'3 a | "Gm" g2 a2 "C" c'4 | "Dm" d'2 c'2 "Am" a2 g2 | "Dm" f2 g2 "Am" a4 |
-| "Dm" a2 d'2 "Am" c'3 a | "Gm" g2 a2 "C" c'4 | "Am" a2 g2 "Gm" f2 e2 | "Dm" d8 :|`
+| "Dm" a2 d'2 "Am" c'3 a | "Gm" g2 a2 "C" c'4 | "Am" a2 g2 "Gm" f2 e2 | "Dm" d8 :|`,
 
-
+    "The Kesh": `X: 6
+T: The Kesh
+R: jig
+M: 6/8
+L: 1/8
+K: Amaj
+e|:"A"A3 ABc|"E"B3 Bce|"A"fee aee|"D"fec "E"ecB|
+"A"A3 ABc|"E"B3 Bce|"A"fee aec|"E"BcB "A"A3:|
+|:"A"c3 ece|"D"(3fgaf "A"ecA|"A"c3 ecA|"E"BcB BAB|
+"A"c3 ece|"D"(3fgaf "A"ece|"D"a(3fga "E"bab|"E"c'ag "A"a3:|`
 
 };
