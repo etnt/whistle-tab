@@ -334,6 +334,16 @@ K: Amaj
 e|:"A"A3 ABc|"E"B3 Bce|"A"fee aee|"D"fec "E"ecB|
 "A"A3 ABc|"E"B3 Bce|"A"fee aec|"E"BcB "A"A3:|
 |:"A"c3 ece|"D"(3fgaf "A"ecA|"A"c3 ecA|"E"BcB BAB|
-"A"c3 ece|"D"(3fgaf "A"ece|"D"a(3fga "E"bab|"E"c'ag "A"a3:|`
+"A"c3 ece|"D"(3fgaf "A"ece|"D"a(3fga "E"bab|"E"c'ag "A"a3:|`,
+
+    "Down By The Sally Gardens": `X: 6
+T: Down By The Sally Gardens
+R: reel
+M: 4/4
+L: 1/8
+K: Gmaj
+|:GA|"G"B2 AG "D" A2 Bd|"C"e4 "G"d2 gd|"C"e2 dB "D" A3 G|"G"G5:|
+d2|"Em"g2 fd e2 g2|"Bm"f4 d2 Bd|"C"e2 dB "D"dega|"G"g5 GA|
+"G"B2 AG "D"A2 Bd|"C"e4 "G"d2 gd|"C"e2 dB "D" A3 G|G5||`
 
 };
