@@ -359,6 +359,17 @@ dc| "G"B3A G2 | "G"B3c d2 | "D"A4 B2 | "D"A4 dc |
 "G"g3a f2 | "Em"g3f e2 | "G"d4 e2 | "D"d4 c2 |
 "G"B3A G2 | "G"B3c d2 | "D"A4 B2 | "D"A2 z2 (3def |
 "G"g3a f2 | "Em"g3f e2 | "G"d4 e2 | "D"d4 c2 |
-"G"Bd3 G2 | "D"Ac3 F2 | "G"G6-| "G"G2 z2 ||`
+"G"Bd3 G2 | "D"Ac3 F2 | "G"G6-| "G"G2 z2 ||`,
+
+    "The Foggy Dew": `X: 2
+T: The Foggy Dew
+R: waltz
+M: 3/4
+L: 1/8
+K: Emin
+B2 d2|"Em"e2 d2 B2|"Em"e3 d B2|"G"A2 B2 G2|"D"D3 E F2|"G"G3 B AG|"Em"E4 "D"D2|"Em"E6-|"Em"E2 g2 f2|
+"Em"e3 d B2|"Em"ed- d2 B2|"D"A4 G2|"D"D4 F2|"G"G2 B2 G2|"B7"E4 ^D2|"Em"E6-|"Em"E2||
+"Em"E2 F2|"G"G4 BG|"G"d/e/d c2 B2|"D"A3 G A2|"G"B4 GA|"Em"B2 g3 f|"Em"e3 d B/c/d|"Em"e6-|"Em"e2 B2 g2|
+"Em"e2 d2 B2|"G"g3 b ag|"Em"e3 d BG|"D"D4 D/E/F|"G"G3 B AG|"B7"E4 ^D2|"Em"E6-|"Em"E2||`
 
 };
