@@ -344,6 +344,21 @@ L: 1/8
 K: Gmaj
 |:GA|"G"B2 AG "D" A2 Bd|"C"e4 "G"d2 gd|"C"e2 dB "D" A3 G|"G"G5:|
 d2|"Em"g2 fd e2 g2|"Bm"f4 d2 Bd|"C"e2 dB "D"dega|"G"g5 GA|
-"G"B2 AG "D"A2 Bd|"C"e4 "G"d2 gd|"C"e2 dB "D" A3 G|G5||`
+"G"B2 AG "D"A2 Bd|"C"e4 "G"d2 gd|"C"e2 dB "D" A3 G|G5||`,
+
+    "The South Wind": `X: 1
+T: The South Wind
+R: Air
+M: 3/4
+L: 1/8
+K: Gmaj
+dc| "G"B3A G2 | "G"B3c d2 | "D"A4 B2 | "D"A4 dc |
+"G"B3A G2 | "C"E3D E2 | "G"G6-| "G"G2 z2 dc |
+"G"B3A G2 | "G"B3c d2 | "D"A4 B2 | "D"A4 dc |
+"G"B3A G2 | "C"E3D E2 | "G"G6-| "G"G2 z2 (3def |
+"G"g3a f2 | "Em"g3f e2 | "G"d4 e2 | "D"d4 c2 |
+"G"B3A G2 | "G"B3c d2 | "D"A4 B2 | "D"A2 z2 (3def |
+"G"g3a f2 | "Em"g3f e2 | "G"d4 e2 | "D"d4 c2 |
+"G"Bd3 G2 | "D"Ac3 F2 | "G"G6-| "G"G2 z2 ||`
 
 };
