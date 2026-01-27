@@ -387,6 +387,19 @@ K: Dmaj
 "D"fga3 d | "A"fe4 | "Bm"fed2 c2 | "G"A2 B3 B |
 "D"AGFA d2 | "A"f2 e4 | "G"dcBd f2 | "G"b2 "A"a4 |
 "D"AGF3 E | "D"FGA4 | "G"Bcd2 c2 | "G"A2 B4 |
-"D"AGFGA2 | "A"F2 E4 | "D"D6 |`
+"D"AGFGA2 | "A"F2 E4 | "D"D6 |`,
+
+    "The Blarney Pilgrim": `X: 1
+T: The Blarney Pilgrim
+R: jig
+M: 6/8
+L: 1/8
+K: Dmix
+|: "D"DED DEG | "D"A2A ABc | "G"BAG "D"AGE | "C"GEA "D"GED |
+"D"DED DEG | "D"A2A ABc | "G"BAG "D"AGE | "C"GED "D"D3 :|
+|: "G"ded dBG | "D"AGA "G"BGE | "G"ded dBG | "D"AGA "G"GAB |
+"G"g2e dBG | "D"AGA "G"BGE | "G"B2G "D"AGE | "C"GED "D"D3 :|
+|: "D"A2D "G"B2D | "D"A2D ABc | "G"BAG "D"AGE | "C"GEA "D"GED |
+"D"ADD "G"BDD | "D"ADD ABc | "G"BAG "D"AGE | "C"GED "D"D3 :|`
 
 };
