@@ -413,6 +413,18 @@ K: Dmix
 |: "G"ded dBG | "D"AGA "G"BGE | "G"ded dBG | "D"AGA "G"GAB |
 "G"g2e dBG | "D"AGA "G"BGE | "G"B2G "D"AGE | "C"GED "D"D3 :|
 |: "D"A2D "G"B2D | "D"A2D ABc | "G"BAG "D"AGE | "C"GEA "D"GED |
-"D"ADD "G"BDD | "D"ADD ABc | "G"BAG "D"AGE | "C"GED "D"D3 :|`
+"D"ADD "G"BDD | "D"ADD ABc | "G"BAG "D"AGE | "C"GED "D"D3 :|`,
+
+    "Caoineadh Na dTri Muire": `X: 2
+T: Caoineadh Na dTri Muire
+R: Air
+M: 3/4
+L: 1/8
+K: Gmaj
+|: "G"G>(E | "D"D4) EG | "D"A4 GA | "G"B4 ~AG | "C"E<(G G4) |
+"Am"c4 A<(d | "G"d4) ~e2 | "G"d2 B>G ("D"A2 | "D"A4) GA |
+"G"B<(d d2) ~e2 | "G"d4 BA | "Em"G4 ~ED | "C"E<(G G4) |
+"G"B4 ~A2 | "Em"G4 ~E2 | "C"D2 E<G "D"~A2 | "G"~G4 :|
+"variant 4th measure"| "D"E<(D D4) |`
 
 };
