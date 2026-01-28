@@ -20,8 +20,21 @@ T:D Major Scale
 M:4/4
 L:1/4
 K:D
-D E F G | A B c d |
-d c B A | G F E D |]`,
+| D E F G | A B c d | c B A G | F E D> |`,
+
+    "G Major Scale": `X:1
+T:G Major Scale
+M:4/4
+L:1/4
+K:G
+| G A B c | d e f g | f e d c | B A G> |`,
+
+    "A Major Scale": `X:1
+T:A Major Scale
+M:4/4
+L:1/4
+K:A
+| A B c d | e f g a | g f e d | c B A> |`,
 
     "The Irish Washerwoman": `X:1
 T:The Irish Washerwoman
