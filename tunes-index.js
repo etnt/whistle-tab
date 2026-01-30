@@ -338,8 +338,8 @@ K: Dmin
 |: "Dm" a2 d'2 "Am" c'3 a | "Gm" g2 a2 "C" c'4 | "Dm" d'2 c'2 "Am" a2 g2 | "Dm" f2 g2 "Am" a4 |
 | "Dm" a2 d'2 "Am" c'3 a | "Gm" g2 a2 "C" c'4 | "Am" a2 g2 "Gm" f2 e2 | "Dm" d8 :|`,
 
-    "The Kesh": `X: 6
-T: The Kesh
+    "The Kesh Jig - Amaj": `X: 6
+T: The Kesh Jig
 R: jig
 M: 6/8
 L: 1/8
@@ -348,6 +348,18 @@ e|:"A"A3 ABc|"E"B3 Bce|"A"fee aee|"D"fec "E"ecB|
 "A"A3 ABc|"E"B3 Bce|"A"fee aec|"E"BcB "A"A3:|
 |:"A"c3 ece|"D"(3fgaf "A"ecA|"A"c3 ecA|"E"BcB BAB|
 "A"c3 ece|"D"(3fgaf "A"ece|"D"a(3fga "E"bab|"E"c'ag "A"a3:|`,
+
+    "The Kesh Jig - Gmaj": `X: 1
+T: The Kesh Jig
+C: (Arr. www.oaim.ie)
+R: jig
+M: 6/8
+L: 1/8
+K: Gmaj
+|: "G"G3 GAB | "D"ABG ABD' | "C"edd "G"gdd | "C"edB "D"dBA |
+| "G"G3 GAB | "D"ABG ABD' | "C"edd "D"gdB |[1 "D"AGF "G"G2 D :| [2 "D"AGF "G"G2 A |]
+|: "G"B2 G d2 d | "C"ege "G"dBA | "G"BAB dBG | "D"ABA AGA |
+| "G"B2 G d2 d | "C"ege "G"d2 a | "G"gfg "D"afa |[1 "D"bgf "G"g2 d :| [2 "D"bgf "G"g3 |]`,
 
     "Down By The Sally Gardens": `X: 6
 T: Down By The Sally Gardens
