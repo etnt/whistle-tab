@@ -435,9 +435,21 @@ M:4/4
 L:1/8
 Q:1/4=100
 K:G
-D2 | "G"G3 A "G/B"B2 G2 | "C"(B3 A) "G"B2 d2 | "C"e4 "G"d2 (Bd) | "C"(e3 f) "G"g2 (fe) |
+|: D2 | "G"G3 A "G/B"B2 G2 | "C"(B3 A) "G"B2 d2 | "C"e4 "G"d2 (Bd) | "C"(e3 f) "G"g2 (fe) |
 "G"d3 B "Em"d2 e2 | "G"(B3 A) "Em"G2 B2 | "Am7"A3 G "C"E2 G2 | "D7"(A3 B) "D"A2 D2 |
 "G"G3 A "G/B"B2 G2 | "C"(B3 A) "G"B2 d2 | "C"e4 "G"d2 (Bd) | "C"(e3 f) "G"g2 (fe) |
-"G"d3 B "Em"d2 e2 | "G"(B3 A) "Em"G2 B2 | "Am7"A3 G "C"E2 G2 | "D7"(A3 B) "G"A2 |]`
+"G"d3 B "Em"d2 e2 | "G"(B3 A) "Em"G2 B2 | "Am7"A3 G "C"E2 G2 | "D7"(A3 B) "G"A2 :|`,
+
+    "Amazing Grace": `X: 1
+T: Amazing Grace
+R: air
+M: 3/4
+L: 1/8
+Q: 80
+K: G
+D2 | "G"G4 (BG) | "G"B4 (AG) | "C"E4 D2 | "G"D4 D2 |
+"G"G4 (BG) | "G"B4 (AB) | "D"d4- d2 | "D"d4 B2 |
+"G"d4 (BA) | "G"G4 (ED) | "C"E4 G2 | "G"G4 D2 |
+"G"G4 (BG) | "D"B4 (AG) | "G"G4- G2 | "G"G4 |]`
 
 };
