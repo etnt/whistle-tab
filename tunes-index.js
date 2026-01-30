@@ -425,6 +425,19 @@ K: Gmaj
 "Am"c4 A<(d | "G"d4) ~e2 | "G"d2 B>G ("D"A2 | "D"A4) GA |
 "G"B<(d d2) ~e2 | "G"d4 BA | "Em"G4 ~ED | "C"E<(G G4) |
 "G"B4 ~A2 | "Em"G4 ~E2 | "C"D2 E<G "D"~A2 | "G"~G4 :|
-"variant 4th measure"| "D"E<(D D4) |`
+"variant 4th measure"| "D"E<(D D4) |`,
+
+    "Wild Mountain Thyme": `X:1
+T:Wild Mountain Thyme
+T:Will Ye Go, Lassie, Go?
+C: (Arr. Scott's Low D)
+M:4/4
+L:1/8
+Q:1/4=100
+K:G
+D2 | "G"G3 A "G/B"B2 G2 | "C"(B3 A) "G"B2 d2 | "C"e4 "G"d2 (Bd) | "C"(e3 f) "G"g2 (fe) |
+"G"d3 B "Em"d2 e2 | "G"(B3 A) "Em"G2 B2 | "Am7"A3 G "C"E2 G2 | "D7"(A3 B) "D"A2 D2 |
+"G"G3 A "G/B"B2 G2 | "C"(B3 A) "G"B2 d2 | "C"e4 "G"d2 (Bd) | "C"(e3 f) "G"g2 (fe) |
+"G"d3 B "Em"d2 e2 | "G"(B3 A) "Em"G2 B2 | "Am7"A3 G "C"E2 G2 | "D7"(A3 B) "G"A2 |]`
 
 };
