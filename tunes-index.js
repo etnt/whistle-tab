@@ -462,6 +462,21 @@ K: G
 D2 | "G"G4 (BG) | "G"B4 (AG) | "C"E4 D2 | "G"D4 D2 |
 "G"G4 (BG) | "G"B4 (AB) | "D"d4- d2 | "D"d4 B2 |
 "G"d4 (BA) | "G"G4 (ED) | "C"E4 G2 | "G"G4 D2 |
-"G"G4 (BG) | "D"B4 (AG) | "G"G4- G2 | "G"G4 |]`
+"G"G4 (BG) | "D"B4 (AG) | "G"G4- G2 | "G"G4 |]`,
+
+    "Carolan's Welcome": `X: 4
+T: Carolan's Welcome
+R: waltz
+M: 3/4
+L: 1/8
+K: Gmaj
+BA | "G"G2 Bc d2 | "G"G2 Bc d2 | "C"cd cB AG | "D"F/G/A F2 D2 |
+"G"B3A G2 | "Am"c3B A2 | "G/B"Bd "D"D2 F2 | "G"G4 BA |
+"G"G2 Bc d2 | "G"G2 Bc d2 | "C"cd cB AG | "D"F/G/A F2 D2 |
+"D"f3e d2 | "Em"g3f "C"dc | "G"Bd "D"cB AB | "G"G4 ||
+dc | "G"d2 ga b2 | "G"d2 ga b2 | "D"ba gf ga | "G"b2 d2 d2 |
+"C"e2 ge dc | "G"d2 fd cB | "Am"c2 "D"d2 f2 | "G"g4 g2 |
+"G"gf df g2 | "D"fd cd f2 | "G"dc Bc dB | "F"c2 A2 F2 |
+"G"B3A G2 | "Am"c3B A2 | "G/B"Bd "D"D2 F2 | "G"G4 ||`
 
 };
