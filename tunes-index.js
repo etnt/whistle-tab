@@ -477,6 +477,21 @@ BA | "G"G2 Bc d2 | "G"G2 Bc d2 | "C"cd cB AG | "D"F/G/A F2 D2 |
 dc | "G"d2 ga b2 | "G"d2 ga b2 | "D"ba gf ga | "G"b2 d2 d2 |
 "C"e2 ge dc | "G"d2 fd cB | "Am"c2 "D"d2 f2 | "G"g4 g2 |
 "G"gf df g2 | "D"fd cd f2 | "G"dc Bc dB | "F"c2 A2 F2 |
-"G"B3A G2 | "Am"c3B A2 | "G/B"Bd "D"D2 F2 | "G"G4 ||`
+"G"B3A G2 | "Am"c3B A2 | "G/B"Bd "D"D2 F2 | "G"G4 ||`,
+
+    "Sí Bheag Sí Mhór": `X: 1
+T: Sí Bheag Sí Mhór
+R: waltz
+M: 3/4
+L: 1/8
+K: Dmaj
+de|: "D"f3e d2 | "D"d2 de d2 | "G"B4 A2 | "D"F4 A2 |
+"G"BA Bc d2 | "Em"e4 de | "D"f2 f2 "A"e2 | "D"d4 f2 |
+"G"B4 "A"e2 | "D"A4 "Bm"d2 | "D"F4 "A"E2 | "D"D4 e2 |
+"G"B4 "Em"e2 | "A"A4 dc | "D"d6 | "D"d4 de :|
+|: "D"f2 fe d2 | "A"ed ef a2 | "G"b4 a2 | "D"f4 ed |
+"A"e4 a2 | "D"f4 e2 | "G"d4 B2 | "D"A4 BA |
+"D"F4 "A"E2 | "D"D4 f2 | "G"B4 "Em"e2 | "D"A4 a2 |
+"G"ba gf "D"ed | "A"e4 dc | "D"d6 |1 "D"d4 de :|2 "D"d6 ||`
 
 };
