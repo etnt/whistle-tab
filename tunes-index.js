@@ -492,6 +492,40 @@ de|: "D"f3e d2 | "D"d2 de d2 | "G"B4 A2 | "D"F4 A2 |
 |: "D"f2 fe d2 | "A"ed ef a2 | "G"b4 a2 | "D"f4 ed |
 "A"e4 a2 | "D"f4 e2 | "G"d4 B2 | "D"A4 BA |
 "D"F4 "A"E2 | "D"D4 f2 | "G"B4 "Em"e2 | "D"A4 a2 |
-"G"ba gf "D"ed | "A"e4 dc | "D"d6 |1 "D"d4 de :|2 "D"d6 ||`
+"G"ba gf "D"ed | "A"e4 dc | "D"d6 |1 "D"d4 de :|2 "D"d6 ||`,
+
+    "Kitty's Wedding": `X: 5
+T: Kitty's Wedding
+R: hornpipe
+M: 4/4
+L: 1/8
+K: Dmaj
+|:fe|"D"d2Bd A2FA|"A"BAFA "D"D2 ed|"G"BdAB "D"dfbf|"Em"afdf "A"e2fe|
+"D"d2Bd A2FA|"A"BAFA "D"D2 ed|"G"BdAB "D"dfbf|"A"afef "D"d2:|
+|:fg|"D"afed "G"bafd|"D"Adfd "G"edBd|"D"DFAd "Bm"FAde|"Em"fdgf "A"e2fg|
+"D"afed "G"bafd|"D"Adfd "G"edBd|"D"DFAd "Bm"FAdf|"A"eABc "D"d2:|`,
+
+    "MacLeod's Farewell": `X: 1
+T: MacLeod's Farewell
+R: reel
+M: 4/4
+L: 1/8
+K: Dmaj
+|:DE|"D"F2BF AFEF|"D"D2 DE FABd|"G"e2 fd efdB|"G"ABde dBAG|
+"Bm"F2BF AFEF|"Bm"D2 DE FABd|"G"e2fd efdB|1 "A"ABd"D"e d2:|2 "A"ABde "D"d3||
+B|"D"A3 f edfd|"D"A3 f edfd|"G"ABdA BdAB|"G"dBAF E2 DE|
+"Bm"F2BF AFEF|"Bm"D2DE FABd|"G"2e2fd efdB|1 "A"ABde "D"d3:|2 "A"ABd"D"e d2||`,
+
+    "Denis Murphy's": `X: 1
+T: Denis Murphy's
+R: slide
+M: 12/8
+L: 1/8
+K: Dmaj
+|: "D"A2D FED F2A A2f | "G"gfe "D"fed "A"e2d BdB |
+"D"A2D FED F2A A2f | "D"a2f "A"efe "D"d3 d3 :|
+|: "D"d2e f3 "G"gf"D"e f3 | "G"gfe "D"fed "A"e2 d BdB |
+"D"d2e f3 "G"gf"D"e f2f | "D"a2f "A"efe "D"d3 d3 :|`
+
 
 };
