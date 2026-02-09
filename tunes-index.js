@@ -525,7 +525,18 @@ K: Dmaj
 |: "D"A2D FED F2A A2f | "G"gfe "D"fed "A"e2d BdB |
 "D"A2D FED F2A A2f | "D"a2f "A"efe "D"d3 d3 :|
 |: "D"d2e f3 "G"gf"D"e f3 | "G"gfe "D"fed "A"e2 d BdB |
-"D"d2e f3 "G"gf"D"e f2f | "D"a2f "A"efe "D"d3 d3 :|`
+"D"d2e f3 "G"gf"D"e f2f | "D"a2f "A"efe "D"d3 d3 :|`,
+
+    "The Flowers Of Edinburgh": `X: 5
+T: The Flowers Of Edinburgh
+R: reel
+M: 4/4
+L: 1/8
+K: Gmaj
+D2|: "G"G2 DG B2 GB | "G"d2 B2 "C"g3 e | "G"d2 B2 "D"BAGA | "G"B2 G2 "Em7"E2 D2 |
+"G"G2 DG B2 GB | "G"d2 B2 "C"g3 e | "D"d2B2 "D"BAGA | "D"B2 G2 "G"G2 ||
+f2| "G"g4 "D"f3 e | "Em7"B2 e2 e3 f | "G"g2 g2 "D"fafd | "Em7"B2 e2 e2 ge |
+"G"dBGB d2 d2 | "C"edef "G"g2 fe | "D"d2 B2 "D"BAGA | "D"B2 G2 "G"G2 :||`
 
 
 };
