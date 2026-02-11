@@ -549,7 +549,21 @@ DF |: "G"G4 cA | "D"B4 AF | "G"G4 Bd | "C"g4 a2 | "G"(3gfe f2 {c}d2 | "Am"AB c2 
 "G"d3 e dc | "D"AB "G"G4 |1 "C"Bd c3 B | "D"A4 DE/F/ :|2 "D"cB A G2 F | "G"G4 A/B/d ||
 "G"g2 B2 de | "C"fe e2 d2 | "Am"ca "G"B4- | "D"B4 AF | "G"G3 A Bd | "G"g2 B2 de |
 "D"f2 fe f2 | "D7"fe d4 | "D"z2 D2 EF | "G"G4 cA | "D"B4 AF | "G"G4 Bd |
-"C"g4 a2 | "G"ge f2 d2 | "Am"AB c2 Bc | "G"d3 e dc | "D"AB "G"G4 | "G"GFG2 ||`
+"C"g4 a2 | "G"ge f2 d2 | "Am"AB c2 Bc | "G"d3 e dc | "D"AB "G"G4 | "G"GFG2 ||`,
+
+    "Casadh An tSúgáin": `X: 6
+T: Casadh An tSúgáin
+T: The White Blanket
+N: See YouTube: Low Whistle Slow Air - Casadh an tsúgáin - Chris McMullan
+R: hornpipe
+M: 4/4
+L: 1/8
+K: Gmaj
+M:3/4
+(G>AB|c4 E2|G4 ED|EG-G4-|G3) (GAB|c4 A>c|B4 A2|G4 ED|E6-|E4) D2|
+E2 G4|A4 B2|d4 BA|B2 G4-|G4 E2|D4 E2|G4 G2|G6-|G3||
+(GBd|e4 d2|e g3 e2|d4 e2|d4 BA|G4) (AB|c4 dc|B4 A2|G4 ED|E6-|E4) D2|
+E2 G4|A4 B2|d4 BA|B2 G4-|G4 E2|D4 E2|G4 G2|G6-|G3||`
 
 
 };
