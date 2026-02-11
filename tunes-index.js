@@ -536,7 +536,20 @@ K: Gmaj
 D2|: "G"G2 DG B2 GB | "G"d2 B2 "C"g3 e | "G"d2 B2 "D"BAGA | "G"B2 G2 "Em7"E2 D2 |
 "G"G2 DG B2 GB | "G"d2 B2 "C"g3 e | "D"d2B2 "D"BAGA | "D"B2 G2 "G"G2 ||
 f2| "G"g4 "D"f3 e | "Em7"B2 e2 e3 f | "G"g2 g2 "D"fafd | "Em7"B2 e2 e2 ge |
-"G"dBGB d2 d2 | "C"edef "G"g2 fe | "D"d2 B2 "D"BAGA | "D"B2 G2 "G"G2 :||`
+"G"dBGB d2 d2 | "C"edef "G"g2 fe | "D"d2 B2 "D"BAGA | "D"B2 G2 "G"G2 :||`,
+
+    "Sliabh Na mBan": `X: 1
+T: Sliabh Na mBan
+T: The Mountain of the Women
+R: waltz
+M: 3/4
+L: 1/8
+K: Gmaj
+DF |: "G"G4 cA | "D"B4 AF | "G"G4 Bd | "C"g4 a2 | "G"(3gfe f2 {c}d2 | "Am"AB c2 Bc |
+"G"d3 e dc | "D"AB "G"G4 |1 "C"Bd c3 B | "D"A4 DE/F/ :|2 "D"cB A G2 F | "G"G4 A/B/d ||
+"G"g2 B2 de | "C"fe e2 d2 | "Am"ca "G"B4- | "D"B4 AF | "G"G3 A Bd | "G"g2 B2 de |
+"D"f2 fe f2 | "D7"fe d4 | "D"z2 D2 EF | "G"G4 cA | "D"B4 AF | "G"G4 Bd |
+"C"g4 a2 | "G"ge f2 d2 | "Am"AB c2 Bc | "G"d3 e dc | "D"AB "G"G4 | "G"GFG2 ||`
 
 
 };
