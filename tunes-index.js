@@ -563,7 +563,20 @@ M:3/4
 (G>AB|c4 E2|G4 ED|EG-G4-|G3) (GAB|c4 A>c|B4 A2|G4 ED|E6-|E4) D2|
 E2 G4|A4 B2|d4 BA|B2 G4-|G4 E2|D4 E2|G4 G2|G6-|G3||
 (GBd|e4 d2|e g3 e2|d4 e2|d4 BA|G4) (AB|c4 dc|B4 A2|G4 ED|E6-|E4) D2|
-E2 G4|A4 B2|d4 BA|B2 G4-|G4 E2|D4 E2|G4 G2|G6-|G3||`
+E2 G4|A4 B2|d4 BA|B2 G4-|G4 E2|D4 E2|G4 G2|G6-|G3||`,
+
+    "Merrily Kissed The Quaker": `X: 1
+T: Merrily Kissed The Quaker
+R: slide
+M: 12/8
+L: 1/8
+K: Gmaj
+|: "G"GAB D2B "C"c2A "G"BAG | "G"G2E DEG "D"ABA AGE |
+"G"GAB D2B "C"c2A "G"BAG | "G"GAB "D"D2E "G"G2A B2A :|
+|: "G"G2B d^cd "C"edB "G"d2B | "G"G2B d2B "D"ABA AGE |
+"G"G2B d^cd "C"edB "G"d2B | "G"GAB "D"D2E "G"G2A B2A :|
+|: "G"G2B d^cd "Em"edB g2e | "G"dBA GBd "C"e2f "G"g3 |
+"G"ged "Em"BAG "G"d2B "D"AGE | "G"GAB "D"D2E "G"G2A B2A :|`
 
 
 };
