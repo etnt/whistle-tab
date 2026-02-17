@@ -576,7 +576,18 @@ K: Gmaj
 |: "G"G2B d^cd "C"edB "G"d2B | "G"G2B d2B "D"ABA AGE |
 "G"G2B d^cd "C"edB "G"d2B | "G"GAB "D"D2E "G"G2A B2A :|
 |: "G"G2B d^cd "Em"edB g2e | "G"dBA GBd "C"e2f "G"g3 |
-"G"ged "Em"BAG "G"d2B "D"AGE | "G"GAB "D"D2E "G"G2A B2A :|`
+"G"ged "Em"BAG "G"d2B "D"AGE | "G"GAB "D"D2E "G"G2A B2A :|`,
+
+    "Old Mother Flanagan": `X:1
+T:Old Mother Flanagan
+R:reel
+M:4/4
+L:1/8
+K:A
+|: a2 a2 fecd | efec BAFG | ABAF EFAB | cBcd e2 (3efg |
+a2 a2 fecd | efec BAFG | ABAF EFAB |1 cABG A2 (3efg :|2 cABG A2 E2 ||
+|: ABAF EFAB | c2 cA BAFG | ABAF EFAB | cBcd e4 |
+d2 fd c2 ec | BABc BAF2 | ABAF EFAB |1 cABG A2 E2 :|2 cABG A2 (3efg :|`
 
 
 };
