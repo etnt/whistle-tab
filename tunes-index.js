@@ -590,6 +590,7 @@ a2 a2 fecd | efec BAFG | ABAF EFAB |1 cABG A2 (3efg :|2 cABG A2 E2 ||
 d2 fd c2 ec | BABc BAF2 | ABAF EFAB |1 cABG A2 E2 :|2 cABG A2 (3efg :|`,
 
     "The Swallowtail": `X:1
+T:The Swallowtail
 R: jig
 M: 6/8
 L: 1/8
