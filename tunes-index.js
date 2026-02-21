@@ -587,7 +587,17 @@ K:A
 |: a2 a2 fecd | efec BAFG | ABAF EFAB | cBcd e2 (3efg |
 a2 a2 fecd | efec BAFG | ABAF EFAB |1 cABG A2 (3efg :|2 cABG A2 E2 ||
 |: ABAF EFAB | c2 cA BAFG | ABAF EFAB | cBcd e4 |
-d2 fd c2 ec | BABc BAF2 | ABAF EFAB |1 cABG A2 E2 :|2 cABG A2 (3efg :|`
+d2 fd c2 ec | BABc BAF2 | ABAF EFAB |1 cABG A2 E2 :|2 cABG A2 (3efg :|`,
+
+    "The Swallowtail": `X:1
+R: jig
+M: 6/8
+L: 1/8
+K: Edor
+|: "Em"GEE BEE | GEE BAG | "D"FDD ADD | dcd AGF |
+"Em"GEE BEE | GEG B2c | "D"dcd AGF | "Em"GEE E3 :|
+|: "Em"Bcd e2f | e2f edB | Bcd e2f | "D"edB d3 |
+"Em"Bcd e2f | e2f edB | "D"dcd AGF | "Em"GEE E3 :|`
 
 
 };
