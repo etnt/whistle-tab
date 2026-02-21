@@ -9,6 +9,7 @@
 let currentTune = null;
 let visualObj = null;
 let synthControl = null;
+let originalAbc = null;  // Store the original ABC before any transposition
 
 /**
  * Initialize the application
@@ -19,8 +20,8 @@ function init() {
     document.getElementById('stop-btn').addEventListener('click', stopPlayback);
     document.getElementById('export-btn').addEventListener('click', exportAsMIDI);
     document.getElementById('export-pdf-btn').addEventListener('click', exportAsPDF);
-    document.getElementById('abc-input').addEventListener('input', debounce(renderMusic, 500));
-    document.getElementById('whistle-key').addEventListener('change', renderMusic);
+    document.getElementById('abc-input').addEventListener('input', debounce(() => renderMusic(true), 500));
+    document.getElementById('transpose-key').addEventListener('change', () => renderMusic(false));
     
     // Speed slider update
     document.getElementById('speed-slider').addEventListener('input', (e) => {
@@ -35,45 +36,298 @@ function init() {
 }
 
 /**
- * Detect the best whistle key based on the tune's key signature
- * @param {string} abcText - The ABC notation text
- * @returns {string|null} - The recommended whistle key (D, C, G, etc.) or null
+ * Chromatic note names for transposition
  */
-function detectBestWhistleKey(abcText) {
-    // Extract the key from ABC notation
-    const keyMatch = abcText.match(/^K:\s*([A-Ga-g][#b]?)\s*(m|min|maj|mix|dor)?/m);
-    if (!keyMatch) return null;
+const chromaticNotes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+const chromaticNotesFlat = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+
+/**
+ * Get the semitone index of a note (0-11)
+ */
+function getNoteIndex(note) {
+    const noteMap = {
+        'C': 0, 'C#': 1, 'Db': 1,
+        'D': 2, 'D#': 3, 'Eb': 3,
+        'E': 4, 'Fb': 4, 'E#': 5,
+        'F': 5, 'F#': 6, 'Gb': 6,
+        'G': 7, 'G#': 8, 'Ab': 8,
+        'A': 9, 'A#': 10, 'Bb': 10,
+        'B': 11, 'Cb': 11, 'B#': 0
+    };
+    return noteMap[note] !== undefined ? noteMap[note] : -1;
+}
+
+/**
+ * Transpose a note name by semitones
+ * @param {string} noteName - Note name like 'C', 'F#', 'Bb'
+ * @param {number} semitones - Number of semitones to transpose (positive = up, negative = down)
+ * @param {boolean} preferFlats - Whether to prefer flat notation
+ * @returns {string} - Transposed note name
+ */
+function transposeNote(noteName, semitones, preferFlats = false) {
+    const index = getNoteIndex(noteName);
+    if (index === -1) return noteName;
     
-    const tuneKey = keyMatch[1].toUpperCase();
+    let newIndex = (index + semitones) % 12;
+    if (newIndex < 0) newIndex += 12;
     
-    // Available whistle keys in the dropdown
-    const availableWhistles = ['D', 'C', 'G', 'Bb', 'F', 'Eb', 'A'];
+    // Prefer flats for flat keys, sharps for sharp keys
+    return preferFlats ? chromaticNotesFlat[newIndex] : chromaticNotes[newIndex];
+}
+
+/**
+ * Transpose ABC notation by semitones
+ * This transposes both the melody notes and chord symbols
+ * @param {string} abc - The ABC notation
+ * @param {number} semitones - Number of semitones to transpose
+ * @returns {string} - Transposed ABC notation
+ */
+function transposeABC(abc, semitones) {
+    if (semitones === 0) return abc;
     
-    // Direct mapping: if we have a whistle in that key, use it
-    // Handle flat notation (lowercase 'b' in ABC becomes 'b' in key)
-    let normalizedKey = tuneKey.replace('#', '');
-    if (tuneKey.endsWith('B') && tuneKey.length === 2) {
-        // Convert e.g., "BB" or "Bb" to "Bb"
-        normalizedKey = tuneKey.charAt(0) + 'b';
-    }
+    // Use sharps for keys with sharps (A, E, B, etc.), flats for keys with flats
+    // For transposing DOWN from D: -5 goes to A (sharps), -7 goes to G (sharps)
+    const preferFlats = [-2, -4, -8, 1, 3].includes(semitones);
     
-    // Check if we have a whistle matching this key
-    if (availableWhistles.includes(normalizedKey)) {
-        return normalizedKey;
-    }
+    const lines = abc.split('\n');
+    const result = [];
+    let inBody = false;
     
-    // Fallback mappings for keys where we don't have a matching whistle
-    const fallbackMap = {
-        'E': 'D',   // E major -> D whistle
-        'B': 'A',   // B major -> A whistle
-        'F#': 'D',  // F# major -> D whistle
-        'C#': 'D',  // C# major -> D whistle
-        'Ab': 'Eb', // Ab major -> Eb whistle
-        'Db': 'C',  // Db major -> C whistle
-        'Gb': 'F',  // Gb major -> F whistle
+    // Track key signature accidentals (both original and new)
+    let oldKeyAccidentals = {};
+    let newKeyAccidentals = {};
+    
+    // Key signature accidentals mapping
+    const keySignatureAccidentals = {
+        'C': {}, 'Am': {},
+        'G': {'F': '#'}, 'Em': {'F': '#'},
+        'D': {'F': '#', 'C': '#'}, 'Bm': {'F': '#', 'C': '#'},
+        'A': {'F': '#', 'C': '#', 'G': '#'}, 'F#m': {'F': '#', 'C': '#', 'G': '#'},
+        'E': {'F': '#', 'C': '#', 'G': '#', 'D': '#'}, 'C#m': {'F': '#', 'C': '#', 'G': '#', 'D': '#'},
+        'B': {'F': '#', 'C': '#', 'G': '#', 'D': '#', 'A': '#'}, 'G#m': {'F': '#', 'C': '#', 'G': '#', 'D': '#', 'A': '#'},
+        'F#': {'F': '#', 'C': '#', 'G': '#', 'D': '#', 'A': '#', 'E': '#'},
+        'F': {'B': 'b'}, 'Dm': {'B': 'b'},
+        'Bb': {'B': 'b', 'E': 'b'}, 'Gm': {'B': 'b', 'E': 'b'},
+        'Eb': {'B': 'b', 'E': 'b', 'A': 'b'}, 'Cm': {'B': 'b', 'E': 'b', 'A': 'b'},
+        'Ab': {'B': 'b', 'E': 'b', 'A': 'b', 'D': 'b'},
     };
     
-    return fallbackMap[normalizedKey] || 'D'; // Default to D whistle
+    // Dorian, Mixolydian modes use same accidentals as their relative major
+    // B dorian = A major key signature, E dorian = D major, etc.
+    const modeMapping = {
+        'dor': -2,  // Dorian is 2 semitones above relative major
+        'mix': 5,   // Mixolydian is 5 semitones above relative major
+        'min': 0, 'm': 0,  // Minor
+        'maj': 0, '': 0    // Major
+    };
+    
+    for (let line of lines) {
+        const trimmed = line.trim();
+        
+        // Transpose key signature
+        if (trimmed.startsWith('K:')) {
+            const keyMatch = trimmed.match(/^K:\s*([A-Ga-g])([#b]?)\s*(.*)/i);
+            if (keyMatch) {
+                const oldNote = keyMatch[1].toUpperCase();
+                const accidental = keyMatch[2] === '#' ? '#' : (keyMatch[2] === 'b' ? 'b' : '');
+                const mode = keyMatch[3] || '';
+                const oldKey = oldNote + accidental;
+                const newKey = transposeNote(oldKey, semitones, preferFlats);
+                line = `K:${newKey}${mode ? ' ' + mode : ''}`;
+                
+                // Determine the accidentals for both old and new keys
+                // For modes, find the relative major's accidentals
+                const modeClean = mode.trim().toLowerCase().replace(/\s+/g, '');
+                
+                // Get OLD key accidentals
+                let oldLookupKey = oldKey;
+                if (modeClean === 'dor' || modeClean === 'dorian') {
+                    oldLookupKey = transposeNote(oldKey, -2, false);
+                } else if (modeClean === 'mix' || modeClean === 'mixolydian') {
+                    oldLookupKey = transposeNote(oldKey, -7, false);
+                } else if (modeClean === 'min' || modeClean === 'm' || modeClean === 'minor') {
+                    oldLookupKey = oldKey + 'm';
+                }
+                oldKeyAccidentals = keySignatureAccidentals[oldLookupKey] || keySignatureAccidentals[oldKey] || {};
+                
+                // Get NEW key accidentals
+                let newLookupKey = newKey;
+                
+                // Handle modes - find the relative major
+                if (modeClean === 'dor' || modeClean === 'dorian') {
+                    // Dorian: key is 2nd degree, so major is 2 semitones down
+                    newLookupKey = transposeNote(newKey, -2, preferFlats);
+                } else if (modeClean === 'mix' || modeClean === 'mixolydian') {
+                    // Mixolydian: key is 5th degree, so major is 5 semitones down
+                    newLookupKey = transposeNote(newKey, -7, preferFlats);
+                } else if (modeClean === 'min' || modeClean === 'm' || modeClean === 'minor') {
+                    newLookupKey = newKey + 'm';
+                }
+                
+                newKeyAccidentals = keySignatureAccidentals[newLookupKey] || keySignatureAccidentals[newKey] || {};
+            }
+            inBody = true;
+            result.push(line);
+            continue;
+        }
+        
+        // Skip other header lines
+        if (/^[A-Z]:/.test(trimmed) && !inBody) {
+            result.push(line);
+            continue;
+        }
+        
+        if (!inBody) {
+            result.push(line);
+            continue;
+        }
+        
+        // Store chord symbols temporarily to prevent note transposition from affecting them
+        // Use a placeholder without letters A-G to avoid the note regex matching it
+        const chordPlaceholders = [];
+        line = line.replace(/"[^"]*"/g, (match) => {
+            const placeholder = `\uFFFF${chordPlaceholders.length}\uFFFF`;
+            chordPlaceholders.push(match);
+            return placeholder;
+        });
+        
+        // Transpose chord symbols (in the stored placeholders)
+        for (let i = 0; i < chordPlaceholders.length; i++) {
+            chordPlaceholders[i] = chordPlaceholders[i].replace(/"([A-Ga-g])([#b]?)([^"]*)"/g, (match, note, acc, rest) => {
+                const oldChord = note.toUpperCase() + (acc || '');
+                const newChord = transposeNote(oldChord, semitones, preferFlats);
+                return `"${newChord}${rest}"`;
+            });
+        }
+        
+        // Transpose notes in the body (chords are now protected by placeholders)
+        let noteCount = 0;
+        line = line.replace(/([\^_=]*)([A-Ga-g])([',]*)/g, (match, accidentals, noteLetter, octaveMarkers) => {
+            // Determine the base note and any explicit accidental
+            let baseNote = noteLetter.toUpperCase();
+            let explicitAcc = '';
+            let hadExplicitAccidental = false;
+            
+            if (accidentals.includes('^')) {
+                explicitAcc = '#';
+                hadExplicitAccidental = true;
+            } else if (accidentals.includes('_')) {
+                explicitAcc = 'b';
+                hadExplicitAccidental = true;
+            } else if (accidentals.includes('=')) {
+                // Natural - explicitly natural, don't apply key signature
+                explicitAcc = '';
+                hadExplicitAccidental = true;
+            } else {
+                // No explicit accidental - apply OLD key signature
+                const oldKeyAcc = oldKeyAccidentals[baseNote];
+                if (oldKeyAcc) {
+                    explicitAcc = oldKeyAcc;  // Apply key signature accidental
+                }
+            }
+            
+            const noteWithAcc = baseNote + explicitAcc;
+            const transposedNote = transposeNote(noteWithAcc, semitones, preferFlats);
+            
+            // Rebuild the ABC note
+            let newAccidentals = '';
+            let newNoteLetter = transposedNote[0];
+            
+            // Check if the accidental is already in the NEW key signature
+            const keyAcc = newKeyAccidentals[newNoteLetter];
+            
+            if (transposedNote.length > 1) {
+                const noteAcc = transposedNote[1]; // '#' or 'b'
+                if (keyAcc === noteAcc) {
+                    // Accidental is already in key signature, don't add explicit accidental
+                    newAccidentals = '';
+                } else if (keyAcc && noteAcc !== keyAcc) {
+                    // Key has different accidental, need natural + new accidental
+                    // For simplicity, just use the explicit accidental
+                    newAccidentals = noteAcc === '#' ? '^' : '_';
+                } else {
+                    // No accidental in key, add explicit
+                    newAccidentals = noteAcc === '#' ? '^' : '_';
+                }
+            } else {
+                // Transposed note is natural - check if NEW key signature has an accidental for it
+                if (keyAcc) {
+                    // Key has accidental but we have natural note, add = to override
+                    newAccidentals = '=';
+                }
+            }
+            
+            // Preserve case (lowercase = higher octave in ABC)
+            if (noteLetter === noteLetter.toLowerCase()) {
+                newNoteLetter = newNoteLetter.toLowerCase();
+            }
+            
+            // Handle octave shifts due to transposition
+            // Calculate how many octaves we cross based on semitone distance
+            const oldIndex = getNoteIndex(noteWithAcc);
+            const newIndex = getNoteIndex(transposedNote);
+            let newOctaveMarkers = octaveMarkers;
+            
+            // Determine if we crossed an octave boundary
+            // Going up: if we wrapped around (new index < old index after adding semitones)
+            // Going down: if we wrapped around (new index > old index after subtracting semitones)
+            const wrappedUp = semitones > 0 && (oldIndex + semitones >= 12);
+            const wrappedDown = semitones < 0 && (oldIndex + semitones < 0);
+            
+            if (wrappedUp) {
+                // Crossed octave going up - move note up one octave
+                if (noteLetter === noteLetter.toLowerCase()) {
+                    // Already lowercase (octave 5), add apostrophe
+                    newOctaveMarkers = "'" + octaveMarkers;
+                } else {
+                    // Uppercase (octave 4), convert to lowercase (octave 5)
+                    newNoteLetter = newNoteLetter.toLowerCase();
+                }
+            } else if (wrappedDown) {
+                // Crossed octave going down - move note down one octave
+                if (noteLetter === noteLetter.toUpperCase()) {
+                    // Already uppercase (octave 4), add comma
+                    newOctaveMarkers = "," + octaveMarkers;
+                } else {
+                    // Lowercase (octave 5), convert to uppercase (octave 4)
+                    newNoteLetter = newNoteLetter.toUpperCase();
+                }
+            } else {
+                // No octave crossing, preserve original case
+                if (noteLetter === noteLetter.toLowerCase()) {
+                    newNoteLetter = newNoteLetter.toLowerCase();
+                }
+            }
+            
+            return newAccidentals + newNoteLetter + newOctaveMarkers;
+        });
+        
+        // Restore chord symbols from placeholders
+        line = line.replace(/\uFFFF(\d+)\uFFFF/g, (match, idx) => {
+            return chordPlaceholders[parseInt(idx, 10)];
+        });
+        
+        result.push(line);
+    }
+    
+    const transposed = result.join('\n');
+    return transposed;
+}
+
+/**
+ * Get the display name for a transposition value
+ */
+function getTranspositionName(semitones) {
+    const names = {
+        '0': 'D whistle',
+        '-2': 'C whistle',
+        '1': 'Eb whistle',
+        '3': 'F whistle',
+        '-7': 'G whistle',
+        '-5': 'A whistle',
+        '-4': 'Bb whistle'
+    };
+    return names[String(semitones)] || 'D whistle';
 }
 
 /**
@@ -196,16 +450,31 @@ function stopPlayback() {
 /**
  * Main render function - renders both sheet music and tablature
  */
-function renderMusic() {
-    const abcInput = document.getElementById('abc-input').value;
-    const whistleKey = document.getElementById('whistle-key').value;
+function renderMusic(fromUserInput = false) {
+    const abcInputElement = document.getElementById('abc-input');
+    const abcInput = abcInputElement.value;
+    const transposeSemitones = parseInt(document.getElementById('transpose-key').value, 10) || 0;
     const paperDiv = document.getElementById('paper');
     const tabDiv = document.getElementById('tablature');
+    
+    // If this is from user input (typing in the text area), store as the new original
+    if (fromUserInput || originalAbc === null) {
+        originalAbc = abcInput;
+    }
+    
+    // Always transpose from the original ABC
+    const transposedAbc = transposeABC(originalAbc, transposeSemitones);
+    
+    // Update the ABC text area to show transposed notation
+    abcInputElement.value = transposedAbc;
+    
+    // Always use D whistle fingerings
+    const whistleKey = 'D';
     
     // Clear previous tablature
     tabDiv.innerHTML = '';
     
-    if (!abcInput.trim()) {
+    if (!transposedAbc.trim()) {
         paperDiv.innerHTML = '<p style="color: #999; text-align: center;">Enter ABC notation above to see the music</p>';
         return;
     }
@@ -214,11 +483,11 @@ function renderMusic() {
         // Track note elements for tablature positioning
         const noteElements = [];
         
-        // Add spacing directive to the ABC string for tablature room
-        let abcWithSpacing = abcInput;
-        if (!abcInput.includes('%%staffsep') && !abcInput.includes('%%sysstaffsep')) {
+        // Add spacing directive to the transposed ABC string for tablature room
+        let abcWithSpacing = transposedAbc;
+        if (!transposedAbc.includes('%%staffsep') && !transposedAbc.includes('%%sysstaffsep')) {
             // Insert spacing directives after the X: line or at the beginning
-            const lines = abcInput.split('\n');
+            const lines = transposedAbc.split('\n');
             const insertIndex = lines.findIndex(l => l.trim().startsWith('X:'));
             if (insertIndex >= 0) {
                 lines.splice(insertIndex + 1, 0, '%%staffsep 120', '%%sysstaffsep 120');
@@ -243,11 +512,12 @@ function renderMusic() {
         })[0];
         
         // Wait a tick for SVG to be rendered, then add tablature
+        // Use ORIGINAL ABC for tablature so fingerings match D whistle patterns
         setTimeout(() => {
-            addTablatureToNotes(abcInput, whistleKey);
+            addTablatureToNotes(originalAbc, whistleKey);
         }, 50);
         
-        currentTune = abcInput;
+        currentTune = transposedAbc;
         
     } catch (error) {
         console.error('Error rendering music:', error);
@@ -560,13 +830,59 @@ function extractNotesFromABC(abc) {
         
         // Check for key signature
         if (trimmed.startsWith('K:')) {
-            currentKey = trimmed.substring(2).trim().split(/\s/)[0];
-            // Handle key variations (e.g., "Dmaj", "Dmin", "Ddor", "Dmix")
-            let keyBase = currentKey.replace(/maj|min|m$/i, '');
-            if (/min|m$/i.test(currentKey)) {
-                keyBase = keyBase + 'm';
+            const keyText = trimmed.substring(2).trim();
+            
+            // Parse key: can be "D", "Dmaj", "D maj", "Dmin", "D min", "Ddor", "D dor", etc.
+            // First, extract the note (with possible accidental like F# or Bb)
+            const keyMatch = keyText.match(/^([A-Ga-g][#b]?)\s*(maj|min|m|dor|dorian|mix|mixolydian)?/i);
+            
+            if (keyMatch) {
+                const keyNote = keyMatch[1].charAt(0).toUpperCase() + (keyMatch[1].length > 1 ? keyMatch[1].charAt(1) : '');
+                const mode = (keyMatch[2] || '').toLowerCase();
+                
+                // Build lookup key based on mode
+                let lookupKey = keyNote;
+                
+                if (mode === 'dor' || mode === 'dorian') {
+                    // E dorian uses D major key signature (1 whole step down)
+                    lookupKey = keyNote + 'Dor';
+                    // If not found, try computing relative major
+                    if (!keySignatures[lookupKey]) {
+                        // Dorian is built on 2nd degree, so relative major is 2 semitones down
+                        const chromaticNotes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+                        const flatEquiv = {'C#': 'Db', 'D#': 'Eb', 'F#': 'Gb', 'G#': 'Ab', 'A#': 'Bb'};
+                        let idx = chromaticNotes.indexOf(keyNote);
+                        if (idx === -1) {
+                            // Try finding flat equivalent
+                            for (const [sharp, flat] of Object.entries(flatEquiv)) {
+                                if (flat === keyNote) idx = chromaticNotes.indexOf(sharp);
+                            }
+                        }
+                        if (idx !== -1) {
+                            const majorIdx = (idx - 2 + 12) % 12;
+                            lookupKey = chromaticNotes[majorIdx];
+                        }
+                    }
+                } else if (mode === 'mix' || mode === 'mixolydian') {
+                    lookupKey = keyNote + 'Mix';
+                    if (!keySignatures[lookupKey]) {
+                        // Mixolydian is built on 5th degree, so relative major is 5 semitones down
+                        const chromaticNotes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+                        let idx = chromaticNotes.indexOf(keyNote);
+                        if (idx !== -1) {
+                            const majorIdx = (idx - 7 + 12) % 12;
+                            lookupKey = chromaticNotes[majorIdx];
+                        }
+                    }
+                } else if (mode === 'min' || mode === 'm') {
+                    lookupKey = keyNote + 'm';
+                } else {
+                    // Major or unspecified - just use the note
+                    lookupKey = keyNote;
+                }
+                
+                keyAccidentals = keySignatures[lookupKey] || keySignatures[keyNote] || {};
             }
-            keyAccidentals = keySignatures[keyBase] || keySignatures[currentKey] || {};
             inBody = true;
             continue;
         }
@@ -979,10 +1295,11 @@ async function exportAsPDF() {
         const imgData = canvas.toDataURL('image/png');
         pdf.addImage(imgData, 'PNG', x, y + 5, scaledWidth, scaledHeight);
         
-        // Add footer with whistle key
-        const whistleKey = document.getElementById('whistle-key').value;
+        // Add footer with transposition info
+        const transposeSemitones = parseInt(document.getElementById('transpose-key').value, 10) || 0;
+        const transposeKeyName = getTranspositionName(transposeSemitones);
         pdf.setFontSize(10);
-        pdf.text(`Whistle: ${whistleKey}`, margin, pageHeight - margin);
+        pdf.text(`Transposed to: ${transposeKeyName}`, margin, pageHeight - margin);
         
         // Save the PDF
         pdf.save(filename);
@@ -1064,17 +1381,18 @@ function loadTune(tuneName) {
         return;
     }
     
+    // Store as the new original ABC
+    originalAbc = abcText;
+    
     // Set the ABC text in the input area
     document.getElementById('abc-input').value = abcText;
     
-    // Auto-detect and set the appropriate whistle key
-    const detectedKey = detectBestWhistleKey(abcText);
-    if (detectedKey) {
-        document.getElementById('whistle-key').value = detectedKey;
-    }
+    // Default to D (no transposition) - the most common whistle
+    // Users can experiment with transposition to find a suitable key
+    document.getElementById('transpose-key').value = '0';
     
-    // Render the music
-    renderMusic();
+    // Render the music (not from user input, we already set originalAbc)
+    renderMusic(false);
 }
 
 // Initialize when DOM is ready

@@ -10,9 +10,9 @@ sheet music with an additional tin whistle (Irish flute) tablature display.
 
 - **ABC Notation Parser**: Enter ABC notation and see it rendered as standard sheet music
 - **Tin Whistle Tablature**: Automatically generates fingering diagrams below the staff
+- **Transpose for Different Whistles**: Transpose tunes to play on A, G, C, Eb, F, or Bb whistles while keeping the same fingerings
 - **Audio Playback**: Play your tunes with a flute sound
 - **Adjustable Speed**: Control playback tempo from 50% to 150%
-- **Multiple Whistle Keys**: Support for D, C, G, Bb, F, Eb, and A whistles
 - **Example Tunes**: Built-in examples including scales, jigs, reels, and airs
 - **Live Preview**: Music updates as you type
 - **Export to PNG**: Save your sheet music with tablature as an image
@@ -31,8 +31,38 @@ No download or installation required!
 2. Extract the zip file to a folder
 3. Open `index.html` in a web browser
 4. Enter ABC notation in the text area
-5. Select your whistle key
+5. Select your whistle key from the "Transpose for:" dropdown
 6. The sheet music and tablature will render automatically
+
+## Transpose Feature
+
+The **Transpose for:** dropdown allows you to play tunes on different whistle keys while using the same fingerings you learned on a D whistle.
+
+### How It Works
+
+Most tin whistle tunes are written for a D whistle. When you select a different whistle key (e.g., A whistle), the application:
+
+1. **Transposes the sheet music** - The notes and chords are transposed so that the written music shows the actual sounding pitches
+2. **Keeps the same fingerings** - The tablature shows the original D whistle fingerings, which produce the correct transposed notes on your chosen whistle
+
+### Example
+
+If you have a tune in D major and select "A whistle":
+- The sheet music transposes down a fifth (D → A, E → B, F# → C#, etc.)
+- The fingering for what was written as "D" (all holes covered) now produces an "A" on your A whistle
+- You play the same fingerings, but the tune sounds in A instead of D
+
+### Supported Whistles
+
+| Whistle | Transposition |
+|---------|---------------|
+| D whistle | No transposition (original) |
+| C whistle | Down 2 semitones |
+| Eb whistle | Up 1 semitone |
+| F whistle | Up 3 semitones |
+| G whistle | Down 7 semitones |
+| A whistle | Down 5 semitones |
+| Bb whistle | Down 4 semitones |
 
 ## ABC Notation Basics
 
