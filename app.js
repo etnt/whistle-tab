@@ -1007,10 +1007,11 @@ const keySignatures = {
     'Fm': { 'B': 'b', 'E': 'b', 'A': 'b', 'D': 'b' },
     
     // Dorian mode (common in Irish music)
-    'DDor': { 'F': '#' },
-    'GDor': { 'B': 'b', 'F': '#' },
-    'ADor': { 'F': '#', 'C': '#', 'G': '#' },
-    'EDor': { 'F': '#', 'C': '#' },
+    // Dorian is built on the 2nd degree of a major scale
+    'DDor': {},                           // D Dorian = C Major key sig (no sharps)
+    'GDor': { 'B': 'b' },                 // G Dorian = F Major key sig (1 flat)
+    'ADor': { 'F': '#' },                 // A Dorian = G Major key sig (1 sharp)
+    'EDor': { 'F': '#', 'C': '#' },       // E Dorian = D Major key sig (2 sharps)
     
     // Mixolydian mode (also common in Irish music)
     'DMix': { 'F': '#' },
