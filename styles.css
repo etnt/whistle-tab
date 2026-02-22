@@ -242,6 +242,17 @@ h2 {
     transition: opacity 0.2s;
 }
 
+/* Fiddle tab text - colorblind-friendly color coding by string */
+/* Using blue, orange, purple, teal - distinguishable for red/green colorblindness */
+.fiddle-tab.string-G text { fill: #0072B2 !important; stroke: none !important; }  /* Blue for G string */
+.fiddle-tab.string-D text { fill: #E69F00 !important; stroke: none !important; }  /* Orange for D string */
+.fiddle-tab.string-A text { fill: #CC79A7 !important; stroke: none !important; }  /* Pink/Magenta for A string */
+.fiddle-tab.string-E text { fill: #009E73 !important; stroke: none !important; }  /* Teal for E string */
+g.fiddle-tab.string-G > text { fill: #0072B2 !important; }
+g.fiddle-tab.string-D > text { fill: #E69F00 !important; }
+g.fiddle-tab.string-A > text { fill: #CC79A7 !important; }
+g.fiddle-tab.string-E > text { fill: #009E73 !important; }
+
 #paper svg {
     overflow: visible;
 }

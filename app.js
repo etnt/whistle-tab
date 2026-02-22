@@ -869,7 +869,7 @@ function addFiddleTablatureToNotes(abcInput) {
         
         // Create tablature text
         const tabGroup = document.createElementNS(svgNS, 'g');
-        tabGroup.setAttribute('class', 'fiddle-tab');
+        tabGroup.setAttribute('class', `fiddle-tab string-${fiddleTab.string}`);
         
         const tabX = notePos.noteX;
         
@@ -895,15 +895,17 @@ function addFiddleTablatureToNotes(abcInput) {
         tabText.setAttribute('font-family', 'Arial, sans-serif');
         tabText.setAttribute('font-weight', 'normal');
         
-        // Color coding by string
+        // Color coding by string (colorblind-friendly palette)
         const stringColors = {
-            'G': '#2E7D32', // Green for G string (lowest)
-            'D': '#1565C0', // Blue for D string
-            'A': '#6A1B9A', // Purple for A string
-            'E': '#C62828'  // Red for E string (highest)
+            'G': '#0072B2', // Blue for G string (lowest)
+            'D': '#E69F00', // Orange for D string
+            'A': '#CC79A7', // Pink/Magenta for A string
+            'E': '#009E73'  // Teal for E string (highest)
         };
         
-        tabText.setAttribute('fill', stringColors[fiddleTab.string] || '#333');
+        const fillColor = stringColors[fiddleTab.string] || '#333';
+        tabText.setAttribute('fill', fillColor);
+        tabText.setAttribute('style', `fill: ${fillColor} !important;`);  // Force with !important
         
         // Display format: string + finger (e.g., "D1", "AL2", "G0")
         tabText.textContent = fiddleTab.display;

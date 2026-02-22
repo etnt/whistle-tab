@@ -1,17 +1,18 @@
-# ABC to Sheet Music with Flute/Tin Whistle Tablature
+# ABC to Sheet Music with Flute/Tin Whistle & Fiddle Tablature
 
 [![GitHub Release](https://img.shields.io/github/v/release/etnt/whistle-tab?style=flat-square)](https://github.com/etnt/whistle-tab/releases/latest)
 [![License: MPL 2.0](https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)
 
 A web-based application that converts ABC musical notation into standard
-sheet music with an additional tin whistle (Irish flute) tablature display.
+sheet music with either tin whistle (Irish flute) or fiddle (violin) tablature display.
 
 ## Features
 
 - **ABC Notation Parser**: Enter ABC notation and see it rendered as standard sheet music
 - **Tin Whistle Tablature**: Automatically generates fingering diagrams below the staff
+- **Fiddle Tablature**: Toggle to show violin first-position fingerings with color-coded strings
 - **Transpose for Different Whistles**: Transpose tunes to play on A, G, C, Eb, F, or Bb whistles while keeping the same fingerings
-- **Audio Playback**: Play your tunes with a flute sound
+- **Audio Playback**: Play your tunes with flute or violin sound (based on tab type)
 - **Adjustable Speed**: Control playback tempo from 50% to 150%
 - **Example Tunes**: Built-in examples including scales, jigs, reels, and airs
 - **Live Preview**: Music updates as you type
@@ -63,6 +64,31 @@ If you have a tune in D major and select "A whistle":
 | G whistle | Down 7 semitones |
 | A whistle | Down 5 semitones |
 | Bb whistle | Down 4 semitones |
+
+## Fiddle Tab Feature
+
+The **Fiddle Tab** checkbox toggles between flute tablature and violin (fiddle) tablature. This implements the [Fiddle Tab notation system](https://brentrobitaille.com/2020/11/29/learning-the-violin-is-easy-with-fiddle-tab/) - a simple shorthand for first-position violin fingerings.
+
+When enabled:
+
+- **Tablature format**: Shows string and finger position (e.g., `D1` = D string, 1st finger)
+- **Open strings**: Shown as `G0`, `D0`, `A0`, `E0`
+- **Low positions**: Marked with `L` (e.g., `DL2` = low 2nd finger on D string, placed a half-step lower than the normal 2nd finger position)
+- **Audio**: Playback and MIDI export use violin sound instead of flute
+- **Note**: The transpose dropdown is hidden when Fiddle Tab is enabled, as transposition is specific to whistle fingerings
+
+### Color-Coded Strings
+
+Each string is displayed in a distinct color (using a colorblind-friendly palette):
+
+- **G** (Blue) - 4th string (lowest)
+- **D** (Orange) - 3rd string
+- **A** (Pink) - 2nd string
+- **E** (Teal) - 1st string (highest)
+
+### First Position Range
+
+The fiddle tablature covers first position (G3 to B5), suitable for most traditional Irish and folk tunes.
 
 ## ABC Notation Basics
 
