@@ -566,7 +566,19 @@ K: Edor
 |: "Em"GEE BEE | GEE BAG | "D"FDD ADD | dcd AGF |
 "Em"GEE BEE | GEG B2c | "D"dcd AGF | "Em"GEE E3 :|
 |: "Em"Bcd e2f | e2f edB | Bcd e2f | "D"edB d3 |
-"Em"Bcd e2f | e2f edB | "D"dcd AGF | "Em"GEE E3 :|`
+"Em"Bcd e2f | e2f edB | "D"dcd AGF | "Em"GEE E3 :|`,
+
+    "After The Battle Of Aughrim": `X: 1
+T: After The Battle Of Aughrim
+R: march
+M: 4/4
+L: 1/8
+K: Ador
+|:E2A2 ABcd|e2d2 c2A2|B2G2 GFGA|B2AG E2D2|
+E2A2 ABcd|e2d2 e2ag|e2d2 BedB|A4 A4:|
+|:a2e2 e2fg|abag e2fg|abaf g3e|dedB G4|
+a2e2 efg|abag e2d2|B2e2 d2B2|A4 A4:|`
+
 
 
 };
