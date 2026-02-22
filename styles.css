@@ -102,6 +102,28 @@ h2 {
     font-size: 12px;
 }
 
+.tab-type-control {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: #f0f4ff;
+    border-radius: 6px;
+    border: 2px solid #667eea;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tab-type-control:hover {
+    background: #e0e8ff;
+}
+
+.tab-type-control input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
 .controls select {
     padding: 8px 12px;
     border: 2px solid #ddd;
@@ -457,6 +479,37 @@ h2 {
 
 .legend .hole.half {
     background: linear-gradient(90deg, #333 50%, white 50%);
+}
+
+/* Fiddle Tab Legend */
+.fiddle-legend {
+    flex-direction: column;
+    gap: 15px;
+}
+
+.fiddle-legend .legend-intro {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.fiddle-legend .legend-strings,
+.fiddle-legend .legend-fingers {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.fiddle-legend .string-label {
+    font-weight: bold;
+    font-size: 16px;
+    min-width: 20px;
+}
+
+.fiddle-legend .legend-fingers .legend-item span:first-child {
+    font-weight: bold;
+    min-width: 20px;
+    display: inline-block;
 }
 
 /* Responsive */

@@ -22,7 +22,7 @@
             <h2>Enter ABC Notation</h2>
             <textarea id="abc-input" placeholder="Enter your ABC notation here..."></textarea>
             <div class="controls">
-                <label>
+                <label id="transpose-control">
                     Transpose for:
                     <select id="transpose-key">
                         <option value="0">D whistle</option>
@@ -33,6 +33,10 @@
                         <option value="-5">A whistle</option>
                         <option value="-4">Bb whistle</option>
                     </select>
+                </label>
+                <label class="tab-type-control">
+                    <input type="checkbox" id="fiddle-tab-checkbox">
+                    Fiddle Tab
                 </label>
                 <label class="speed-control">
                     Speed:
@@ -47,7 +51,7 @@
         </div>
 
         <div class="output-section">
-            <h2>Sheet Music with Flute Tablature</h2>
+            <h2 id="output-title">Sheet Music with Flute Tablature</h2>
             <div id="paper"></div>
             <div id="audio-controls" class="audio-controls"></div>
             <div id="tablature" style="display:none;"></div>
@@ -63,8 +67,8 @@
             </div>
         </div>
 
-        <div class="help-section">
-            <h2>Tablature Legend</h2>
+        <div class="help-section" id="flute-legend">
+            <h2>Flute Tablature Legend</h2>
             <div class="legend">
                 <div class="legend-item">
                     <div class="hole filled"></div>
@@ -84,12 +88,46 @@
             </div>
         </div>
 
+        <div class="help-section" id="fiddle-legend" style="display: none;">
+            <h2>Fiddle Tablature Legend</h2>
+            <div class="legend fiddle-legend">
+                <p class="legend-intro">Format: <strong>String + Finger</strong> (e.g., D1 = D string, 1st finger)</p>
+                <div class="legend-strings">
+                    <div class="legend-item">
+                        <span class="string-label" style="color: #C62828;">E</span>
+                        <span>= 1st string (highest)</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="string-label" style="color: #6A1B9A;">A</span>
+                        <span>= 2nd string</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="string-label" style="color: #1565C0;">D</span>
+                        <span>= 3rd string</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="string-label" style="color: #2E7D32;">G</span>
+                        <span>= 4th string (lowest)</span>
+                    </div>
+                </div>
+                <div class="legend-fingers">
+                    <div class="legend-item"><span>0</span> = Open string</div>
+                    <div class="legend-item"><span>1</span> = 1st finger</div>
+                    <div class="legend-item"><span>2</span> = 2nd finger</div>
+                    <div class="legend-item"><span>3</span> = 3rd finger</div>
+                    <div class="legend-item"><span>4</span> = 4th finger</div>
+                    <div class="legend-item"><span>L</span> = Low (half-step back, e.g., AL2 = low 2nd finger on A)</div>
+                </div>
+            </div>
+        </div>
+
         <footer class="site-footer">
             <a href="https://github.com/etnt/whistle-tab" target="_blank">View on GitHub</a>
         </footer>
     </div>
 
     <script src="flute-tab.js"></script>
+    <script src="fiddle-tab.js"></script>
     <script src="tunes-index.js"></script>
     <script src="app.js"></script>
 </body>

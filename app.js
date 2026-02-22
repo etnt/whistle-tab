@@ -22,6 +22,10 @@ function init() {
     document.getElementById('export-pdf-btn').addEventListener('click', exportAsPDF);
     document.getElementById('abc-input').addEventListener('input', debounce(() => renderMusic(true), 500));
     document.getElementById('transpose-key').addEventListener('change', () => renderMusic(false));
+    document.getElementById('fiddle-tab-checkbox').addEventListener('change', () => {
+        updateTabTitle();
+        renderMusic(false);
+    });
     
     // Speed slider update
     document.getElementById('speed-slider').addEventListener('input', (e) => {
@@ -33,6 +37,27 @@ function init() {
     
     // Initial render
     renderMusic();
+}
+
+/**
+ * Update the output section title based on tab type
+ */
+function updateTabTitle() {
+    const useFiddleTab = document.getElementById('fiddle-tab-checkbox').checked;
+    const titleEl = document.getElementById('output-title');
+    if (titleEl) {
+        titleEl.textContent = useFiddleTab ? 'Sheet Music with Fiddle Tablature' : 'Sheet Music with Flute Tablature';
+    }
+    
+    // Toggle legend visibility
+    const fluteLegend = document.getElementById('flute-legend');
+    const fiddleLegend = document.getElementById('fiddle-legend');
+    if (fluteLegend) fluteLegend.style.display = useFiddleTab ? 'none' : 'block';
+    if (fiddleLegend) fiddleLegend.style.display = useFiddleTab ? 'block' : 'none';
+    
+    // Toggle transpose control visibility (not applicable for fiddle)
+    const transposeControl = document.getElementById('transpose-control');
+    if (transposeControl) transposeControl.style.display = useFiddleTab ? 'none' : 'inline-block';
 }
 
 /**
@@ -375,12 +400,16 @@ async function initAudio() {
         // Calculate adjusted tempo based on speed percentage
         const adjustedTempo = Math.round(baseTempo * (speedPercent / 100));
         
+        // Choose instrument based on fiddle tab checkbox
+        const fiddleTabEnabled = document.getElementById('fiddle-tab-checkbox').checked;
+        const midiProgram = fiddleTabEnabled ? 40 : 73;  // 40 = Violin, 73 = Flute
+        
         // Initialize with the visual object
         await synth.init({
             visualObj: visualObj,
             options: {
                 soundFontUrl: 'https://paulrosen.github.io/midi-js-soundfonts/FluidR3_GM/',
-                program: 73,  // Flute sound
+                program: midiProgram,
                 qpm: adjustedTempo
             }
         });
@@ -514,7 +543,12 @@ function renderMusic(fromUserInput = false) {
         // Wait a tick for SVG to be rendered, then add tablature
         // Use ORIGINAL ABC for tablature so fingerings match D whistle patterns
         setTimeout(() => {
-            addTablatureToNotes(originalAbc, whistleKey);
+            const useFiddleTab = document.getElementById('fiddle-tab-checkbox').checked;
+            if (useFiddleTab) {
+                addFiddleTablatureToNotes(originalAbc);
+            } else {
+                addTablatureToNotes(originalAbc, whistleKey);
+            }
         }, 50);
         
         currentTune = transposedAbc;
@@ -719,19 +753,193 @@ function addTablatureToNotes(abcInput, whistleKey) {
 }
 
 /**
+ * Add fiddle tablature notation directly under notes in the SVG
+ * Uses a three-level vertical stagger to prevent overlap in busy passages
+ */
+function addFiddleTablatureToNotes(abcInput) {
+    const svg = document.querySelector('#paper svg');
+    if (!svg) return;
+    
+    // Find all note elements in the SVG
+    const noteGroups = svg.querySelectorAll('.abcjs-note');
+    if (noteGroups.length === 0) return;
+    
+    // Extract notes from ABC to get fingerings
+    const notes = extractNotesFromABC(abcInput);
+    // Filter out barlines and rests
+    const playableNotes = notes.filter(n => !n.isBarline && 
+        n.note !== 'z' && n.note !== 'Z' && n.note !== 'x');
+    
+    // Get the SVG namespace
+    const svgNS = 'http://www.w3.org/2000/svg';
+    
+    // Collect note positions using the notehead position
+    const notePositions = [];
+    noteGroups.forEach((noteGroup, idx) => {
+        try {
+            const notehead = noteGroup.querySelector('.abcjs-notehead');
+            let noteY;
+            let noteX;
+            let bbox = noteGroup.getBBox();
+            
+            if (notehead) {
+                const headBbox = notehead.getBBox();
+                noteY = headBbox.y + headBbox.height / 2;
+                noteX = headBbox.x + headBbox.width / 2;
+            } else {
+                noteY = bbox.y + 10;
+                noteX = bbox.x + bbox.width / 2;
+            }
+            
+            notePositions.push({
+                group: noteGroup,
+                idx: idx,
+                noteY: noteY,
+                noteX: noteX,
+                bbox: bbox
+            });
+        } catch (e) {}
+    });
+    
+    if (notePositions.length === 0) return;
+    
+    // Group notes into staff lines
+    const lineThreshold = 50;
+    const staffLineYs = [];
+    const sortedByY = [...notePositions].sort((a, b) => a.noteY - b.noteY);
+    
+    sortedByY.forEach(notePos => {
+        let foundLine = staffLineYs.find(line => 
+            Math.abs(notePos.noteY - line.centerY) < lineThreshold
+        );
+        
+        if (foundLine) {
+            foundLine.notes.push(notePos);
+            foundLine.minY = Math.min(foundLine.minY, notePos.noteY);
+            foundLine.maxY = Math.max(foundLine.maxY, notePos.noteY);
+            foundLine.centerY = (foundLine.minY + foundLine.maxY) / 2;
+        } else {
+            staffLineYs.push({
+                centerY: notePos.noteY,
+                minY: notePos.noteY,
+                maxY: notePos.noteY,
+                notes: [notePos]
+            });
+        }
+    });
+    
+    staffLineYs.sort((a, b) => a.centerY - b.centerY);
+    
+    // Assign tabY position for each staff line
+    staffLineYs.forEach((line, lineIdx) => {
+        line.tabY = line.maxY + 50; // Base position below staff
+    });
+    
+    // Create a map from note group to staff line
+    const noteToStaffLine = new Map();
+    staffLineYs.forEach(line => {
+        line.notes.forEach(notePos => {
+            noteToStaffLine.set(notePos.group, line);
+        });
+    });
+    
+    let noteIndex = 0;
+    let staggerLevel = 0; // 0, 1, 2 for three vertical levels
+    let lastNoteX = -100;
+    
+    noteGroups.forEach((noteGroup, i) => {
+        const staffLine = noteToStaffLine.get(noteGroup);
+        if (!staffLine) return;
+        
+        const notePos = notePositions.find(np => np.group === noteGroup);
+        if (!notePos) return;
+        
+        if (noteIndex >= playableNotes.length) return;
+        const noteData = playableNotes[noteIndex];
+        noteIndex++;
+        
+        if (!noteData) return;
+        
+        // Get fiddle tab for this note
+        const noteInfo = FiddleTab.parseAbcNote(noteData.note);
+        if (noteInfo.rest) return;
+        
+        const fiddleTab = FiddleTab.getFiddleTab(noteInfo);
+        if (!fiddleTab) return;
+        
+        // Create tablature text
+        const tabGroup = document.createElementNS(svgNS, 'g');
+        tabGroup.setAttribute('class', 'fiddle-tab');
+        
+        const tabX = notePos.noteX;
+        
+        // Three-level vertical stagger to prevent overlap
+        // Reset stagger if notes are far apart horizontally
+        if (notePos.noteX - lastNoteX > 15) {
+            staggerLevel = 0;
+        } else {
+            staggerLevel = (staggerLevel + 1) % 3;
+        }
+        lastNoteX = notePos.noteX;
+        
+        // Calculate Y position with stagger
+        const staggerOffset = staggerLevel * 12; // 12 pixels between levels
+        const tabY = staffLine.tabY + staggerOffset;
+        
+        // Create the text element
+        const tabText = document.createElementNS(svgNS, 'text');
+        tabText.setAttribute('x', tabX);
+        tabText.setAttribute('y', tabY);
+        tabText.setAttribute('text-anchor', 'middle');
+        tabText.setAttribute('font-size', '9');
+        tabText.setAttribute('font-family', 'Arial, sans-serif');
+        tabText.setAttribute('font-weight', 'normal');
+        
+        // Color coding by string
+        const stringColors = {
+            'G': '#2E7D32', // Green for G string (lowest)
+            'D': '#1565C0', // Blue for D string
+            'A': '#6A1B9A', // Purple for A string
+            'E': '#C62828'  // Red for E string (highest)
+        };
+        
+        tabText.setAttribute('fill', stringColors[fiddleTab.string] || '#333');
+        
+        // Display format: string + finger (e.g., "D1", "AL2", "G0")
+        tabText.textContent = fiddleTab.display;
+        
+        // Note: We no longer style low positions differently - it was causing
+        // visual inconsistency where some notes appeared bolder than others
+        
+        tabGroup.appendChild(tabText);
+        
+        // Add out-of-range indicator
+        if (fiddleTab.outOfRange) {
+            tabText.setAttribute('fill', '#999');
+        }
+        
+        svg.appendChild(tabGroup);
+    });
+    
+    // Reposition meta text below fiddle tablature
+    repositionMetaBottom(svg, staffLineYs, 40); // Extra offset for fiddle tab
+}
+
+/**
  * Reposition the N: notes text (abcjs-meta-bottom) below the last tablature line
  * @param {SVGElement} svg - The SVG element containing the music
  * @param {Array} staffLineYs - Array of staff line info with tabY positions
+ * @param {number} extraOffset - Optional extra vertical offset for different tab types
  */
-function repositionMetaBottom(svg, staffLineYs) {
+function repositionMetaBottom(svg, staffLineYs, extraOffset = 0) {
     const metaBottom = svg.querySelector('.abcjs-meta-bottom');
     if (!metaBottom) return;
     
     // Find the lowest tabY position (last tablature line)
     let maxTabY = 0;
     staffLineYs.forEach(line => {
-        // Add space for the 6 holes plus some padding
-        const tabBottomY = line.tabY + 6 * 7 + 20; // 6 holes * 7px spacing + padding
+        // Add space for the 6 holes plus some padding (or fiddle tab stagger levels)
+        const tabBottomY = line.tabY + 6 * 7 + 20 + extraOffset; // 6 holes * 7px spacing + padding + extra
         if (tabBottomY > maxTabY) {
             maxTabY = tabBottomY;
         }
@@ -1178,10 +1386,14 @@ async function exportAsMIDI() {
         // Calculate adjusted tempo based on speed percentage
         const adjustedTempo = Math.round(baseTempo * (speedPercent / 100));
         
+        // Choose instrument based on fiddle tab checkbox
+        const fiddleTabEnabled = document.getElementById('fiddle-tab-checkbox').checked;
+        const midiProgram = fiddleTabEnabled ? 40 : 73;  // 40 = Violin, 73 = Flute
+        
         // Generate MIDI file using abcjs
         const midiBuffer = ABCJS.synth.getMidiFile(visualObj, {
             midiOutputType: 'binary',
-            program: 73,  // Flute sound for melody
+            program: midiProgram,
             qpm: adjustedTempo,
             chordsOff: false,  // Include chord accompaniment
             chordProgram: 24,  // Acoustic Guitar (nylon) for chords
