@@ -574,10 +574,10 @@ R: march
 M: 4/4
 L: 1/8
 K: Ador
-|:E2A2 ABcd|e2d2 c2A2|B2G2 GFGA|B2AG E2D2|
-E2A2 ABcd|e2d2 e2ag|e2d2 BedB|A4 A4:|
-|:a2e2 e2fg|abag e2fg|abaf g3e|dedB G4|
-a2e2 efg|abag e2d2|B2e2 d2B2|A4 A4:|`
+|: "Am"E2A2 ABcd | e2d2 c2A2 | "G"B2G2 GFGA | B2AG E2D2 |
+"Am"E2A2 ABcd | e2d2 e2ag | "G"e2d2 BedB | "Am"A4 A4 :|
+|: "Am"a2e2 e2fg | abag e2fg | "Am"abaf "G"g3e | dedB G4 |
+"Am"a2e2 e2fg | abag e2d2 | "G"B2e2 d2B2 | "Am"A4 A4 :|`
 
 
 
