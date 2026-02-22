@@ -3,6 +3,19 @@
  * Add new tunes to this object. The key is the display name, the value is the ABC content.
  */
 const tuneLibrary = {
+    "The Blarney Pilgrim": `X: 1
+T: The Blarney Pilgrim
+R: jig
+M: 6/8
+L: 1/8
+K: Dmix
+|: "D"DED DEG | "D"A2A ABc | "G"BAG "D"AGE | "C"GEA "D"GED |
+"D"DED DEG | "D"A2A ABc | "G"BAG "D"AGE | "C"GED "D"D3 :|
+|: "G"ded dBG | "D"AGA "G"BGE | "G"ded dBG | "D"AGA "G"GAB |
+"G"g2e dBG | "D"AGA "G"BGE | "G"B2G "D"AGE | "C"GED "D"D3 :|
+|: "D"A2D "G"B2D | "D"A2D ABc | "G"BAG "D"AGE | "C"GEA "D"GED |
+"D"ADD "G"BDD | "D"ADD ABc | "G"BAG "D"AGE | "C"GED "D"D3 :|`,
+
     "The Humours Of Glynn": `X: 1
 T: The Humours Of Glynn
 R: jig
@@ -14,27 +27,6 @@ K: Dmaj
 |:A|"D"dfd fdB|"A"cec ecA|"D"dfd fdB|"A"AFA B2A|
 [1 "D"dfd fdB|"A"cec ecA|"G"dcB "A"cAF|"D"EFA B2:|
 [2 "D"dfd "A"cec|"Bm"BdB "G"AGF|GBG "A"FAF|"D"EFA B2||`,
-
-    "D Major Scale": `X:1
-T:D Major Scale
-M:4/4
-L:1/4
-K:D
-| D E F G | A B c d | c B A G | F E D> |`,
-
-    "G Major Scale": `X:1
-T:G Major Scale
-M:4/4
-L:1/4
-K:G
-| G A B c | d e f g | f e d c | B A G> |`,
-
-    "A Major Scale": `X:1
-T:A Major Scale
-M:4/4
-L:1/4
-K:A
-| A B c d | e f g a | g f e d | c B A> |`,
 
     "The Irish Washerwoman": `X:1
 T:The Irish Washerwoman
@@ -338,17 +330,6 @@ K: Dmin
 |: "Dm" a2 d'2 "Am" c'3 a | "Gm" g2 a2 "C" c'4 | "Dm" d'2 c'2 "Am" a2 g2 | "Dm" f2 g2 "Am" a4 |
 | "Dm" a2 d'2 "Am" c'3 a | "Gm" g2 a2 "C" c'4 | "Am" a2 g2 "Gm" f2 e2 | "Dm" d8 :|`,
 
-    "The Kesh Jig - Amaj": `X: 6
-T: The Kesh Jig
-R: jig
-M: 6/8
-L: 1/8
-K: Amaj
-e|:"A"A3 ABc|"E"B3 Bce|"A"fee aee|"D"fec "E"ecB|
-"A"A3 ABc|"E"B3 Bce|"A"fee aec|"E"BcB "A"A3:|
-|:"A"c3 ece|"D"(3fgaf "A"ecA|"A"c3 ecA|"E"BcB BAB|
-"A"c3 ece|"D"(3fgaf "A"ece|"D"a(3fga "E"bab|"E"c'ag "A"a3:|`,
-
     "The Kesh Jig - Gmaj": `X: 1
 T: The Kesh Jig
 C: (Arr. www.oaim.ie)
@@ -413,19 +394,6 @@ K: Dmaj
 "D"AGFA d2 | "A"f2 e4 | "G"dcBd f2 | "G"b2 "A"a4 |
 "D"AGF3 E | "D"FGA4 | "G"Bcd2 c2 | "G"A2 B4 |
 "D"AGFGA2 | "A"F2 E4 | "D"D6 |`,
-
-    "The Blarney Pilgrim": `X: 1
-T: The Blarney Pilgrim
-R: jig
-M: 6/8
-L: 1/8
-K: Dmix
-|: "D"DED DEG | "D"A2A ABc | "G"BAG "D"AGE | "C"GEA "D"GED |
-"D"DED DEG | "D"A2A ABc | "G"BAG "D"AGE | "C"GED "D"D3 :|
-|: "G"ded dBG | "D"AGA "G"BGE | "G"ded dBG | "D"AGA "G"GAB |
-"G"g2e dBG | "D"AGA "G"BGE | "G"B2G "D"AGE | "C"GED "D"D3 :|
-|: "D"A2D "G"B2D | "D"A2D ABc | "G"BAG "D"AGE | "C"GEA "D"GED |
-"D"ADD "G"BDD | "D"ADD ABc | "G"BAG "D"AGE | "C"GED "D"D3 :|`,
 
     "Caoineadh Na dTri Muire": `X: 2
 T: Caoineadh Na dTri Muire
