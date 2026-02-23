@@ -19,7 +19,7 @@ const FiddleTab = {
     openStrings: {
         'G': { midi: 55, octave: 3 },  // G3
         'D': { midi: 62, octave: 4 },  // D4
-        'A': { midi: 69, octave: 4 },  // A5
+        'A': { midi: 69, octave: 4 },  // A4
         'E': { midi: 76, octave: 5 }   // E5
     },
     

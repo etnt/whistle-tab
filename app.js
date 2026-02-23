@@ -1045,7 +1045,7 @@ function extractNotesFromABC(abc) {
             
             // Parse key: can be "D", "Dmaj", "D maj", "Dmin", "D min", "Ddor", "D dor", etc.
             // First, extract the note (with possible accidental like F# or Bb)
-            const keyMatch = keyText.match(/^([A-Ga-g][#b]?)\s*(maj|min|m|dor|dorian|mix|mixolydian)?/i);
+            const keyMatch = keyText.match(/^([A-Ga-g][#b]?)\s*(maj|min|mix|mixolydian|m|dor|dorian)?/i);
             
             if (keyMatch) {
                 const keyNote = keyMatch[1].charAt(0).toUpperCase() + (keyMatch[1].length > 1 ? keyMatch[1].charAt(1) : '');
