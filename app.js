@@ -977,6 +977,49 @@ function repositionMetaBottom(svg, staffLineYs, extraOffset = 0) {
  * Key signature accidentals lookup
  * Maps key names to the notes that are sharp or flat in that key
  */
+/**
+ * Parse a key signature text (e.g., "A", "Dmaj", "Edor", "Gmix") and return
+ * the corresponding accidentals object from keySignatures.
+ */
+function parseKeyText(keyText) {
+    const keyMatch = keyText.match(/^([A-Ga-g][#b]?)\s*(maj|min|mix|mixolydian|m|dor|dorian)?/i);
+    if (!keyMatch) return {};
+
+    const keyNote = keyMatch[1].charAt(0).toUpperCase() + (keyMatch[1].length > 1 ? keyMatch[1].charAt(1) : '');
+    const mode = (keyMatch[2] || '').toLowerCase();
+    let lookupKey = keyNote;
+
+    if (mode === 'dor' || mode === 'dorian') {
+        lookupKey = keyNote + 'Dor';
+        if (!keySignatures[lookupKey]) {
+            const cn = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+            const flatEquiv = {'C#': 'Db', 'D#': 'Eb', 'F#': 'Gb', 'G#': 'Ab', 'A#': 'Bb'};
+            let idx = cn.indexOf(keyNote);
+            if (idx === -1) {
+                for (const [sharp, flat] of Object.entries(flatEquiv)) {
+                    if (flat === keyNote) idx = cn.indexOf(sharp);
+                }
+            }
+            if (idx !== -1) {
+                lookupKey = cn[(idx - 2 + 12) % 12];
+            }
+        }
+    } else if (mode === 'mix' || mode === 'mixolydian') {
+        lookupKey = keyNote + 'Mix';
+        if (!keySignatures[lookupKey]) {
+            const cn = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+            let idx = cn.indexOf(keyNote);
+            if (idx !== -1) {
+                lookupKey = cn[(idx - 7 + 12) % 12];
+            }
+        }
+    } else if (mode === 'min' || mode === 'm') {
+        lookupKey = keyNote + 'm';
+    }
+
+    return keySignatures[lookupKey] || keySignatures[keyNote] || {};
+}
+
 const keySignatures = {
     // Major keys with sharps
     'C': {},
@@ -1042,58 +1085,7 @@ function extractNotesFromABC(abc) {
         // Check for key signature
         if (trimmed.startsWith('K:')) {
             const keyText = trimmed.substring(2).trim();
-            
-            // Parse key: can be "D", "Dmaj", "D maj", "Dmin", "D min", "Ddor", "D dor", etc.
-            // First, extract the note (with possible accidental like F# or Bb)
-            const keyMatch = keyText.match(/^([A-Ga-g][#b]?)\s*(maj|min|mix|mixolydian|m|dor|dorian)?/i);
-            
-            if (keyMatch) {
-                const keyNote = keyMatch[1].charAt(0).toUpperCase() + (keyMatch[1].length > 1 ? keyMatch[1].charAt(1) : '');
-                const mode = (keyMatch[2] || '').toLowerCase();
-                
-                // Build lookup key based on mode
-                let lookupKey = keyNote;
-                
-                if (mode === 'dor' || mode === 'dorian') {
-                    // E dorian uses D major key signature (1 whole step down)
-                    lookupKey = keyNote + 'Dor';
-                    // If not found, try computing relative major
-                    if (!keySignatures[lookupKey]) {
-                        // Dorian is built on 2nd degree, so relative major is 2 semitones down
-                        const chromaticNotes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-                        const flatEquiv = {'C#': 'Db', 'D#': 'Eb', 'F#': 'Gb', 'G#': 'Ab', 'A#': 'Bb'};
-                        let idx = chromaticNotes.indexOf(keyNote);
-                        if (idx === -1) {
-                            // Try finding flat equivalent
-                            for (const [sharp, flat] of Object.entries(flatEquiv)) {
-                                if (flat === keyNote) idx = chromaticNotes.indexOf(sharp);
-                            }
-                        }
-                        if (idx !== -1) {
-                            const majorIdx = (idx - 2 + 12) % 12;
-                            lookupKey = chromaticNotes[majorIdx];
-                        }
-                    }
-                } else if (mode === 'mix' || mode === 'mixolydian') {
-                    lookupKey = keyNote + 'Mix';
-                    if (!keySignatures[lookupKey]) {
-                        // Mixolydian is built on 5th degree, so relative major is 5 semitones down
-                        const chromaticNotes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-                        let idx = chromaticNotes.indexOf(keyNote);
-                        if (idx !== -1) {
-                            const majorIdx = (idx - 7 + 12) % 12;
-                            lookupKey = chromaticNotes[majorIdx];
-                        }
-                    }
-                } else if (mode === 'min' || mode === 'm') {
-                    lookupKey = keyNote + 'm';
-                } else {
-                    // Major or unspecified - just use the note
-                    lookupKey = keyNote;
-                }
-                
-                keyAccidentals = keySignatures[lookupKey] || keySignatures[keyNote] || {};
-            }
+            keyAccidentals = parseKeyText(keyText);
             inBody = true;
             continue;
         }
@@ -1181,6 +1173,24 @@ function extractNotesFromABC(abc) {
                     while (i < lineContent.length && lineContent[i] === ' ') {
                         i++;
                     }
+                    continue;
+                }
+                
+                // Check for inline fields [K:A], [M:3/4], etc.
+                if (i + 2 < lineContent.length &&
+                    /[A-Za-z]/.test(lineContent[i + 1]) &&
+                    lineContent[i + 2] === ':') {
+                    const fieldStart = i + 1;
+                    i++;
+                    while (i < lineContent.length && lineContent[i] !== ']') i++;
+                    const fieldContent = lineContent.substring(fieldStart, i);
+                    // Handle inline key change [K:...]
+                    if (fieldContent.charAt(0).toUpperCase() === 'K') {
+                        const keyText = fieldContent.substring(2).trim();
+                        keyAccidentals = parseKeyText(keyText);
+                        barAccidentals = {};
+                    }
+                    i++; // skip ]
                     continue;
                 }
                 
