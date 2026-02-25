@@ -109,9 +109,9 @@ const FiddleTab = {
      * 2 = high 1st finger (whole step) - standard 1st finger
      * 3 = low 2nd finger (1.5 steps)
      * 4 = high 2nd finger (2 steps) - standard 2nd finger
-     * 5 = low 3rd finger (2.5 steps)
-     * 6 = 3rd finger (3 steps) - standard 3rd finger
-     * 7 = 4th finger (3.5 steps) - usually next string open
+     * 5 = 3rd finger (2.5 steps) - always a half step above 2nd finger
+     * 6 = low 4th finger (3 steps) - half step below standard 4th
+     * 7 = 4th finger (3.5 steps) - usually same as next open string
      */
     semitoneToFinger: function(semitones) {
         switch(semitones) {
@@ -120,8 +120,8 @@ const FiddleTab = {
             case 2: return { finger: '1', display: '1', isLow: false };    // High 1 (standard)
             case 3: return { finger: 'L2', display: 'L2', isLow: true };   // Low 2
             case 4: return { finger: '2', display: '2', isLow: false };    // High 2 (standard)
-            case 5: return { finger: 'L3', display: 'L3', isLow: true };   // Low 3 (half step from 2nd)
-            case 6: return { finger: '3', display: '3', isLow: false };    // 3rd finger (standard)
+            case 5: return { finger: '3', display: '3', isLow: false };    // 3rd finger (half step above 2nd)
+            case 6: return { finger: 'L4', display: 'L4', isLow: true };   // Low 4th finger
             case 7: return { finger: '4', display: '4', isLow: false };    // 4th finger
             default: return { finger: '?', display: '?', isLow: false };
         }
