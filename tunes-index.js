@@ -577,8 +577,17 @@ K: Ador
 |: "Am"E2A2 ABcd | e2d2 c2A2 | "G"B2G2 GFGA | B2AG E2D2 |
 "Am"E2A2 ABcd | e2d2 e2ag | "G"e2d2 BedB | "Am"A4 A4 :|
 |: "Am"a2e2 e2fg | abag e2fg | "Am"abaf "G"g3e | dedB G4 |
-"Am"a2e2 e2fg | abag e2d2 | "G"B2e2 d2B2 | "Am"A4 A4 :|`
+"Am"a2e2 e2fg | abag e2d2 | "G"B2e2 d2B2 | "Am"A4 A4 :|`,
 
-
+    "The Cowboy Jig": `X: 1
+T: The Cowboy Jig
+R: jig
+M: 6/8
+L: 1/8
+K: Amaj
+|:AEFA2B|cag aec|Bcd c2B|c2c BAF|
+AEFA2B|cag aec|Bcd c2B|1 cAA A2B:|2 cAA Ace||
+f3 fec|fag fec|e3 e2c|eaf ecA|
+d2e f2e|fac B2f|ecA c2B|1 cAA Ace:|2 cAA A2B||`
 
 };
