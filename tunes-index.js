@@ -588,6 +588,17 @@ K: Amaj
 |: "A"AEF "D"A2B | "D"cag "A"aec | "Bm"Bcd "E"c2B | "A"c2c "E"BAF |
 "A"AEF "D"A2B | "D"cag "A"aec | "Bm"Bcd "E"c2B |1 "A"cAA "E"A2B :|2 "A"cAA "E"Ace ||
 "F#m"f3 fec | "F#m"fag "A"fec | "A"e3 e2c | "A"eaf ecA |
-"D"d2e f2e | "Bm"fac "E"B2f | "A"ecA "E"c2B |1 "A"cAA "E"Ace :|2 "A"cAA "E"A2B ||`
+"D"d2e f2e | "Bm"fac "E"B2f | "A"ecA "E"c2B |1 "A"cAA "E"Ace :|2 "A"cAA "E"A2B ||`,
+
+    "Out On The Ocean": `X: 1
+T: Out On The Ocean
+R: jig
+M: 6/8
+L: 1/8
+K: Gmaj
+|: "G"D2B BAG| "G"BdB A2B| "G"GED G2A| "G"B2B AGE|
+"G"D2B BAG| "G"BdB A2B| "C"GED G2A| "D"BGE G3 :|
+|:Bd | "Em"e2e edB| ege edB| "D"d2B def| gfe dBA|
+"G"G2A B2d| "C"ege "G"d2B| AGE G2A| "D"BGE "G"G :|`
 
 };
