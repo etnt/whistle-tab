@@ -599,6 +599,16 @@ K: Gmaj
 |: "G"D2B BAG| "G"BdB A2B| "G"GED G2A| "G"B2B AGE|
 "G"D2B BAG| "G"BdB A2B| "C"GED G2A| "D"BGE G3 :|
 |:Bd | "Em"e2e edB| ege edB| "D"d2B def| gfe dBA|
-"G"G2A B2d| "C"ege "G"d2B| AGE G2A| "D"BGE "G"G :|`
+"G"G2A B2d| "C"ege "G"d2B| AGE G2A| "D"BGE "G"G :|`,
+
+    "Le Mardi Gras": `X: 1
+T: Le Mardi Gras
+R: reel
+M: 4/4
+L: 1/8
+K: Gmaj
+|:GA| "G"B3A BAGA| "Em"BEEE G2GA| "G"B3A Bdef| "C"gedB "D"AB :|
+GA| "G"B2gB aBgB| "C"B2gB "D"BAGA| "G"B2gB aBde| "C"gedB "D"ABGA|
+"G"B2gB aBgB| "C"B2gB "D"BAGA| "G"Bdef "C"g3f| "D"gedB "G"A2||`
 
 };
