@@ -601,14 +601,15 @@ K: Gmaj
 |:Bd | "Em"e2e edB| ege edB| "D"d2B def| gfe dBA|
 "G"G2A B2d| "C"ege "G"d2B| AGE G2A| "D"BGE "G"G :|`,
 
-    "Le Mardi Gras": `X: 1
-T: Le Mardi Gras
-R: reel
+    "Le Dans De Mardi Gras": `X: 1
+T: Le Dans De Mardi Gras
+N: From the YT channel: Fiddlehed
 M: 4/4
 L: 1/8
-K: Gmaj
-|:GA| "G"B3A BAGA| "Em"BEEE G2GA| "G"B3A Bdef| "C"gedB "D"AB :|
-GA| "G"B2gB aBgB| "C"B2gB "D"BAGA| "G"B2gB aBde| "C"gedB "D"ABGA|
-"G"B2gB aBgB| "C"B2gB "D"BAGA| "G"Bdef "C"g3f| "D"gedB "G"A2||`
+Q: 120
+K: Gmin
+|: "Gm"g2 f2 g2 f2 | "Dm"d2 c2 d2 f2 | "Gm"g3f d2 f2 | "Gm"g3f dcB2 | 
+"Gm"G2 F2 D2 G2 | "Gm"G2 F2 G2 A2 | "Bb"B4 B3B | "F"A3 A GF | 
+"Dm"D4 D2 DF2 | "Gm"G2 F2 G2 A2 | "Bb"B3B3 c2 | "Dm"d3 (c dc) B2 |[1 "Gm"G5g2 :|[2 "Gm"G5 z2 ||`
 
 };
