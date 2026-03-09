@@ -610,6 +610,17 @@ Q: 120
 K: Gmin
 |: "Gm"g2 f2 g2 f2 | "Dm"d2 c2 d2 f2 | "Gm"g3f d2 f2 | "Gm"g3f dcB2 | 
 "Gm"G2 F2 D2 G2 | "Gm"G2 F2 G2 A2 | "Bb"B4 B3B | "F"A3 A GF | 
-"Dm"D4 D2 DF2 | "Gm"G2 F2 G2 A2 | "Bb"B3B3 c2 | "Dm"d3 (c dc) B2 |[1 "Gm"G5g2 :|[2 "Gm"G5 z2 ||`
+"Dm"D4 D2 DF2 | "Gm"G2 F2 G2 A2 | "Bb"B3B3 c2 | "Dm"d3 (c dc) B2 |[1 "Gm"G5g2 :|[2 "Gm"G5 z2 ||`,
+
+    "Red Haired Boy": `X: 2
+T: Red Haired Boy
+R: hornpipe
+M: 4/4
+L: 1/8
+K: Amix
+|:AG | "A"E2A2 "A"AB cd | "A"ef ec "D"d2cd | "A"e2A2 "A"AB cA | "G"BA EF "G"G2 GF |
+"A"E2A2 "A"AB cd | "A"ef ec "D"d2cd | "A"e a2 b "G"ag ed | "A"c2A2A2 :|
+|:ef | "G"gf ga "G"gf ef | "G"gf ec "D"d2cd | "A"e2A2 "A"AB cA | "G"BA EF "G"G3F |
+"A"E2A2 "A"AB cd | "A"ef ec "D"d2cd | "A"e a2 b "G"ag ed | "A"c2 A2 A2 :|`
 
 };
