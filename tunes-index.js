@@ -78,17 +78,6 @@ K: Dmaj
 |:"D"a3g fdde|fdd2 efga|"Em"efga beef|gebe geg2|
 "D"faaf def/2e/2d|defd "A"e2de|"Bm"fBBA B2dB|"A"AFEF "D"D4:|`,
 
-    "Fáinne Geal An Lae": `X: 1
-T: Fáinne Geal An Lae
-R: march
-M: 4/4
-L: 1/8
-K: Dmaj
-"D"D2E2| "D"F4 F4 "Bm"F4 E2F2| "D"A4 A4 "G"B4 A2F2| "D"D4 "A"E4 "D"D4 D4| "D"D12 "A"A4|
-"G"B6 A2 "G"B4 d4| "D"F6 E2 "Bm"D4 "D"F4| "D"A4 F4 "Bm"d4 "D"F4| "A"E12 A4|
-"G"B6 A2 "G"B4 d4| "D"F6 E2 "Bm"D4 "D"F4| "D"A4 F4 "Bm"d4 "D"F4| "A"E12 "D"D2E2|
-"D"F4 F4 "Bm"F4 E2F2| "D"A4 A4 "G"B4 A2F2| "D"D4 "Bm"F4 "A"E4 "D"D4 D4| "D"D12 z4||`,
-
     "The Kitchen Girl": `X: 1
 T: The Kitchen Girl
 N:The Kitchen Girl" is a classic old-time fiddle tune. It is unique because
@@ -212,22 +201,6 @@ P: A
 P: B
 |: "D"A2 AB A2 FG | "A"AF E2 "D"D4 | "D"A2 AB A2 FA | "G"B2 d2 "A"e4 |
 |  "D"A2 AB A2 FG | "A"AF E2 "D"D4 | "D"d2 dB "G"AF G2 | "A"AFGE "D"FD D2 :|`,
-
-    "Red Haired Boy": `X: 1
-T: Red Haired Boy
-T: The Little Beggarman
-R: reel
-M: 4/4
-L: 1/8
-K: D
-% --- PART A ---
-P: A
-|: "A"E2 AA ABAG | "G"EDEF G2 FG | "A"ABcd efge | "G"afge "D"d2 cd |
-|  "A"e2 AA ABAG | "G"EDEF G2 FG | "A"ABcd efge | "G"afge "A"A4 :|
-% --- PART B ---
-P: B
-|: "G"g2 gg gfed | "A"efge "D"a2 f2 | "A"efge "D"afge | "G"dBGB "D"d2 cd |
-|  "A"e2 AA ABAG | "G"EDEF G2 FG | "A"ABcd efge | "G"afge "A"A4 :|`,
 
     "The Derry Air": `X: 1
 T: The Derry Air
@@ -546,17 +519,6 @@ K: Gmaj
 |: "G"G2B d^cd "Em"edB g2e | "G"dBA GBd "C"e2f "G"g3 |
 "G"ged "Em"BAG "G"d2B "D"AGE | "G"GAB "D"D2E "G"G2A B2A :|`,
 
-    "Old Mother Flanagan": `X:1
-T:Old Mother Flanagan
-R:reel
-M:4/4
-L:1/8
-K:A
-|: a2 a2 fecd | efec BAFG | ABAF EFAB | cBcd e2 (3efg |
-a2 a2 fecd | efec BAFG | ABAF EFAB |1 cABG A2 (3efg :|2 cABG A2 E2 ||
-|: ABAF EFAB | c2 cA BAFG | ABAF EFAB | cBcd e4 |
-d2 fd c2 ec | BABc BAF2 | ABAF EFAB |1 cABG A2 E2 :|2 cABG A2 (3efg :|`,
-
     "The Swallowtail": `X:1
 T:The Swallowtail
 R: jig
@@ -614,6 +576,7 @@ K: Gmin
 
     "Red Haired Boy": `X: 2
 T: Red Haired Boy
+T: The Little Beggarman
 R: hornpipe
 M: 4/4
 L: 1/8
