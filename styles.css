@@ -124,6 +124,22 @@ h2 {
     cursor: pointer;
 }
 
+.fiddle-font-size-control {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: #f0f4ff;
+    border-radius: 6px;
+    border: 2px solid #667eea;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.fiddle-font-size-control:hover {
+    background: #e0e8ff;
+}
+
 .controls select {
     padding: 8px 12px;
     border: 2px solid #ddd;
@@ -246,12 +262,12 @@ h2 {
 /* Using blue, orange, purple, teal - distinguishable for red/green colorblindness */
 .fiddle-tab.string-G text { fill: #0072B2 !important; stroke: none !important; }  /* Blue for G string */
 .fiddle-tab.string-D text { fill: #E69F00 !important; stroke: none !important; }  /* Orange for D string */
-.fiddle-tab.string-A text { fill: #CC79A7 !important; stroke: none !important; }  /* Pink/Magenta for A string */
-.fiddle-tab.string-E text { fill: #009E73 !important; stroke: none !important; }  /* Teal for E string */
+.fiddle-tab.string-A text { fill: #D32F2F !important; stroke: none !important; }  /* Red for A string */
+.fiddle-tab.string-E text { fill: #000000 !important; stroke: none !important; }  /* Black for E string */
 g.fiddle-tab.string-G > text { fill: #0072B2 !important; }
 g.fiddle-tab.string-D > text { fill: #E69F00 !important; }
-g.fiddle-tab.string-A > text { fill: #CC79A7 !important; }
-g.fiddle-tab.string-E > text { fill: #009E73 !important; }
+g.fiddle-tab.string-A > text { fill: #D32F2F !important; }
+g.fiddle-tab.string-E > text { fill: #000000 !important; }
 
 #paper svg {
     overflow: visible;

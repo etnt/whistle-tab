@@ -38,6 +38,15 @@
                     <input type="checkbox" id="fiddle-tab-checkbox">
                     Fiddle Tab
                 </label>
+                <label id="fiddle-font-size-control" class="fiddle-font-size-control" style="display: none;">
+                    Tab size:
+                    <select id="fiddle-font-size">
+                        <option value="7">Small</option>
+                        <option value="9" selected>Medium</option>
+                        <option value="11">Large</option>
+                        <option value="13">X-Large</option>
+                    </select>
+                </label>
                 <label class="speed-control">
                     Speed:
                     <input type="range" id="speed-slider" min="50" max="150" value="100" step="5">
@@ -94,11 +103,11 @@
                 <p class="legend-intro">Format: <strong>String + Finger</strong> (e.g., D1 = D string, 1st finger)</p>
                 <div class="legend-strings">
                     <div class="legend-item">
-                        <span class="string-label" style="color: #009E73;">E</span>
+                        <span class="string-label" style="color: #000000;">E</span>
                         <span>= 1st string (highest)</span>
                     </div>
                     <div class="legend-item">
-                        <span class="string-label" style="color: #CC79A7;">A</span>
+                        <span class="string-label" style="color: #D32F2F;">A</span>
                         <span>= 2nd string</span>
                     </div>
                     <div class="legend-item">

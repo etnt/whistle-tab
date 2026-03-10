@@ -26,6 +26,7 @@ function init() {
         updateTabTitle();
         renderMusic(false);
     });
+    document.getElementById('fiddle-font-size').addEventListener('change', () => renderMusic(false));
     
     // Speed slider update
     document.getElementById('speed-slider').addEventListener('input', (e) => {
@@ -58,6 +59,10 @@ function updateTabTitle() {
     // Toggle transpose control visibility (not applicable for fiddle)
     const transposeControl = document.getElementById('transpose-control');
     if (transposeControl) transposeControl.style.display = useFiddleTab ? 'none' : 'inline-block';
+
+    // Toggle fiddle font size control visibility
+    const fiddleFontSizeControl = document.getElementById('fiddle-font-size-control');
+    if (fiddleFontSizeControl) fiddleFontSizeControl.style.display = useFiddleTab ? 'inline-flex' : 'none';
 }
 
 /**
@@ -846,10 +851,24 @@ function addFiddleTablatureToNotes(abcInput) {
     let noteIndex = 0;
     let staggerLevel = 0; // 0, 1, 2 for three vertical levels
     let lastNoteX = -100;
+    let oddEvenCounter = 0; // Counter for odd/even two-line pattern
+    let lastStaffLine = null; // Track staff line changes for odd/even reset
+
+    // Read font size once before the loop
+    const fontSize = document.getElementById('fiddle-font-size')?.value || '9';
+    const fontSizeNum = parseInt(fontSize, 10) || 9;
+    // Use odd/even two-line pattern for large fonts (11+) to avoid overlap on 3-char labels
+    const useOddEvenPattern = fontSizeNum >= 11;
     
     noteGroups.forEach((noteGroup, i) => {
         const staffLine = noteToStaffLine.get(noteGroup);
         if (!staffLine) return;
+        
+        // Reset odd/even counter when moving to a new staff line
+        if (staffLine !== lastStaffLine) {
+            oddEvenCounter = 0;
+            lastStaffLine = staffLine;
+        }
         
         const notePos = notePositions.find(np => np.group === noteGroup);
         if (!notePos) return;
@@ -873,17 +892,24 @@ function addFiddleTablatureToNotes(abcInput) {
         
         const tabX = notePos.noteX;
         
-        // Three-level vertical stagger to prevent overlap
-        // Reset stagger if notes are far apart horizontally
-        if (notePos.noteX - lastNoteX > 15) {
-            staggerLevel = 0;
+        // Vertical stagger to prevent overlap
+        if (useOddEvenPattern) {
+            // Odd/even two-line pattern for large fonts
+            staggerLevel = oddEvenCounter % 2;
+            oddEvenCounter++;
         } else {
-            staggerLevel = (staggerLevel + 1) % 3;
+            // Three-level proximity-based stagger for smaller fonts
+            if (notePos.noteX - lastNoteX > 15) {
+                staggerLevel = 0;
+            } else {
+                staggerLevel = (staggerLevel + 1) % 3;
+            }
         }
         lastNoteX = notePos.noteX;
         
-        // Calculate Y position with stagger
-        const staggerOffset = staggerLevel * 12; // 12 pixels between levels
+        // Calculate Y position with stagger (scale spacing with font size)
+        const staggerSpacing = Math.round(fontSizeNum * 1.3);
+        const staggerOffset = staggerLevel * staggerSpacing;
         const tabY = staffLine.tabY + staggerOffset;
         
         // Create the text element
@@ -891,7 +917,7 @@ function addFiddleTablatureToNotes(abcInput) {
         tabText.setAttribute('x', tabX);
         tabText.setAttribute('y', tabY);
         tabText.setAttribute('text-anchor', 'middle');
-        tabText.setAttribute('font-size', '9');
+        tabText.setAttribute('font-size', fontSize);
         tabText.setAttribute('font-family', 'Arial, sans-serif');
         tabText.setAttribute('font-weight', 'normal');
         
@@ -899,8 +925,8 @@ function addFiddleTablatureToNotes(abcInput) {
         const stringColors = {
             'G': '#0072B2', // Blue for G string (lowest)
             'D': '#E69F00', // Orange for D string
-            'A': '#CC79A7', // Pink/Magenta for A string
-            'E': '#009E73'  // Teal for E string (highest)
+            'A': '#D32F2F', // Red for A string
+            'E': '#000000'  // Black for E string (highest)
         };
         
         const fillColor = stringColors[fiddleTab.string] || '#333';
