@@ -584,6 +584,17 @@ K: Amix
 |:AG | "A"E2A2 "A"AB cd | "A"ef ec "D"d2cd | "A"e2A2 "A"AB cA | "G"BA EF "G"G2 GF |
 "A"E2A2 "A"AB cd | "A"ef ec "D"d2cd | "A"e a2 b "G"ag ed | "A"c2A2A2 :|
 |:ef | "G"gf ga "G"gf ef | "G"gf ec "D"d2cd | "A"e2A2 "A"AB cA | "G"BA EF "G"G3F |
-"A"E2A2 "A"AB cd | "A"ef ec "D"d2cd | "A"e a2 b "G"ag ed | "A"c2 A2 A2 :|`
+"A"E2A2 "A"AB cd | "A"ef ec "D"d2cd | "A"e a2 b "G"ag ed | "A"c2 A2 A2 :|`,
+
+    "Miss McLeod's Reel": `X: 2
+T: Miss McLeod's Reel
+R: reel
+M: 4/4
+L: 1/8
+K: Amaj
+cB|:A2 a2 fefa|cccB c2cB|A2 a2 fefa|BBBA B2cB|
+A2 a2 fefa|cccB c2 e2|fffe f2ef|afec B2cB:|
+|:ABcd eAcA|cccB c2cB|ABcd eAcA BBBA B2cB|
+ABcd eAcA|cccB c2 e2|fffe f2ef|afec B2cB:|`
 
 };
