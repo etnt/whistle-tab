@@ -1,0 +1,15 @@
+X: 1
+T: Tanpura Emulation
+M: 4/4
+L: 1/1
+K: Dmaj
+V:1 name="Attack"
+%%MIDI program 104 % Sitar
+D2 | D2 | D2 | D2 | D2 | D2 | D2 | D2
+V:2 name="Overtones"
+%%MIDI program 9 % Celesta/Glockenspiel
+%%MIDI gain 0.3  % lower the volume
+D'2 | A2 | D'2 | A2 | D'2 | A2 | D'2 | A2
+V:3 name="Drone"
+%%MIDI program 99 % Atmosphere (Synth)
+D2 | D2 | D2 | D2 | D2 | D2 | D2 | D2

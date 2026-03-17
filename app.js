@@ -554,6 +554,7 @@ function renderMusic(fromUserInput = false) {
             } else {
                 addTablatureToNotes(originalAbc, whistleKey);
             }
+            addMeasureNumbers();
         }, 50);
         
         currentTune = transposedAbc;
@@ -951,6 +952,122 @@ function addFiddleTablatureToNotes(abcInput) {
     
     // Reposition meta text below fiddle tablature
     repositionMetaBottom(svg, staffLineYs, 40); // Extra offset for fiddle tab
+}
+
+/**
+ * Add measure numbers at the beginning of each staff line
+ */
+function addMeasureNumbers() {
+    const svg = document.querySelector('#paper svg');
+    if (!svg) return;
+
+    const svgNS = 'http://www.w3.org/2000/svg';
+
+    // Find SVG note elements for positioning
+    const noteGroups = svg.querySelectorAll('.abcjs-note');
+    if (noteGroups.length === 0) return;
+
+    // Collect note positions
+    const notePositions = [];
+    noteGroups.forEach(noteGroup => {
+        try {
+            const notehead = noteGroup.querySelector('.abcjs-notehead');
+            let noteY, noteX;
+            if (notehead) {
+                const hb = notehead.getBBox();
+                noteY = hb.y + hb.height / 2;
+                noteX = hb.x + hb.width / 2;
+            } else {
+                const bbox = noteGroup.getBBox();
+                noteY = bbox.y + 10;
+                noteX = bbox.x + bbox.width / 2;
+            }
+            notePositions.push({ noteX, noteY });
+        } catch (e) {}
+    });
+    if (notePositions.length === 0) return;
+
+    // Group notes into staff lines by Y proximity
+    const lineThreshold = 50;
+    const staffLines = [];
+    const sortedNotes = [...notePositions].sort((a, b) => a.noteY - b.noteY);
+
+    sortedNotes.forEach(np => {
+        const found = staffLines.find(l => Math.abs(np.noteY - l.centerY) < lineThreshold);
+        if (found) {
+            found.notes.push(np);
+            found.minY = Math.min(found.minY, np.noteY);
+            found.maxY = Math.max(found.maxY, np.noteY);
+            found.centerY = (found.minY + found.maxY) / 2;
+        } else {
+            staffLines.push({
+                centerY: np.noteY, minY: np.noteY, maxY: np.noteY,
+                notes: [np]
+            });
+        }
+    });
+    staffLines.sort((a, b) => a.centerY - b.centerY);
+
+    // Parse ABC to compute measure indices from the source notation
+    const abc = originalAbc || document.getElementById('abc-input').value;
+    const parsed = extractNotesFromABC(abc);
+
+    // Build a measure index (0-based) for each playable note.
+    // Only count a barline as a measure boundary when it appears between
+    // musical elements (notes/rests), and treat consecutive barlines
+    // (e.g. :| followed by |:) as a single boundary.
+    let measureIndex = 0;
+    let seenFirstElement = false;
+    let lastWasBarline = false;
+    const measureOfNote = [];
+
+    for (const item of parsed) {
+        if (item.isBarline) {
+            if (seenFirstElement && !lastWasBarline) {
+                measureIndex++;
+            }
+            lastWasBarline = true;
+        } else {
+            if (!seenFirstElement) seenFirstElement = true;
+            lastWasBarline = false;
+            const isRest = (item.note === 'z' || item.note === 'Z' || item.note === 'x');
+            if (!isRest) {
+                measureOfNote.push(measureIndex);
+            }
+        }
+    }
+
+    // Place a measure number at the start of each staff line
+    let noteOffset = 0;
+    staffLines.forEach((line) => {
+        const noteCount = line.notes.length;
+        const firstNoteIdx = noteOffset;
+        const measureNum = firstNoteIdx < measureOfNote.length
+            ? measureOfNote[firstNoteIdx] + 1
+            : 1;
+
+        // Position to the left of the first note on this line
+        line.notes.sort((a, b) => a.noteX - b.noteX);
+        const leftmostX = line.notes[0].noteX;
+        const numX = leftmostX - 8;
+        const numY = line.centerY - 35;
+
+        const text = document.createElementNS(svgNS, 'text');
+        text.setAttribute('x', numX);
+        text.setAttribute('y', numY);
+        text.setAttribute('text-anchor', 'end');
+        text.setAttribute('font-size', '12');
+        text.setAttribute('font-family', "'Helvetica Neue', Helvetica, Arial, sans-serif");
+        text.setAttribute('font-style', 'italic');
+        text.setAttribute('font-weight', 'normal');
+        text.setAttribute('fill', '#999');
+        text.setAttribute('stroke', 'none');
+        text.setAttribute('class', 'measure-number');
+        text.textContent = measureNum;
+        svg.appendChild(text);
+
+        noteOffset += noteCount;
+    });
 }
 
 /**
