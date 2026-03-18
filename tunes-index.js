@@ -595,6 +595,19 @@ K: Amaj
 cB|:A2 a2 fefa|cccB c2cB|A2 a2 fefa|BBBA B2cB|
 A2 a2 fefa|cccB c2 e2|fffe f2ef|afec B2cB:|
 |:ABcd eAcA|cccB c2cB|ABcd eAcA BBBA B2cB|
-ABcd eAcA|cccB c2 e2|fffe f2ef|afec B2cB:|`
+ABcd eAcA|cccB c2 e2|fffe f2ef|afec B2cB:|`,
+
+    "King Of The Fairies": `X: 8
+T: King Of The Fairies
+R: hornpipe
+M: 4/4
+L: 1/8
+K: Edor
+|:B,2| "Em"E>DE>F G>FG>A | "Em"B2 B>A G>FG>A | "Em"B2 E2 E>FG>E | "D"F>GF>E D2 B,2 |
+"Em"E>DE>F G>FG>A | "Em"B>AG>B "D"d3 =c | "Em"B2 E2 "Bm"G>FE>D | "Em"E2 E>D E2 :|
+B2| "Em"e2 e2 B>de>f | "Em"g>ag>f e3 f | "Em"e2 B2 B>AB>c | "D"d>ed>c B>c (3dcB |
+"Em"e2 B2 B>de>f | "Em"g>ag>f e>fe>d | "G"B>de>g "D"f>ed>f | "Em"e2 e>d e2 e>f |
+"G"g3 e "D"f3 d | "Em"e>dB>c "D"d3 e | "Bm"d>BA>F G>AB>c | "D"d>BA>F G>FE>D |
+"Em"B,2 E2 E>FG>A | "Em"B2 e2 "D"e>de>f | "Em"e2 B2 "Bm"B>AG>F | "Em"E2 E>D E2 ||`
 
 };
