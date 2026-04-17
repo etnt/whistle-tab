@@ -10,6 +10,8 @@ let currentTune = null;
 let visualObj = null;
 let synthControl = null;
 let originalAbc = null;  // Store the original ABC before any transposition
+const PIANO_BLACK_KEY_PITCH_CLASSES = new Set([1, 3, 6, 8, 10]); // C#, D#, F#, G#, A#
+const MAX_GUITAR_SHAPE_FRET = 7;
 
 /**
  * Initialize the application
@@ -649,8 +651,11 @@ function getChordPitchClasses(chordSymbol) {
         intervals = [0, 3, 7];
     }
 
-    if (lower.includes('b5')) intervals = intervals.map(i => (i === 7 ? 6 : i));
-    if (lower.includes('#5')) intervals = intervals.map(i => (i === 7 ? 8 : i));
+    if (lower.includes('b5')) {
+        intervals = intervals.map(i => (i === 7 ? 6 : i));
+    } else if (lower.includes('#5')) {
+        intervals = intervals.map(i => (i === 7 ? 8 : i));
+    }
     if (lower.includes('maj7')) intervals.push(11);
     else if (lower.includes('7')) intervals.push(10);
     if (/\b6\b/.test(lower)) intervals.push(9);
@@ -726,12 +731,11 @@ function createPianoChordDiagram(chordSymbol) {
     const pitchClasses = getChordPitchClasses(chordSymbol);
     const diagram = document.createElement('div');
     diagram.className = 'piano-diagram';
-    const blackKeys = new Set([1, 3, 6, 8, 10]);
 
     for (let pitchClass = 0; pitchClass < 12; pitchClass++) {
         const key = document.createElement('div');
         key.className = 'piano-key';
-        if (blackKeys.has(pitchClass)) key.classList.add('black');
+        if (PIANO_BLACK_KEY_PITCH_CLASSES.has(pitchClass)) key.classList.add('black');
         if (pitchClasses.includes(pitchClass)) key.classList.add('active');
         diagram.appendChild(key);
     }
@@ -801,12 +805,18 @@ function getGuitarChordFrets(chordSymbol) {
         maj7: n => [-1, n, n + 2, n + 1, n + 2, n]
     };
 
-    const eCandidate = eRootFret <= 7 ? eShapes[quality](eRootFret) : null;
-    const aCandidate = aRootFret <= 7 ? aShapes[quality](aRootFret) : null;
+    const eCandidate = eRootFret <= MAX_GUITAR_SHAPE_FRET ? eShapes[quality](eRootFret) : null;
+    const aCandidate = aRootFret <= MAX_GUITAR_SHAPE_FRET ? aShapes[quality](aRootFret) : null;
+
+    const getCandidateScore = (frets) => {
+        if (!frets) return Number.POSITIVE_INFINITY;
+        const fretted = frets.filter(f => f > 0);
+        return fretted.length ? Math.max(...fretted) : 0;
+    };
 
     if (eCandidate && aCandidate) {
-        const eScore = Math.max(...eCandidate.filter(f => f >= 0));
-        const aScore = Math.max(...aCandidate.filter(f => f >= 0));
+        const eScore = getCandidateScore(eCandidate);
+        const aScore = getCandidateScore(aCandidate);
         return eScore <= aScore ? eCandidate : aCandidate;
     }
     return eCandidate || aCandidate || null;
@@ -825,7 +835,16 @@ function createGuitarChordDiagram(chordSymbol) {
     const usedFrets = frets.filter(f => f > 0);
     const minFret = usedFrets.length ? Math.min(...usedFrets) : 1;
     const maxFret = usedFrets.length ? Math.max(...usedFrets) : 1;
-    const baseFret = minFret > 1 && maxFret - minFret >= 4 ? minFret : (minFret > 1 ? minFret : 1);
+    let baseFret = 1;
+    if (minFret > 1) {
+        // Open-position style chords still display with a 1st-fret "nut";
+        // higher shapes show their actual starting fret.
+        baseFret = minFret;
+    }
+    if (maxFret - minFret >= 4) {
+        // Wide shapes should start where the first fretted note appears.
+        baseFret = minFret;
+    }
 
     const wrapper = document.createElement('div');
     wrapper.className = 'guitar-diagram';
