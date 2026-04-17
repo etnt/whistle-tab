@@ -359,7 +359,7 @@ h2 {
     display: grid;
     grid-template-columns: repeat(12, 8px);
     gap: 1px;
-    align-items: end;
+    align-items: start;
 }
 
 .piano-key {
