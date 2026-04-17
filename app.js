@@ -12,6 +12,7 @@ let synthControl = null;
 let originalAbc = null;  // Store the original ABC before any transposition
 const PIANO_BLACK_KEY_PITCH_CLASSES = new Set([1, 3, 6, 8, 10]); // C#, D#, F#, G#, A#
 const CHORD_SHAPE_FRET_LIMIT = 7;
+const CHORD_SHAPE_MAX_SPAN = 4;
 
 /**
  * Initialize the application
@@ -829,14 +830,14 @@ function createGuitarChordDiagram(chordSymbol) {
     const frets = getGuitarChordFrets(chordSymbol);
     const fallback = document.createElement('div');
     fallback.className = 'guitar-base-fret';
-    fallback.textContent = '—';
+    fallback.textContent = 'N/A';
     if (!frets) return fallback;
 
     const usedFrets = frets.filter(f => f > 0);
     const minFret = usedFrets.length ? Math.min(...usedFrets) : 1;
     const maxFret = usedFrets.length ? Math.max(...usedFrets) : 1;
     let baseFret = 1;
-    if (minFret > 1 || maxFret - minFret >= 4) {
+    if (minFret > 1 || maxFret - minFret >= CHORD_SHAPE_MAX_SPAN) {
         // For non-open or wide shapes, label the first fretted position.
         baseFret = minFret;
     }
