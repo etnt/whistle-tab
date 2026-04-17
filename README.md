@@ -94,6 +94,7 @@ The fiddle tablature covers first position (G3 to B5), suitable for most traditi
 ## Chord Boxes Feature
 
 If your ABC includes chord annotations (for example `"D"` or `"G"` above notes), you can enable **Chord Boxes** in the controls.
+Example ABC chord placement: `"D"D2 FA | "G"G2 BG | "A7"A2 cA | "D"d4 |`
 
 When enabled:
 

@@ -603,7 +603,7 @@ function extractUniqueChordsFromABC(abc) {
         const matches = noComment.matchAll(/"([^"]+)"/g);
         for (const match of matches) {
             const candidate = (match[1] || '').trim();
-            if (!candidate || !/^[A-Ga-g][#b]?/.test(candidate)) continue;
+            if (!candidate || !parseChordSymbol(candidate)) continue;
             if (!seen.has(candidate)) {
                 seen.add(candidate);
                 chords.push(candidate);
@@ -647,7 +647,7 @@ function getChordPitchClasses(chordSymbol) {
         intervals = [0, 2, 7];
     } else if (lower.includes('sus4') || lower === 'sus') {
         intervals = [0, 5, 7];
-    } else if (/^m(?!aj)/i.test(baseSuffix)) {
+    } else if (/^m(?!aj)/.test(baseSuffix) || /^min/i.test(baseSuffix)) {
         intervals = [0, 3, 7];
     }
 
@@ -780,8 +780,8 @@ function getGuitarChordFrets(chordSymbol) {
     const lower = baseSuffix.toLowerCase();
     let quality = 'major';
     if (lower.includes('maj7')) quality = 'maj7';
-    else if (/^m7/i.test(baseSuffix)) quality = 'm7';
-    else if (/^m(?!aj)/i.test(baseSuffix)) quality = 'minor';
+    else if (/^m7/.test(baseSuffix) || /^min7/i.test(baseSuffix)) quality = 'm7';
+    else if (/^m(?!aj)/.test(baseSuffix) || /^min/i.test(baseSuffix)) quality = 'minor';
     else if (lower.includes('7')) quality = '7';
 
     const rootPc = getNoteIndex(parsed.root);
@@ -811,7 +811,7 @@ function getGuitarChordFrets(chordSymbol) {
     const getCandidateScore = (frets) => {
         if (!frets) return Number.POSITIVE_INFINITY;
         const fretted = frets.filter(f => f > 0);
-        return fretted.length ? Math.max(...fretted) : 0;
+        return fretted.reduce((max, fret) => Math.max(max, fret), 0);
     };
 
     if (eCandidate && aCandidate) {
@@ -837,8 +837,7 @@ function createGuitarChordDiagram(chordSymbol) {
     const maxFret = usedFrets.length ? Math.max(...usedFrets) : 1;
     let baseFret = 1;
     if (minFret > 1) {
-        // Open-position style chords still display with a 1st-fret "nut";
-        // higher shapes show their actual starting fret.
+        // For non-open shapes, label the first fretted position.
         baseFret = minFret;
     }
     if (maxFret - minFret >= 4) {
