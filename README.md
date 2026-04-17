@@ -11,6 +11,7 @@ sheet music with either tin whistle (Irish flute) or fiddle (violin) tablature d
 - **ABC Notation Parser**: Enter ABC notation and see it rendered as standard sheet music
 - **Tin Whistle Tablature**: Automatically generates fingering diagrams below the staff
 - **Fiddle Tablature**: Toggle to show violin first-position fingerings with color-coded strings
+- **Optional Chord Boxes**: Show all chords used in the tune as either guitar or piano chord boxes
 - **Transpose for Different Whistles**: Transpose tunes to play on A, G, C, Eb, F, or Bb whistles while keeping the same fingerings
 - **Audio Playback**: Play your tunes with flute or violin sound (based on tab type)
 - **Adjustable Speed**: Control playback tempo from 50% to 150%
@@ -89,6 +90,16 @@ Each string is displayed in a distinct color (using a colorblind-friendly palett
 ### First Position Range
 
 The fiddle tablature covers first position (G3 to B5), suitable for most traditional Irish and folk tunes.
+
+## Chord Boxes Feature
+
+If your ABC includes chord annotations (for example `"D"` or `"G"` above notes), you can enable **Chord Boxes** in the controls.
+
+When enabled:
+
+- The app collects all unique chords used in the current tune
+- It shows them in an optional chord area below the rendered sheet music
+- You can switch the diagram style between **Guitar** and **Piano** using the instrument selector
 
 ## ABC Notation Basics
 

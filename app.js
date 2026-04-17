@@ -27,6 +27,11 @@ function init() {
         renderMusic(false);
     });
     document.getElementById('fiddle-font-size').addEventListener('change', () => renderMusic(false));
+    document.getElementById('chord-boxes-checkbox').addEventListener('change', () => {
+        updateChordBoxControls();
+        renderMusic(false);
+    });
+    document.getElementById('chord-instrument').addEventListener('change', () => renderMusic(false));
     
     // Speed slider update
     document.getElementById('speed-slider').addEventListener('input', (e) => {
@@ -35,6 +40,7 @@ function init() {
     
     // Initialize tune library
     initTuneLibrary();
+    updateChordBoxControls();
     
     // Initial render
     renderMusic();
@@ -63,6 +69,17 @@ function updateTabTitle() {
     // Toggle fiddle font size control visibility
     const fiddleFontSizeControl = document.getElementById('fiddle-font-size-control');
     if (fiddleFontSizeControl) fiddleFontSizeControl.style.display = useFiddleTab ? 'inline-flex' : 'none';
+}
+
+/**
+ * Toggle chord box control visibility.
+ */
+function updateChordBoxControls() {
+    const showChordBoxes = document.getElementById('chord-boxes-checkbox').checked;
+    const chordInstrumentControl = document.getElementById('chord-instrument-control');
+    if (chordInstrumentControl) {
+        chordInstrumentControl.style.display = showChordBoxes ? 'inline-flex' : 'none';
+    }
 }
 
 /**
@@ -490,6 +507,7 @@ function renderMusic(fromUserInput = false) {
     const transposeSemitones = parseInt(document.getElementById('transpose-key').value, 10) || 0;
     const paperDiv = document.getElementById('paper');
     const tabDiv = document.getElementById('tablature');
+    const chordBoxesArea = document.getElementById('chord-boxes-area');
     
     // If this is from user input (typing in the text area), store as the new original
     if (fromUserInput || originalAbc === null) {
@@ -507,6 +525,10 @@ function renderMusic(fromUserInput = false) {
     
     // Clear previous tablature
     tabDiv.innerHTML = '';
+    if (chordBoxesArea) {
+        chordBoxesArea.innerHTML = '';
+        chordBoxesArea.style.display = 'none';
+    }
     
     if (!transposedAbc.trim()) {
         paperDiv.innerHTML = '<p style="color: #999; text-align: center;">Enter ABC notation above to see the music</p>';
@@ -556,6 +578,7 @@ function renderMusic(fromUserInput = false) {
             }
             addMeasureNumbers();
         }, 50);
+        renderChordBoxes(transposedAbc);
         
         currentTune = transposedAbc;
         
@@ -563,6 +586,279 @@ function renderMusic(fromUserInput = false) {
         console.error('Error rendering music:', error);
         paperDiv.innerHTML = `<p style="color: #c00;">Error: ${error.message}</p>`;
     }
+}
+
+/**
+ * Extract unique chord symbols from ABC chord annotations.
+ */
+function extractUniqueChordsFromABC(abc) {
+    const seen = new Set();
+    const chords = [];
+    const lines = abc.split('\n');
+
+    for (const line of lines) {
+        const noComment = line.replace(/%.*/, '');
+        const matches = noComment.matchAll(/"([^"]+)"/g);
+        for (const match of matches) {
+            const candidate = (match[1] || '').trim();
+            if (!candidate || !/^[A-Ga-g][#b]?/.test(candidate)) continue;
+            if (!seen.has(candidate)) {
+                seen.add(candidate);
+                chords.push(candidate);
+            }
+        }
+    }
+
+    return chords;
+}
+
+/**
+ * Parse chord symbol root and suffix.
+ */
+function parseChordSymbol(chordSymbol) {
+    const match = chordSymbol.trim().match(/^([A-Ga-g])([#b]?)(.*)$/);
+    if (!match) return null;
+    const root = match[1].toUpperCase() + (match[2] || '');
+    const suffix = (match[3] || '').trim();
+    return { root, suffix };
+}
+
+/**
+ * Build pitch classes from a chord symbol for piano highlighting.
+ */
+function getChordPitchClasses(chordSymbol) {
+    const parsed = parseChordSymbol(chordSymbol);
+    if (!parsed) return [];
+    const rootPc = getNoteIndex(parsed.root);
+    if (rootPc < 0) return [];
+
+    const suffix = parsed.suffix;
+    const baseSuffix = suffix.split('/')[0];
+    const lower = baseSuffix.toLowerCase();
+    let intervals = [0, 4, 7];
+
+    if (lower.includes('dim') || lower.includes('°')) {
+        intervals = [0, 3, 6];
+    } else if (lower.includes('aug') || lower.includes('+')) {
+        intervals = [0, 4, 8];
+    } else if (lower.includes('sus2')) {
+        intervals = [0, 2, 7];
+    } else if (lower.includes('sus4') || lower === 'sus') {
+        intervals = [0, 5, 7];
+    } else if (/^m(?!aj)/i.test(baseSuffix)) {
+        intervals = [0, 3, 7];
+    }
+
+    if (lower.includes('b5')) intervals = intervals.map(i => (i === 7 ? 6 : i));
+    if (lower.includes('#5')) intervals = intervals.map(i => (i === 7 ? 8 : i));
+    if (lower.includes('maj7')) intervals.push(11);
+    else if (lower.includes('7')) intervals.push(10);
+    if (/\b6\b/.test(lower)) intervals.push(9);
+    if (lower.includes('9')) intervals.push(14);
+    if (lower.includes('11')) intervals.push(17);
+    if (lower.includes('13')) intervals.push(21);
+    if (lower.includes('add9')) intervals.push(14);
+    if (lower.includes('add11')) intervals.push(17);
+    if (lower.includes('add13')) intervals.push(21);
+    if (lower.includes('b9')) intervals.push(13);
+    if (lower.includes('#9')) intervals.push(15);
+    if (lower.includes('b13')) intervals.push(20);
+    if (lower.includes('#11')) intervals.push(18);
+
+    const pcs = intervals.map(interval => (rootPc + interval) % 12);
+    return [...new Set(pcs)].sort((a, b) => a - b);
+}
+
+/**
+ * Render chord boxes in selected instrument mode.
+ */
+function renderChordBoxes(abc) {
+    const chordBoxesArea = document.getElementById('chord-boxes-area');
+    const showChordBoxes = document.getElementById('chord-boxes-checkbox').checked;
+    if (!chordBoxesArea || !showChordBoxes) {
+        if (chordBoxesArea) chordBoxesArea.style.display = 'none';
+        return;
+    }
+
+    const chords = extractUniqueChordsFromABC(abc);
+    if (chords.length === 0) {
+        chordBoxesArea.style.display = 'none';
+        return;
+    }
+
+    const instrument = document.getElementById('chord-instrument').value;
+    const title = instrument === 'piano' ? 'Piano Chord Boxes' : 'Guitar Chord Boxes';
+
+    chordBoxesArea.innerHTML = '';
+    const titleEl = document.createElement('h3');
+    titleEl.textContent = `${title} (${chords.length})`;
+    chordBoxesArea.appendChild(titleEl);
+
+    const grid = document.createElement('div');
+    grid.className = 'chord-boxes-grid';
+
+    chords.forEach(chord => {
+        const card = document.createElement('div');
+        card.className = 'chord-card';
+
+        const name = document.createElement('div');
+        name.className = 'chord-name';
+        name.textContent = chord;
+        card.appendChild(name);
+
+        if (instrument === 'piano') {
+            card.appendChild(createPianoChordDiagram(chord));
+        } else {
+            card.appendChild(createGuitarChordDiagram(chord));
+        }
+
+        grid.appendChild(card);
+    });
+
+    chordBoxesArea.appendChild(grid);
+    chordBoxesArea.style.display = 'block';
+}
+
+/**
+ * Create a simple 12-key piano chord diagram.
+ */
+function createPianoChordDiagram(chordSymbol) {
+    const pitchClasses = getChordPitchClasses(chordSymbol);
+    const diagram = document.createElement('div');
+    diagram.className = 'piano-diagram';
+    const blackKeys = new Set([1, 3, 6, 8, 10]);
+
+    for (let pitchClass = 0; pitchClass < 12; pitchClass++) {
+        const key = document.createElement('div');
+        key.className = 'piano-key';
+        if (blackKeys.has(pitchClass)) key.classList.add('black');
+        if (pitchClasses.includes(pitchClass)) key.classList.add('active');
+        diagram.appendChild(key);
+    }
+
+    return diagram;
+}
+
+/**
+ * Return a guitar fret layout for a chord.
+ */
+function getGuitarChordFrets(chordSymbol) {
+    const parsed = parseChordSymbol(chordSymbol);
+    if (!parsed) return null;
+
+    const key = `${parsed.root}${parsed.suffix.replace(/\s+/g, '')}`;
+    const openShapes = {
+        'C': [-1, 3, 2, 0, 1, 0],
+        'D': [-1, -1, 0, 2, 3, 2],
+        'E': [0, 2, 2, 1, 0, 0],
+        'F': [1, 3, 3, 2, 1, 1],
+        'G': [3, 2, 0, 0, 0, 3],
+        'A': [-1, 0, 2, 2, 2, 0],
+        'B': [-1, 2, 4, 4, 4, 2],
+        'Am': [-1, 0, 2, 2, 1, 0],
+        'Bm': [-1, 2, 4, 4, 3, 2],
+        'Cm': [-1, 3, 5, 5, 4, 3],
+        'Dm': [-1, -1, 0, 2, 3, 1],
+        'Em': [0, 2, 2, 0, 0, 0],
+        'Fm': [1, 3, 3, 1, 1, 1],
+        'Gm': [3, 5, 5, 3, 3, 3],
+        'A7': [-1, 0, 2, 0, 2, 0],
+        'B7': [0, 2, 1, 2, 0, 2],
+        'C7': [-1, 3, 2, 3, 1, 0],
+        'D7': [-1, -1, 0, 2, 1, 2],
+        'E7': [0, 2, 0, 1, 0, 0],
+        'F7': [1, 3, 1, 2, 1, 1],
+        'G7': [3, 2, 0, 0, 0, 1]
+    };
+    if (openShapes[key]) return openShapes[key];
+
+    const baseSuffix = parsed.suffix.split('/')[0].replace(/\s+/g, '');
+    const lower = baseSuffix.toLowerCase();
+    let quality = 'major';
+    if (lower.includes('maj7')) quality = 'maj7';
+    else if (/^m7/i.test(baseSuffix)) quality = 'm7';
+    else if (/^m(?!aj)/i.test(baseSuffix)) quality = 'minor';
+    else if (lower.includes('7')) quality = '7';
+
+    const rootPc = getNoteIndex(parsed.root);
+    if (rootPc < 0) return null;
+
+    const eRootFret = (rootPc - getNoteIndex('E') + 12) % 12;
+    const aRootFret = (rootPc - getNoteIndex('A') + 12) % 12;
+
+    const eShapes = {
+        major: n => [n, n + 2, n + 2, n + 1, n, n],
+        minor: n => [n, n + 2, n + 2, n, n, n],
+        '7': n => [n, n + 2, n, n + 1, n, n],
+        m7: n => [n, n + 2, n, n, n, n],
+        maj7: n => [n, n + 2, n + 1, n + 1, n, n]
+    };
+    const aShapes = {
+        major: n => [-1, n, n + 2, n + 2, n + 2, n],
+        minor: n => [-1, n, n + 2, n + 2, n + 1, n],
+        '7': n => [-1, n, n + 2, n, n + 2, n],
+        m7: n => [-1, n, n + 2, n, n + 1, n],
+        maj7: n => [-1, n, n + 2, n + 1, n + 2, n]
+    };
+
+    const eCandidate = eRootFret <= 7 ? eShapes[quality](eRootFret) : null;
+    const aCandidate = aRootFret <= 7 ? aShapes[quality](aRootFret) : null;
+
+    if (eCandidate && aCandidate) {
+        const eScore = Math.max(...eCandidate.filter(f => f >= 0));
+        const aScore = Math.max(...aCandidate.filter(f => f >= 0));
+        return eScore <= aScore ? eCandidate : aCandidate;
+    }
+    return eCandidate || aCandidate || null;
+}
+
+/**
+ * Create a simple guitar chord box.
+ */
+function createGuitarChordDiagram(chordSymbol) {
+    const frets = getGuitarChordFrets(chordSymbol);
+    const fallback = document.createElement('div');
+    fallback.className = 'guitar-base-fret';
+    fallback.textContent = '—';
+    if (!frets) return fallback;
+
+    const usedFrets = frets.filter(f => f > 0);
+    const minFret = usedFrets.length ? Math.min(...usedFrets) : 1;
+    const maxFret = usedFrets.length ? Math.max(...usedFrets) : 1;
+    const baseFret = minFret > 1 && maxFret - minFret >= 4 ? minFret : (minFret > 1 ? minFret : 1);
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'guitar-diagram';
+
+    const fretLabel = document.createElement('div');
+    fretLabel.className = 'guitar-base-fret';
+    fretLabel.textContent = baseFret > 1 ? `${baseFret}fr` : '';
+    wrapper.appendChild(fretLabel);
+
+    const strings = document.createElement('div');
+    strings.className = 'guitar-strings';
+
+    frets.forEach(fret => {
+        const top = document.createElement('div');
+        top.className = 'guitar-top';
+        top.textContent = fret < 0 ? '×' : (fret === 0 ? '○' : '');
+        strings.appendChild(top);
+    });
+
+    for (let row = 1; row <= 5; row++) {
+        frets.forEach(fret => {
+            const cell = document.createElement('div');
+            cell.className = 'guitar-cell';
+            if (baseFret === 1 && row === 1) cell.classList.add('nut');
+            if (fret > 0 && (fret - baseFret + 1) === row) {
+                cell.classList.add('dot');
+            }
+            strings.appendChild(cell);
+        });
+    }
+
+    wrapper.appendChild(strings);
+    return wrapper;
 }
 
 /**

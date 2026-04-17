@@ -47,6 +47,17 @@
                         <option value="13">X-Large</option>
                     </select>
                 </label>
+                <label class="chord-boxes-control">
+                    <input type="checkbox" id="chord-boxes-checkbox">
+                    Chord Boxes
+                </label>
+                <label id="chord-instrument-control" class="chord-instrument-control" style="display: none;">
+                    Instrument:
+                    <select id="chord-instrument">
+                        <option value="guitar">Guitar</option>
+                        <option value="piano">Piano</option>
+                    </select>
+                </label>
                 <label class="speed-control">
                     Speed:
                     <input type="range" id="speed-slider" min="50" max="150" value="100" step="5">
@@ -62,6 +73,7 @@
         <div class="output-section">
             <h2 id="output-title">Sheet Music with Flute Tablature</h2>
             <div id="paper"></div>
+            <div id="chord-boxes-area" class="chord-boxes-area" style="display:none;"></div>
             <div id="audio-controls" class="audio-controls"></div>
             <div id="tablature" style="display:none;"></div>
         </div>
