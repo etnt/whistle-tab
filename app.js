@@ -11,7 +11,7 @@ let visualObj = null;
 let synthControl = null;
 let originalAbc = null;  // Store the original ABC before any transposition
 const PIANO_BLACK_KEY_PITCH_CLASSES = new Set([1, 3, 6, 8, 10]); // C#, D#, F#, G#, A#
-const MAX_GUITAR_SHAPE_FRET = 7;
+const CHORD_SHAPE_FRET_LIMIT = 7;
 
 /**
  * Initialize the application
@@ -805,8 +805,8 @@ function getGuitarChordFrets(chordSymbol) {
         maj7: n => [-1, n, n + 2, n + 1, n + 2, n]
     };
 
-    const eCandidate = eRootFret <= MAX_GUITAR_SHAPE_FRET ? eShapes[quality](eRootFret) : null;
-    const aCandidate = aRootFret <= MAX_GUITAR_SHAPE_FRET ? aShapes[quality](aRootFret) : null;
+    const eCandidate = eRootFret <= CHORD_SHAPE_FRET_LIMIT ? eShapes[quality](eRootFret) : null;
+    const aCandidate = aRootFret <= CHORD_SHAPE_FRET_LIMIT ? aShapes[quality](aRootFret) : null;
 
     const getCandidateScore = (frets) => {
         if (!frets) return Number.POSITIVE_INFINITY;
@@ -836,12 +836,8 @@ function createGuitarChordDiagram(chordSymbol) {
     const minFret = usedFrets.length ? Math.min(...usedFrets) : 1;
     const maxFret = usedFrets.length ? Math.max(...usedFrets) : 1;
     let baseFret = 1;
-    if (minFret > 1) {
-        // For non-open shapes, label the first fretted position.
-        baseFret = minFret;
-    }
-    if (maxFret - minFret >= 4) {
-        // Wide shapes should start where the first fretted note appears.
+    if (minFret > 1 || maxFret - minFret >= 4) {
+        // For non-open or wide shapes, label the first fretted position.
         baseFret = minFret;
     }
 
