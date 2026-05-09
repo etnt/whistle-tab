@@ -608,6 +608,17 @@ K: Edor
 B2| "Em"e2 e2 B>de>f | "Em"g>ag>f e3 f | "Em"e2 B2 B>AB>c | "D"d>ed>c B>c (3dcB |
 "Em"e2 B2 B>de>f | "Em"g>ag>f e>fe>d | "G"B>de>g "D"f>ed>f | "Em"e2 e>d e2 e>f |
 "G"g3 e "D"f3 d | "Em"e>dB>c "D"d3 e | "Bm"d>BA>F G>AB>c | "D"d>BA>F G>FE>D |
-"Em"B,2 E2 E>FG>A | "Em"B2 e2 "D"e>de>f | "Em"e2 B2 "Bm"B>AG>F | "Em"E2 E>D E2 ||`
+"Em"B,2 E2 E>FG>A | "Em"B2 e2 "D"e>de>f | "Em"e2 B2 "Bm"B>AG>F | "Em"E2 E>D E2 ||`,
+
+    "Angeline The Baker": `X: 1
+T: Angeline The Baker
+R: polka
+M: 2/4
+L: 1/8
+K: Dmaj
+|: "D" d/B/ | "D" AB d>A | "G" B d2 d/B/ | "D" AB d/B/A | "G" B3 d/B/ |
+"D" AB d>e | "G" fe d>e | "D" fe dB | "A" A>B "D" A :|
+|: "D" f/g/ | "D" af ed/e/ | "G" fe df/g/ | "D" af ed | "G" B>B Bf/g/ |
+"D" af ed/e/ | "G" fe dd/e/ | "D" fe dB | "A" A>B "D" A :|`
 
 };
