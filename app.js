@@ -2015,8 +2015,8 @@ function initTuneLibrary() {
         return;
     }
     
-    // Populate the dropdown with tune names
-    Object.keys(tuneLibrary).forEach(tuneName => {
+    // Populate the dropdown with tune names, sorted alphabetically
+    Object.keys(tuneLibrary).sort((a, b) => a.localeCompare(b)).forEach(tuneName => {
         const option = document.createElement('option');
         option.value = tuneName;
         option.textContent = tuneName;

@@ -619,6 +619,32 @@ K: Dmaj
 |: "D" d/B/ | "D" AB d>A | "G" B d2 d/B/ | "D" AB d/B/A | "G" B3 d/B/ |
 "D" AB d>e | "G" fe d>e | "D" fe dB | "A" A>B "D" A :|
 |: "D" f/g/ | "D" af ed/e/ | "G" fe df/g/ | "D" af ed | "G" B>B Bf/g/ |
-"D" af ed/e/ | "G" fe dd/e/ | "D" fe dB | "A" A>B "D" A :|`
+"D" af ed/e/ | "G" fe dd/e/ | "D" fe dB | "A" A>B "D" A :|`,
 
+  "Spancil Hill": `X: 1
+T: Spancil Hill
+R: waltz
+M: 3/4
+L: 1/8
+K: Edor
+(dc) | "Em"B4 E2 | B3 c B2 | "D"A4 F2 | D4 E2 |
+"Em"F2 A2 F2 | "D"E4 D2 | "Em"E6- | E4 (FA) |
+"Em"B4 e2 | e4 f2 | e4 d2 | "G"B4 c2 |
+"D"d4 e2 | d2 c2 B2 | "Em"E6- | "D"A4 (FA) |
+"Em"B4 e2 | e4 f2 | e4 d2 | "G"B4 c2 |
+"D"d4 e2 | d2 c2 B2 | "Em"E6- | "D"A4 (dc) |
+"Em"B4 E2 | B3 c B2 | "D"A4 F2 | D4 E2 |
+"Em"F2 A2 F2 | "D"E4 D2 | "Em"E6- | E4 |`,
+
+"South Wind": `X: 8
+T: The South Wind
+R: waltz
+M: 3/4
+L: 1/8
+K: Gmaj
+|dc |: "G"B3A G2 | B3c d2 | "D"A3B A2 | A4 dc |
+"G"B3A G2 | "C"E3D E2 | "G"G6- |1 G2 z2 dc :|2 G2 z2 Bd ||
+|: "G"g3a g2 | "Em"g3f e2 | "D"d3e d2 | d4 c2 |
+[1 "G"B3A G2 | B3c d2 | "D"A3B A2 | A2 z2 Bd :|
+[2 "G"B3A GA/B/ | "C"c3A "D"F2 | "G"G6- | G2 z2 ||`
 };
