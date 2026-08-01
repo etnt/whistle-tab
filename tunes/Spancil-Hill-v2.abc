@@ -1,0 +1,21 @@
+X: 1
+T: Spancil Hill (based on rendition by CutiePie)
+R: waltz
+M: 3/4
+L: 1/8
+K: Edor
+%%text Intro
+(dc) | "Em"B4 E2 | B4 c d | "D"B A3 F E | D4 E2 |
+"Em"F A4 F | "D"E4 D2 | "Em"E6- | E4 ||
+|
+%%text Melody 1
+(dc) | B4 E2 | B3 c d2 | B3 A F2 | D4 E2 | F2 A2 F2 | E4 D2 | E6- | E4 (FA) |
+B4 e2 | e4 f2 | e4 d2 | B4 (cd) | e4 d2 | c2 B2 A2 | G4 A2 | B4 e2 |
+e4 f2 | e4 d2 | B4 (cd) | e4 d2 | c2 B2 A2 | (dc) | B4 E2 | B3 c d2 |
+B3 A F2 | D4 E2 | F2 A2 F2 | E4 D2 | E6- | E4 ||
+|
+%%text Melody 2
+(dc) | B4 B2 | E4 B2 | c3 d A2 | A4 (DE) | F2 A2 F2 | E4 D2 | E6- | E4 (FA) |
+B4 e2 | e4 g2 | f4 e2 | d4 B2 | (cd) | e4 d2 | c2 B2 A2 | G4 A2 |
+B4 e2 | e4 f2 | e4 d2 | B4 (cd) | e4 d2 | c2 B2 A2 | (dc) | B4 E2 |
+B3 c d2 | B3 A F2 | D4 E2 | F2 A2 F2 | E4 D2 | E6- | E4 |]

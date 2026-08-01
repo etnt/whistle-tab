@@ -628,7 +628,7 @@ M: 3/4
 L: 1/8
 K: Edor
 (dc) | "Em"B4 E2 | B3 c B2 | "D"A4 F2 | D4 E2 |
-"Em"F2 A2 F2 | "D"E4 D2 | "Em"E6- | E4 (FA) |
+"Em"F A3 F2 | "D"E4 D2 | "Em"E6- | E4 (FA) |
 "Em"B4 e2 | e4 f2 | e4 d2 | "G"B4 c2 |
 "D"d4 e2 | d2 c2 B2 | "Em"E6- | "D"A4 (FA) |
 "Em"B4 e2 | e4 f2 | e4 d2 | "G"B4 c2 |
@@ -646,5 +646,17 @@ K: Gmaj
 "G"B3A G2 | "C"E3D E2 | "G"G6- |1 G2 z2 dc :|2 G2 z2 Bd ||
 |: "G"g3a g2 | "Em"g3f e2 | "D"d3e d2 | d4 c2 |
 [1 "G"B3A G2 | B3c d2 | "D"A3B A2 | A2 z2 Bd :|
-[2 "G"B3A GA/B/ | "C"c3A "D"F2 | "G"G6- | G2 z2 ||`
+[2 "G"B3A GA/B/ | "C"c3A "D"F2 | "G"G6- | G2 z2 ||`,
+
+    "The Old Favourite": `X: 2
+T: The Old Favourite
+R: jig
+M: 6/8
+L: 1/8
+K: Gmaj
+|:"G"B3 BAB|dBA G2B|ded d2B|ded "D"B2A|
+"G"B3 BAB|dBA G2B|ded "D"cBA|"G"G3 G3:|
+|:"G"g3 "D"f3|"C"efe "G"d2B|ded d2B|ded Bdf|"G"g3 "D"f3|
+"C"efe "G"d2B|1 "D"dge dBA|"G"G3 G3:|2 "G"dge dge|dge "D"dBA||`
+
 };
