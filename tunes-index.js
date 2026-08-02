@@ -657,6 +657,17 @@ K: Gmaj
 |:"G"B3 BAB|dBA G2B|ded d2B|ded "D"B2A|
 "G"B3 BAB|dBA G2B|ded "D"cBA|"G"G3 G3:|
 |:"G"g3 "D"f3|"C"efe "G"d2B|ded d2B|ded Bdf|"G"g3 "D"f3|
-"C"efe "G"d2B|1 "D"dge dBA|"G"G3 G3:|2 "G"dge dge|dge "D"dBA||`
+"C"efe "G"d2B|1 "D"dge dBA|"G"G3 G3:|2 "G"dge dge|dge "D"dBA||`,
+
+    "Drowsy Maggie": `X: 1
+T: Drowsy Maggie
+R: reel
+M: 4/4
+L: 1/8
+K: Edor
+|:E2BE dEBE|E2BE AFDF|E2BE dEBE|BABc dAFD:|
+d2fd c2ec|defg afge|d2fd c2ec|BABc dAFA|
+d2fd c2ec|defg afge|afge fded|BABc dAFD:|`
+
 
 };
