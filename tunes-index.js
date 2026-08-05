@@ -667,7 +667,30 @@ L: 1/8
 K: Edor
 |:E2BE dEBE|E2BE AFDF|E2BE dEBE|BABc dAFD:|
 d2fd c2ec|defg afge|d2fd c2ec|BABc dAFA|
-d2fd c2ec|defg afge|afge fded|BABc dAFD:|`
+d2fd c2ec|defg afge|afge fded|BABc dAFD:|`,
+
+    "Spanish Lady": `X: 5
+T: Spanish Lady
+R: polka
+M: 2/4
+L: 1/8
+K: Dmaj
+A/G/|:"D"FA AB/c/|d>c de/f/|"G"ge fd|"A"BA A/B/A/G/|
+"D"FA AB/c/|d>c de/f/|"G"ge fd|"D"BA A2:|
+|:"A"fa a/b/a/f/|"D"ed de|"A"fa a>f|ed e2|
+"A"fa a/b/a/f/|"D"ed de/f/|"G"ge fd|"D"BA A2:|`,
+
+    "The Britches Full Of Stitches": `X: 11
+T: The Britches Full Of Stitches
+R: polka
+M: 2/4
+L: 1/8
+K: Gmaj
+|:"G" G>A BG|"C" AG BG|"G" G>A BG|"D" AG E2|
+"G" G>A BG|"C" AG Bd|G>A "D" GE|"G" ED D2:|
+|:"G" d>e dB|"C" AG AB|"G" d>e dB|"D" AG E2|
+"G" d>e dB|"C" AG AB|G>A "D" GE|"G" ED D2:|`
+
 
 
 };
