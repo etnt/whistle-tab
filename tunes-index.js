@@ -689,7 +689,18 @@ K: Gmaj
 |:"G" G>A BG|"C" AG BG|"G" G>A BG|"D" AG E2|
 "G" G>A BG|"C" AG Bd|G>A "D" GE|"G" ED D2:|
 |:"G" d>e dB|"C" AG AB|"G" d>e dB|"D" AG E2|
-"G" d>e dB|"C" AG AB|G>A "D" GE|"G" ED D2:|`
+"G" d>e dB|"C" AG AB|G>A "D" GE|"G" ED D2:|`,
+
+    "The Donegal Lass": `X: 1
+T: The Donegal Lass
+R: jig
+M: 6/8
+L: 1/8
+K:G maj
+|:"D"DFA dAG|"D"AGE D3|"C"CEG C3|"G"B,DG B,3|
+"D"DFA dAG|"D"FGE D2d|"D"dAG "C"FGE|"C"DEC "D"D3:|
+|:"C"CEG C3|"G"B,DG B,3|"D"A2A AFD|A2A AFD|
+"C"CEG C3|"G"B,DG B,2d|"D"dAG "C"FGE|"C"DEC "D"D3:|`
 
 
 
