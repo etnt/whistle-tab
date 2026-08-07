@@ -696,12 +696,10 @@ T: The Donegal Lass
 R: jig
 M: 6/8
 L: 1/8
-K:G maj
-|:"D"DFA dAG|"D"AGE D3|"C"CEG C3|"G"B,DG B,3|
-"D"DFA dAG|"D"FGE D2d|"D"dAG "C"FGE|"C"DEC "D"D3:|
-|:"C"CEG C3|"G"B,DG B,3|"D"A2A AFD|A2A AFD|
-"C"CEG C3|"G"B,DG B,2d|"D"dAG "C"FGE|"C"DEC "D"D3:|`
-
-
+K: Dmaj
+|:"A"Ace aed|"G"edB "A"A3|"G"GBd G3|"D"FAd F3|
+  "A"Ace aed|"A"cdB A2a|"A"aed "G"cdB|"A"ABG A3:|
+|:"G"GBd G3|"D"FAd F3|"A"e2e ecA|"A"e2e ecA|
+  "G"GBd G3|"D"FAd F2a|"A"aed "G"cdB|"A"ABG A3:|`
 
 };
