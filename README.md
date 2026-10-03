@@ -17,6 +17,7 @@ sheet music with either tin whistle (Irish flute) or fiddle (violin) tablature d
 - **Adjustable Speed**: Control playback tempo from 50% to 150%
 - **Example Tunes**: Built-in examples including scales, jigs, reels, and airs
 - **Live Preview**: Music updates as you type
+- **Export to MIDI**: Get one or two MIDI tracks that can be imported into (e.g) Garageband
 - **Export to PNG**: Save your sheet music with tablature as an image
 
 ## Quick Start
