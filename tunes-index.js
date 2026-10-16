@@ -700,6 +700,19 @@ K: Dmaj
 |:"A"Ace aed|"G"edB "A"A3|"G"GBd G3|"D"FAd F3|
   "A"Ace aed|"A"cdB A2a|"A"aed "G"cdB|"A"ABG A3:|
 |:"G"GBd G3|"D"FAd F3|"A"e2e ecA|"A"e2e ecA|
-  "G"GBd G3|"D"FAd F2a|"A"aed "G"cdB|"A"ABG A3:|`
+  "G"GBd G3|"D"FAd F2a|"A"aed "G"cdB|"A"ABG A3:|`,
+
+    "Kitty Lie Over": `X: 1
+T: Kitty Lie Over
+R: jig
+M: 6/8
+L: 1/8
+K: Dmaj
+|:B|AFD DFA|BdB BAF|ABA F2D|FEE E2B|
+AFD DFA|BdB BAF|ABA F2E|1 FDD D2:|2 FDD D2e||
+|:fdd dcd|fdd d2e|fef def|gfg eag|
+fed B2d|A2d F2G|ABA F2E|1 FDD D2e:|2 FDD D2||`
+
+
 
 };
