@@ -711,8 +711,29 @@ K: Dmaj
 |:B|AFD DFA|BdB BAF|ABA F2D|FEE E2B|
 AFD DFA|BdB BAF|ABA F2E|1 FDD D2:|2 FDD D2e||
 |:fdd dcd|fdd d2e|fef def|gfg eag|
-fed B2d|A2d F2G|ABA F2E|1 FDD D2e:|2 FDD D2||`
+fed B2d|A2d F2G|ABA F2E|1 FDD D2e:|2 FDD D2||`,
 
+    "The Green Mountain": `X:1
+T:The Green Mountain
+M:4/4
+L:1/8
+K:D
+|:A~F3 AFEF|D~F3 ABde|~f3d efdB|Adfd edBd|
+|A~F3 AFEF|D~F3 ABde|~f3d efdB|1 AFEF D2 dB:|2 AFEF D2 de||
+|:f~a3 bafe|f2 af efde|f2 df efdB|Adfd edBd|
+|f~a3 bafe|f2 af efde|f2 df efdB|1 AFEF 2 de:|2 AFEF D2 dB||`,
+
+
+    "The Sligo Maid": `X: 19
+T: The Sligo Maid
+R: reel
+M: 4/4
+L: 1/8
+K: Ador
+|:A2 BA Bdeg|gedB AGEG|G2 BG dGBG|DEGA BGdB|
+A2 BA Bdeg|gedB AGEG|B2 BG ABGE|DEGA BA A2:|
+|:eaag a2 ga|bgab ge d2|egge g2 ge|dega bgag|
+eaag a2 ga|bgab ge d2|eggg edBd|dBgB BA A2:|``
 
 
 };
