@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABC to Sheet Music with Flute Tab</title>
+    <title>WhistleTab · ABC to Sheet Music with Flute Tab</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="https://cdn.jsdelivr.net/npm/abcjs@6.2.2/dist/abcjs-basic-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -12,141 +12,233 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>🎵 ABC to Sheet Music with Flute Tab</h1>
-        <p class="download-link">
-            <a href="https://github.com/etnt/whistle-tab/releases" target="_blank">⬇️ Download for offline use</a>
-        </p>
-        
-        <div class="input-section">
-            <h2>Enter ABC Notation</h2>
-            <textarea id="abc-input" placeholder="Enter your ABC notation here..."></textarea>
-            <div class="controls">
-                <label id="transpose-control">
-                    Transpose for:
-                    <select id="transpose-key">
-                        <option value="0">D whistle</option>
-                        <option value="-2">C whistle</option>
-                        <option value="1">Eb whistle</option>
-                        <option value="3">F whistle</option>
-                        <option value="-7">G whistle</option>
-                        <option value="-5">A whistle</option>
-                        <option value="-4">Bb whistle</option>
-                    </select>
-                </label>
-                <label class="tab-type-control">
-                    <input type="checkbox" id="fiddle-tab-checkbox">
-                    Fiddle Tab
-                </label>
-                <label id="fiddle-font-size-control" class="fiddle-font-size-control" style="display: none;">
-                    Tab size:
-                    <select id="fiddle-font-size">
-                        <option value="7">Small</option>
-                        <option value="9" selected>Medium</option>
-                        <option value="11">Large</option>
-                        <option value="13">X-Large</option>
-                    </select>
-                </label>
-                <label class="chord-boxes-control">
-                    <input type="checkbox" id="chord-boxes-checkbox">
-                    Chord Boxes
-                </label>
-                <label id="chord-instrument-control" class="chord-instrument-control" style="display: none;">
-                    Instrument:
-                    <select id="chord-instrument">
-                        <option value="guitar">Guitar</option>
-                        <option value="piano">Piano</option>
-                    </select>
-                </label>
-                <label class="speed-control">
-                    Speed:
-                    <input type="range" id="speed-slider" min="50" max="150" value="100" step="5">
-                    <span id="speed-value">100%</span>
-                </label>
-                <button id="play-btn" title="Play">▶️ Play</button>
-                <button id="stop-btn" title="Stop" disabled>⏹️ Stop</button>
-                <button id="export-btn">Export as MIDI</button>
-                <button id="export-pdf-btn">Export as PDF</button>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div class="brand">
+                <span class="brand-icon" aria-hidden="true">🎵</span>
+                <span class="brand-text">Whistle<em>Tab</em></span>
+            </div>
+            <span id="tune-title" class="tune-title" aria-live="polite"></span>
+            <nav class="topbar-actions" aria-label="Main">
+                <button id="new-abc-btn" class="tb-btn tb-btn-primary" title="Paste or enter new ABC notation" aria-label="New / Paste ABC">
+                    ✏️ <span class="tb-btn-label">New / Paste ABC</span>
+                </button>
+                <button id="edit-btn" class="tb-btn" aria-pressed="false" title="Toggle the ABC editor pane" aria-label="Edit">
+                    📝 <span class="tb-btn-label">Edit</span>
+                </button>
+
+                <div class="menu">
+                    <button id="tunes-menu-btn" class="tb-btn" aria-haspopup="true" aria-expanded="false" aria-label="Tunes">
+                        📚 <span class="tb-btn-label">Tunes</span> <span class="caret" aria-hidden="true">▾</span>
+                    </button>
+                    <div class="menu-panel menu-panel-tunes" id="menu-tunes" hidden role="menu" aria-label="Tune library">
+                        <div class="menu-search">
+                            <input type="search" id="tune-search" placeholder="Search tunes…" autocomplete="off">
+                        </div>
+                        <ul id="tune-list" class="tune-list"></ul>
+                    </div>
+                </div>
+
+                <div class="menu">
+                    <button id="settings-menu-btn" class="tb-btn" aria-haspopup="true" aria-expanded="false" aria-label="Settings">
+                        ⚙️ <span class="tb-btn-label">Settings</span> <span class="caret" aria-hidden="true">▾</span>
+                    </button>
+                    <div class="menu-panel menu-panel-settings" id="menu-settings" hidden role="menu" aria-label="Settings">
+                        <div class="menu-section-title">Transposition</div>
+                        <label id="transpose-control" class="setting-row">
+                            <span class="setting-label">Transpose for</span>
+                            <select id="transpose-key">
+                                <option value="0">D whistle</option>
+                                <option value="-2">C whistle</option>
+                                <option value="1">Eb whistle</option>
+                                <option value="3">F whistle</option>
+                                <option value="-7">G whistle</option>
+                                <option value="-5">A whistle</option>
+                                <option value="-4">Bb whistle</option>
+                            </select>
+                        </label>
+                        <div class="menu-section-title">Tablature</div>
+                        <label class="setting-row switch-row">
+                            <span class="setting-label">Fiddle Tab</span>
+                            <span class="switch">
+                                <input type="checkbox" id="fiddle-tab-checkbox" role="switch">
+                                <span class="switch-slider" aria-hidden="true"></span>
+                            </span>
+                        </label>
+                        <label id="fiddle-font-size-control" class="setting-row" style="display: none;">
+                            <span class="setting-label">Tab size</span>
+                            <select id="fiddle-font-size">
+                                <option value="7">Small</option>
+                                <option value="9" selected>Medium</option>
+                                <option value="11">Large</option>
+                                <option value="13">X-Large</option>
+                            </select>
+                        </label>
+                        <div class="menu-section-title">Chords</div>
+                        <label class="setting-row switch-row">
+                            <span class="setting-label">Chord Boxes</span>
+                            <span class="switch">
+                                <input type="checkbox" id="chord-boxes-checkbox" role="switch">
+                                <span class="switch-slider" aria-hidden="true"></span>
+                            </span>
+                        </label>
+                        <label id="chord-instrument-control" class="setting-row" style="display: none;">
+                            <span class="setting-label">Instrument</span>
+                            <select id="chord-instrument">
+                                <option value="guitar">Guitar</option>
+                                <option value="piano">Piano</option>
+                            </select>
+                        </label>
+                        <div class="menu-section-title">Playback</div>
+                        <label class="setting-row setting-row-slider">
+                            <span class="setting-label">Speed</span>
+                            <input type="range" id="speed-slider" min="50" max="150" value="100" step="5">
+                            <span id="speed-value" class="speed-value">100%</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="menu">
+                    <button id="export-menu-btn" class="tb-btn" aria-haspopup="true" aria-expanded="false" aria-label="Export">
+                        ⬇️ <span class="tb-btn-label">Export</span> <span class="caret" aria-hidden="true">▾</span>
+                    </button>
+                    <div class="menu-panel menu-panel-export" id="menu-export" hidden role="menu" aria-label="Export">
+                        <button id="export-btn" class="menu-action">🎼 Export as MIDI</button>
+                        <button id="export-pdf-btn" class="menu-action">📄 Export as PDF</button>
+                    </div>
+                </div>
+
+                <div class="menu">
+                    <button id="help-menu-btn" class="tb-btn" aria-haspopup="true" aria-expanded="false" aria-label="Help">
+                        ❓ <span class="tb-btn-label">Help</span> <span class="caret" aria-hidden="true">▾</span>
+                    </button>
+                    <div class="menu-panel menu-panel-help" id="menu-help" hidden role="menu" aria-label="Help and about">
+                        <button id="legend-toggle-btn" class="menu-action">📖 Toggle tablature legend</button>
+                        <a class="menu-action" href="https://github.com/etnt/whistle-tab/releases" target="_blank" rel="noopener">⬇️ Download for offline use</a>
+                        <a class="menu-action" href="https://github.com/etnt/whistle-tab" target="_blank" rel="noopener">🐙 View on GitHub</a>
+                        <hr class="menu-sep">
+                        <button id="theme-toggle-btn" class="menu-action">🌙 Toggle dark mode</button>
+                    </div>
+                </div>
+
+                <div class="play-group" role="group" aria-label="Playback">
+                    <button id="play-btn" class="tb-btn tb-btn-play" title="Play">▶️ Play</button>
+                    <button id="stop-btn" class="tb-btn tb-btn-stop" title="Stop" aria-label="Stop" disabled>⏹️</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="empty-state" class="empty-state" hidden>
+            <div class="empty-icon" aria-hidden="true">🎶</div>
+            <h2>Welcome to WhistleTab</h2>
+            <p>Paste ABC notation or browse the built-in tune library to see sheet music,
+               tin-whistle tablature and chord boxes.</p>
+            <div class="empty-actions">
+                <button id="empty-paste-btn" class="btn btn-primary">✏️ Paste ABC</button>
+                <button id="empty-tunes-btn" class="btn">📚 Browse tunes</button>
             </div>
         </div>
 
-        <div class="output-section">
-            <h2 id="output-title">Sheet Music with Flute Tablature</h2>
-            <div id="paper"></div>
-            <div id="chord-boxes-area" class="chord-boxes-area" style="display:none;"></div>
-            <div id="audio-controls" class="audio-controls"></div>
-            <div id="tablature" style="display:none;"></div>
-        </div>
+        <div class="workspace">
+            <aside id="editor-pane" class="editor-pane" hidden aria-label="ABC editor">
+                <div class="editor-head">
+                    <h2>ABC Editor</h2>
+                    <span class="editor-hint">Live rendering — edits update the score</span>
+                    <button id="close-editor-btn" class="icon-btn" title="Close editor" aria-label="Close editor">✕</button>
+                </div>
+                <textarea id="abc-input" placeholder="Enter your ABC notation here..." spellcheck="false"></textarea>
+                <div id="editor-warnings" class="editor-warnings" hidden></div>
+            </aside>
 
-        <div class="tune-library-section">
-            <h2>Tune Library</h2>
-            <div class="tune-library-controls">
-                <select id="tune-select">
-                    <option value="">-- Select a tune --</option>
-                </select>
-                <button id="load-tune-btn" disabled>Load Tune</button>
-            </div>
-        </div>
-
-        <div class="help-section" id="flute-legend">
-            <h2>Flute Tablature Legend</h2>
-            <div class="legend">
-                <div class="legend-item">
-                    <div class="hole filled"></div>
-                    <span>● = Covered hole</span>
+            <section id="score-card" class="score-pane" aria-label="Score">
+                <div class="score-head">
+                    <h2 id="output-title">Sheet Music with Flute Tablature</h2>
                 </div>
-                <div class="legend-item">
-                    <div class="hole open"></div>
-                    <span>○ = Open hole</span>
-                </div>
-                <div class="legend-item">
-                    <div class="hole half"></div>
-                    <span>◐ = Half-covered hole</span>
-                </div>
-                <div class="legend-item">
-                    <span>+ = Octave up (blow harder)</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="help-section" id="fiddle-legend" style="display: none;">
-            <h2>Fiddle Tablature Legend</h2>
-            <div class="legend fiddle-legend">
-                <p class="legend-intro">Format: <strong>String + Finger</strong> (e.g., D1 = D string, 1st finger)</p>
-                <div class="legend-strings">
-                    <div class="legend-item">
-                        <span class="string-label" style="color: #000000;">E</span>
-                        <span>= 1st string (highest)</span>
+                <div id="paper"></div>
+                <div id="chord-boxes-area" class="chord-boxes-area" style="display:none;"></div>
+                <div id="audio-controls" class="audio-controls"></div>
+                <div id="tablature" style="display:none;"></div>
+                <details id="legend-details" class="legend-details">
+                    <summary>Tablature legend</summary>
+                    <div id="flute-legend" class="help-section">
+                        <h3>Flute Tablature Legend</h3>
+                        <div class="legend">
+                            <div class="legend-item">
+                                <div class="hole filled"></div>
+                                <span>● = Covered hole</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="hole open"></div>
+                                <span>○ = Open hole</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="hole half"></div>
+                                <span>◐ = Half-covered hole</span>
+                            </div>
+                            <div class="legend-item">
+                                <span>+ = Octave up (blow harder)</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="legend-item">
-                        <span class="string-label" style="color: #D32F2F;">A</span>
-                        <span>= 2nd string</span>
+                    <div id="fiddle-legend" class="help-section" style="display: none;">
+                        <h3>Fiddle Tablature Legend</h3>
+                        <div class="legend fiddle-legend">
+                            <p class="legend-intro">Format: <strong>String + Finger</strong> (e.g., D1 = D string, 1st finger)</p>
+                            <div class="legend-strings">
+                                <div class="legend-item">
+                                    <span class="string-label" style="color: #000000;">E</span>
+                                    <span>= 1st string (highest)</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="string-label" style="color: #D32F2F;">A</span>
+                                    <span>= 2nd string</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="string-label" style="color: #E69F00;">D</span>
+                                    <span>= 3rd string</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="string-label" style="color: #0072B2;">G</span>
+                                    <span>= 4th string (lowest)</span>
+                                </div>
+                            </div>
+                            <div class="legend-fingers">
+                                <div class="legend-item"><span>0</span> = Open string</div>
+                                <div class="legend-item"><span>1</span> = 1st finger</div>
+                                <div class="legend-item"><span>2</span> = 2nd finger</div>
+                                <div class="legend-item"><span>3</span> = 3rd finger</div>
+                                <div class="legend-item"><span>4</span> = 4th finger</div>
+                                <div class="legend-item"><span>L</span> = Low (half-step back, e.g., AL2 = low 2nd finger on A)</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="legend-item">
-                        <span class="string-label" style="color: #E69F00;">D</span>
-                        <span>= 3rd string</span>
-                    </div>
-                    <div class="legend-item">
-                        <span class="string-label" style="color: #0072B2;">G</span>
-                        <span>= 4th string (lowest)</span>
-                    </div>
-                </div>
-                <div class="legend-fingers">
-                    <div class="legend-item"><span>0</span> = Open string</div>
-                    <div class="legend-item"><span>1</span> = 1st finger</div>
-                    <div class="legend-item"><span>2</span> = 2nd finger</div>
-                    <div class="legend-item"><span>3</span> = 3rd finger</div>
-                    <div class="legend-item"><span>4</span> = 4th finger</div>
-                    <div class="legend-item"><span>L</span> = Low (half-step back, e.g., AL2 = low 2nd finger on A)</div>
-                </div>
-            </div>
+                </details>
+            </section>
         </div>
+    </main>
 
-        <footer class="site-footer">
-            <a href="https://github.com/etnt/whistle-tab" target="_blank">View on GitHub</a>
-        </footer>
-    </div>
+    <dialog id="abc-dialog" class="abc-dialog" aria-label="Paste ABC notation">
+        <h2 class="dialog-title">✏️ Paste ABC Notation</h2>
+        <p class="dialog-subtitle">Paste or type ABC notation, then load it into the app.</p>
+        <textarea id="abc-dialog-input" placeholder="X:1&#10;T:My Tune&#10;M:4/4&#10;L:1/8&#10;K:D&#10;D2 FA dB AF | ..." spellcheck="false"></textarea>
+        <div id="dialog-warnings" class="dialog-warnings" hidden></div>
+        <div class="dialog-actions">
+            <button type="button" id="dialog-paste-btn" class="btn">📋 Paste from clipboard</button>
+            <button type="button" id="dialog-sample-btn" class="btn btn-link">Try a sample tune</button>
+            <span class="dialog-spacer"></span>
+            <button type="button" id="dialog-cancel-btn" class="btn">Cancel</button>
+            <button type="button" id="dialog-load-btn" class="btn btn-primary">Load</button>
+            <button type="button" id="dialog-load-edit-btn" class="btn btn-primary">Load &amp; Edit</button>
+        </div>
+    </dialog>
 
+    <footer class="site-footer">
+        <span>WhistleTab</span> · <a href="https://github.com/etnt/whistle-tab" target="_blank" rel="noopener">GitHub</a>
+    </footer>
+
+    <script src="ui.js"></script>
     <script src="flute-tab.js"></script>
     <script src="fiddle-tab.js"></script>
     <script src="tunes-index.js"></script>

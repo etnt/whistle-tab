@@ -18,35 +18,198 @@ const CHORD_SHAPE_MAX_SPAN = 4;
  * Initialize the application
  */
 function init() {
+    // Restore persisted settings before the first render
+    restoreSettings();
+
     // Set up event listeners
     document.getElementById('play-btn').addEventListener('click', startPlayback);
     document.getElementById('stop-btn').addEventListener('click', stopPlayback);
     document.getElementById('export-btn').addEventListener('click', exportAsMIDI);
     document.getElementById('export-pdf-btn').addEventListener('click', exportAsPDF);
-    document.getElementById('abc-input').addEventListener('input', debounce(() => renderMusic(true), 500));
-    document.getElementById('transpose-key').addEventListener('change', () => renderMusic(false));
+
+    // Live rendering from the editor. Debounce is shorter while the editor
+    // pane is open (edit mode) so feedback feels snappier.
+    let renderTimer = null;
+    document.getElementById('abc-input').addEventListener('input', () => {
+        clearTimeout(renderTimer);
+        const delay = document.body.classList.contains('editing') ? 300 : 500;
+        renderTimer = setTimeout(() => renderMusic(true), delay);
+    });
+
+    document.getElementById('transpose-key').addEventListener('change', () => {
+        saveSettings();
+        renderMusic(false);
+    });
     document.getElementById('fiddle-tab-checkbox').addEventListener('change', () => {
+        saveSettings();
         updateTabTitle();
         renderMusic(false);
     });
-    document.getElementById('fiddle-font-size').addEventListener('change', () => renderMusic(false));
+    document.getElementById('fiddle-font-size').addEventListener('change', () => {
+        saveSettings();
+        renderMusic(false);
+    });
     document.getElementById('chord-boxes-checkbox').addEventListener('change', () => {
+        saveSettings();
         updateChordBoxControls();
         renderMusic(false);
     });
-    document.getElementById('chord-instrument').addEventListener('change', () => renderMusic(false));
-    
+    document.getElementById('chord-instrument').addEventListener('change', () => {
+        saveSettings();
+        renderMusic(false);
+    });
+
     // Speed slider update
     document.getElementById('speed-slider').addEventListener('input', (e) => {
         document.getElementById('speed-value').textContent = e.target.value + '%';
+        saveSettings();
     });
-    
+
+    // Edit-mode enter/leave (dispatched by ui.js). On enter, put the
+    // untransposed source ABC into the editor so the user edits the real text.
+    document.addEventListener('whistle:editmode', (e) => {
+        if (e.detail && e.detail.editing) {
+            const inputEl = document.getElementById('abc-input');
+            if (originalAbc && inputEl && inputEl.value !== originalAbc) {
+                inputEl.value = originalAbc;
+            }
+            renderMusic(true);
+        } else {
+            renderMusic(false);
+        }
+    });
+
+    // Re-render when the paper container changes width (e.g. the editor
+    // split opening/closing or window resize) so the tab overlays stay aligned.
+    initPaperResizeObserver();
+
     // Initialize tune library
     initTuneLibrary();
     updateChordBoxControls();
+    updateTabTitle();
     
     // Initial render
     renderMusic();
+}
+
+/* ------------------------------------------------------------------ *
+ * Settings persistence (localStorage)
+ * ------------------------------------------------------------------ */
+
+const SETTINGS_KEY = 'whistleTabSettings';
+
+function saveSettings() {
+    try {
+        localStorage.setItem(SETTINGS_KEY, JSON.stringify({
+            transpose: document.getElementById('transpose-key').value,
+            fiddleTab: document.getElementById('fiddle-tab-checkbox').checked,
+            fiddleFontSize: document.getElementById('fiddle-font-size').value,
+            chordBoxes: document.getElementById('chord-boxes-checkbox').checked,
+            chordInstrument: document.getElementById('chord-instrument').value,
+            speed: document.getElementById('speed-slider').value
+        }));
+    } catch (e) { /* storage unavailable — ignore */ }
+}
+
+function restoreSettings() {
+    let s = null;
+    try {
+        s = JSON.parse(localStorage.getItem(SETTINGS_KEY) || 'null');
+    } catch (e) { /* ignore */ }
+    if (!s) return;
+    if (s.transpose !== undefined) document.getElementById('transpose-key').value = s.transpose;
+    if (s.fiddleTab !== undefined) document.getElementById('fiddle-tab-checkbox').checked = !!s.fiddleTab;
+    if (s.fiddleFontSize !== undefined) document.getElementById('fiddle-font-size').value = s.fiddleFontSize;
+    if (s.chordBoxes !== undefined) document.getElementById('chord-boxes-checkbox').checked = !!s.chordBoxes;
+    if (s.chordInstrument !== undefined) document.getElementById('chord-instrument').value = s.chordInstrument;
+    if (s.speed !== undefined) {
+        document.getElementById('speed-slider').value = s.speed;
+        document.getElementById('speed-value').textContent = s.speed + '%';
+    }
+}
+
+/* ------------------------------------------------------------------ *
+ * Paper resize observer — keeps SVG overlays aligned after layout changes
+ * ------------------------------------------------------------------ */
+
+let lastPaperWidth = 0;
+let paperResizeTimer = null;
+
+function initPaperResizeObserver() {
+    if (typeof ResizeObserver === 'undefined') return;
+    const paper = document.getElementById('paper');
+    if (!paper) return;
+    const ro = new ResizeObserver((entries) => {
+        const width = Math.round(entries[0].contentRect.width);
+        // Ignore tiny changes (own re-renders) and the initial observation.
+        if (lastPaperWidth === 0) { lastPaperWidth = width; return; }
+        if (Math.abs(width - lastPaperWidth) < 8) return;
+        lastPaperWidth = width;
+        clearTimeout(paperResizeTimer);
+        paperResizeTimer = setTimeout(() => {
+            // Only re-render when there is actually something to render.
+            if (originalAbc && document.querySelector('#paper svg')) {
+                renderMusic(false);
+            }
+        }, 250);
+    });
+    ro.observe(paper);
+}
+
+/**
+ * Load ABC text coming from the input dialog (exposed for ui.js)
+ * @param {string} text - The ABC text to load
+ * @param {Object} [options]
+ * @param {boolean} [options.editAfter] - Open the editor pane after loading
+ */
+function loadAbcText(text, options) {
+    options = options || {};
+    originalAbc = text;
+    document.getElementById('abc-input').value = text;
+    // Reset transposition, as loadTune() does
+    document.getElementById('transpose-key').value = '0';
+    saveSettings();
+    renderMusic(false);
+    if (options.editAfter && window.setEditMode) {
+        window.setEditMode(true);
+    }
+}
+window.loadAbcText = loadAbcText;
+
+/**
+ * Show parse warnings/errors under the editor pane (edit mode only)
+ */
+function showEditorWarnings(warnings) {
+    const box = document.getElementById('editor-warnings');
+    if (!box) return;
+    if (!warnings || !warnings.length || !document.body.classList.contains('editing')) {
+        box.hidden = true;
+        box.innerHTML = '';
+        return;
+    }
+    box.hidden = false;
+    box.innerHTML = warnings.map((w) => '<div>⚠️ ' + escapeWarning(w) + '</div>').join('');
+}
+
+function escapeWarning(w) {
+    return String(w).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+}
+
+/**
+ * Show the current tune title in the topbar (and browser tab title)
+ */
+function updateTuneTitle() {
+    const el = document.getElementById('tune-title');
+    if (!el) return;
+    let title = '';
+    if (visualObj && visualObj.metaText && visualObj.metaText.title) {
+        title = visualObj.metaText.title;
+    } else if (originalAbc) {
+        const m = originalAbc.match(/^T:\s*(.+)$/m);
+        if (m) title = m[1].trim();
+    }
+    el.textContent = title;
+    document.title = title ? title + ' · WhistleTab' : 'WhistleTab · ABC to Sheet Music with Flute Tab';
 }
 
 /**
@@ -511,7 +674,28 @@ function renderMusic(fromUserInput = false) {
     const paperDiv = document.getElementById('paper');
     const tabDiv = document.getElementById('tablature');
     const chordBoxesArea = document.getElementById('chord-boxes-area');
-    
+
+    // Empty state: show the welcome card instead of an empty score
+    const isEmpty = !abcInput.trim();
+    const emptyState = document.getElementById('empty-state');
+    const scoreCard = document.getElementById('score-card');
+    if (emptyState) emptyState.hidden = !isEmpty;
+    if (scoreCard) scoreCard.hidden = isEmpty;
+    if (isEmpty) {
+        // Reset all stale state so play/export/edit-mode can't reuse the old tune.
+        originalAbc = '';
+        currentTune = null;
+        visualObj = null;
+        updateTuneTitle(); // resets #tune-title and document.title to the defaults
+        tabDiv.innerHTML = '';
+        if (chordBoxesArea) {
+            chordBoxesArea.innerHTML = '';
+            chordBoxesArea.style.display = 'none';
+        }
+        showEditorWarnings([]);
+        return;
+    }
+
     // If this is from user input (typing in the text area), store as the new original
     if (fromUserInput || originalAbc === null) {
         originalAbc = abcInput;
@@ -520,8 +704,12 @@ function renderMusic(fromUserInput = false) {
     // Always transpose from the original ABC
     const transposedAbc = transposeABC(originalAbc, transposeSemitones);
     
-    // Update the ABC text area to show transposed notation
-    abcInputElement.value = transposedAbc;
+    // Update the ABC text area to show transposed notation.
+    // In edit mode the user's text is the source of truth — never rewrite it
+    // (that would move the cursor and replace what they are typing).
+    if (!document.body.classList.contains('editing')) {
+        abcInputElement.value = transposedAbc;
+    }
     
     // Always use D whistle fingerings
     const whistleKey = 'D';
@@ -584,10 +772,13 @@ function renderMusic(fromUserInput = false) {
         renderChordBoxes(transposedAbc);
         
         currentTune = transposedAbc;
+        showEditorWarnings(visualObj.warnings || []);
+        updateTuneTitle();
         
     } catch (error) {
         console.error('Error rendering music:', error);
         paperDiv.innerHTML = `<p style="color: #c00;">Error: ${error.message}</p>`;
+        showEditorWarnings([error.message]);
     }
 }
 
@@ -1999,59 +2190,77 @@ async function exportAsPDF() {
 }
 
 /**
- * Initialize the tune library - populate the dropdown from tuneLibrary object
+ * Initialize the tune library - build the searchable tune list shown in
+ * the Tunes menu (replaces the old select + Load button)
  */
+let currentTuneName = null;
+let refreshTuneList = null;
+
 function initTuneLibrary() {
-    const tuneSelect = document.getElementById('tune-select');
-    const loadTuneBtn = document.getElementById('load-tune-btn');
-    
+    const tuneList = document.getElementById('tune-list');
+    const search = document.getElementById('tune-search');
+
+    if (!tuneList) return;
+
     // Check if tuneLibrary is defined (from tunes-index.js)
     if (typeof tuneLibrary === 'undefined' || Object.keys(tuneLibrary).length === 0) {
         console.warn('Tune library not available');
-        const tuneLibrarySection = document.querySelector('.tune-library-section');
-        if (tuneLibrarySection) {
-            tuneLibrarySection.style.display = 'none';
-        }
+        tuneList.innerHTML = '<li class="tune-empty">Tune library not available</li>';
+        if (search) search.disabled = true;
         return;
     }
-    
-    // Populate the dropdown with tune names, sorted alphabetically
-    Object.keys(tuneLibrary).sort((a, b) => a.localeCompare(b)).forEach(tuneName => {
-        const option = document.createElement('option');
-        option.value = tuneName;
-        option.textContent = tuneName;
-        tuneSelect.appendChild(option);
-    });
-    
-    // Enable/disable load button based on selection
-    tuneSelect.addEventListener('change', () => {
-        loadTuneBtn.disabled = !tuneSelect.value;
-    });
-    
-    // Load tune when button is clicked
-    loadTuneBtn.addEventListener('click', () => loadTune(tuneSelect.value));
-    
-    // Also load on double-click of dropdown selection
-    tuneSelect.addEventListener('dblclick', () => {
-        if (tuneSelect.value) {
-            loadTune(tuneSelect.value);
+
+    const names = Object.keys(tuneLibrary).sort((a, b) => a.localeCompare(b));
+
+    function renderList(filter) {
+        const f = (filter || '').trim().toLowerCase();
+        const matches = names.filter((n) => n.toLowerCase().includes(f));
+        tuneList.innerHTML = '';
+        if (!matches.length) {
+            const empty = document.createElement('li');
+            empty.className = 'tune-empty';
+            empty.textContent = 'No tunes match "' + f + '"';
+            tuneList.appendChild(empty);
+            return;
         }
-    });
-    
-    // Load the first tune by default
-    const firstTune = Object.keys(tuneLibrary)[0];
+        matches.forEach((name) => {
+            const li = document.createElement('li');
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'tune-item' + (name === currentTuneName ? ' active' : '');
+            btn.textContent = name;
+            btn.addEventListener('click', () => {
+                loadTune(name);
+                if (window.closeAllMenus) window.closeAllMenus();
+            });
+            li.appendChild(btn);
+            tuneList.appendChild(li);
+        });
+    }
+
+    if (search) {
+        search.addEventListener('input', () => renderList(search.value));
+    }
+    refreshTuneList = () => renderList(search ? search.value : '');
+    renderList('');
+
+    // Load the first tune by default. Don't reset the transposition here so
+    // that settings restored from localStorage survive startup.
+    const firstTune = names[0];
     if (firstTune) {
-        tuneSelect.value = firstTune;
-        loadTuneBtn.disabled = false;
-        loadTune(firstTune);
+        loadTune(firstTune, { resetTranspose: false });
     }
 }
 
 /**
  * Load a tune from the tuneLibrary and display it
  * @param {string} tuneName - The name of the tune to load
+ * @param {Object} [options]
+ * @param {boolean} [options.resetTranspose] - Reset transposition to D whistle (default true)
  */
-function loadTune(tuneName) {
+function loadTune(tuneName, options) {
+    options = options || {};
+    const resetTranspose = options.resetTranspose !== false;
     const abcText = tuneLibrary[tuneName];
     
     if (!abcText) {
@@ -2060,6 +2269,9 @@ function loadTune(tuneName) {
         return;
     }
     
+    currentTuneName = tuneName;
+    if (refreshTuneList) refreshTuneList();
+
     // Store as the new original ABC
     originalAbc = abcText;
     
@@ -2068,7 +2280,10 @@ function loadTune(tuneName) {
     
     // Default to D (no transposition) - the most common whistle
     // Users can experiment with transposition to find a suitable key
-    document.getElementById('transpose-key').value = '0';
+    if (resetTranspose) {
+        document.getElementById('transpose-key').value = '0';
+        saveSettings();
+    }
     
     // Render the music (not from user input, we already set originalAbc)
     renderMusic(false);
