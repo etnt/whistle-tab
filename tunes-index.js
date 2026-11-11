@@ -733,7 +733,20 @@ K: Ador
 |:A2 BA Bdeg|gedB AGEG|G2 BG dGBG|DEGA BGdB|
 A2 BA Bdeg|gedB AGEG|B2 BG ABGE|DEGA BA A2:|
 |:eaag a2 ga|bgab ge d2|egge g2 ge|dega bgag|
-eaag a2 ga|bgab ge d2|eggg edBd|dBgB BA A2:|`
+eaag a2 ga|bgab ge d2|eggg edBd|dBgB BA A2:|`,
+
+
+    "The Famous Ballymote": `X: 12
+T: The Famous Ballymote
+R: reel
+M: 4/4
+L: 1/8
+K: Dmix
+FDAD FAAB|cABG EFGE|FDAD FAAB|cAGE ED DE|
+FDAD FAAB|cABG EFGE|FDAD FAAB|cAGE ED D2||
+FDFA d2 ed|cABG EFGE|FDFA d2 ed|cAGE EDD2|
+FDFA d2 ed|cABG EFGE|FDFA d2 ed|cAGE EDD2||`
+
 
 
 };
