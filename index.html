@@ -39,6 +39,10 @@
                     </div>
                 </div>
 
+                <button id="session-btn" class="tb-btn" title="Search tunes on thesession.org" aria-label="Search The Session">
+                    🔎 <span class="tb-btn-label">The Session</span>
+                </button>
+
                 <div class="menu">
                     <button id="settings-menu-btn" class="tb-btn" aria-haspopup="true" aria-expanded="false" aria-label="Settings">
                         ⚙️ <span class="tb-btn-label">Settings</span> <span class="caret" aria-hidden="true">▾</span>
@@ -234,11 +238,29 @@
         </div>
     </dialog>
 
+    <dialog id="session-dialog" class="abc-dialog session-dialog" aria-label="Search The Session">
+        <h2 id="session-title" class="dialog-title">🔎 Search The Session</h2>
+        <form id="session-form" class="session-form">
+            <input type="search" id="session-query" placeholder="Tune name, e.g. Cooley's" autocomplete="off">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <p id="session-status" class="dialog-subtitle" role="status" hidden></p>
+        <ul id="session-results" class="session-results"></ul>
+        <div class="dialog-actions">
+            <button type="button" id="session-back-btn" class="btn" hidden>← Back to results</button>
+            <button type="button" id="session-more-btn" class="btn" hidden>Load more</button>
+            <span class="dialog-spacer"></span>
+            <span class="session-credit">Tunes from <a href="https://thesession.org" target="_blank" rel="noopener">thesession.org</a></span>
+            <button type="button" id="session-close-btn" class="btn">Close</button>
+        </div>
+    </dialog>
+
     <footer class="site-footer">
         <span>WhistleTab</span> · <a href="https://github.com/etnt/whistle-tab" target="_blank" rel="noopener">GitHub</a>
     </footer>
 
     <script src="ui.js"></script>
+    <script src="session.js"></script>
     <script src="flute-tab.js"></script>
     <script src="fiddle-tab.js"></script>
     <script src="tunes-index.js"></script>
